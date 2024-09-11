@@ -83,6 +83,9 @@ const SignIn: React.FC = () => {
         <>
             <div className="container max-w-7xl mx-auto px-4 sm:px-8">
                 <Navbar />
+                <div className="hidden md:block absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
+                <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
+
                 <div data-aos="zoom-in" className="flex items-center justify-center mt-16 sm:mt-32">
                     <div className="w-full md:w-1/2 flex flex-col items-center">
                         <a href='/' className="flex flex-col items-center justify-start">
@@ -116,7 +119,7 @@ const SignIn: React.FC = () => {
 
                                 </div>
                             </div>
-                            
+
                             <div className="mt-4 text-center">
                                 <button
                                     type="submit"
