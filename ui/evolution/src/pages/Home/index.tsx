@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Link } from "react-router-dom";
 import { PageContainer } from "../../components/page-container";
 import { Section } from "../../components/section";
 import Typewriter from "typewriter-effect";
+import { AlertPopUp } from "../../components/Modal/modaPopUp";
+import { Benefits } from "../../components/Benefits";
+import { Monetize } from "../../components/Monetize";
 
 export function Home() {
+
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 5000);
+
+    return () => clearTimeout(timer); // Limpa o timer caso o componente seja desmontado
+  }, []);
+
   return (
     <>
       <Navbar />
+
+      {showModal && <AlertPopUp />}
       <Section className="relative overflow-x-hidden">
         {/* Video Background */}
         <video
@@ -136,6 +152,9 @@ export function Home() {
             </button>
           </div>
         </div>
+      </div>
+      <div className="mx-auto max-w-screen-xl">
+        <Benefits />
       </div>
     </>
   );
