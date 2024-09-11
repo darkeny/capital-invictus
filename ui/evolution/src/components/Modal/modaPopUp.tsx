@@ -23,13 +23,13 @@ const AlertPopUp: React.FC = () => {
                     className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
                 >
                     <div
-                        className="absolute z-10 bg-white rounded-lg shadow-xl transform transition-all duration-300 w-full max-w-sm sm:max-w-lg mx-4 sm:mx-8 lg:max-w-xl"
+                        className="relative z-10 bg-white rounded-lg shadow-xl transform transition-all duration-300 sm:my-8 sm:max-w-lg w-full p-6"
                         aria-labelledby="modal-title"
                         role="dialog"
                         aria-modal="true"
                     >
-                        <div className="relative px-6 py-8 lg:px-10 lg:py-12">
-                            <div className="absolute top-4 right-4 z-30">
+                        <div className="container relative isolate px-6 py-14 lg:px-8">
+                            <div className="absolute top-2 right-2 z-30">
                                 <button
                                     onClick={handleCloseModal}
                                     type="button"
@@ -46,25 +46,25 @@ const AlertPopUp: React.FC = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <div className="text-center">
-                                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl lg:text-4xl">
-                                    Inscreva-se como Expositor para FACIM
+                            <div className="mx-auto max-w-2xl text-center relative z-20">
+                                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                                    Inscreva-se para a Capital Invictus
                                 </h1>
-                                <p className="mt-4 text-base leading-6 text-gray-600 sm:text-lg lg:text-xl">
-                                    Uma chance única para sua empresa alcançar o público-alvo e fazer negócios.
+                                <p className="mt-6 text-lg leading-8 text-gray-600">
+                                Aproveite esta oportunidade! Alcance seus objetivos e faça seus negócios crescerem!.
                                 </p>
                             </div>
-                            <div className="text-center mt-6">
+                            <div className="absolute inset-0 z-10">
+                                <div className="relative w-full h-full bg-gradient-to-tr from-[#f97316] to-[#fb8e43] opacity-10 blur-3xl"></div>
+                            </div>
+                            <div className="text-center mt-4 relative z-20">
                                 <button
                                     onClick={handleRedirect}
                                     type="button"
-                                    className="animate-bounce inline-flex w-full justify-center rounded-md bg-orange-600 px-8 py-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 sm:w-auto"
+                                    className="animate-bounce inline-flex w-full justify-center rounded-md bg-blue-600 px-10 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-auto"
                                 >
-                                    Seja expositor
+                                    Seja Cliente
                                 </button>
-                            </div>
-                            <div className="absolute inset-0 -z-10">
-                                <div className="relative w-full h-full bg-gradient-to-tr from-[#f97316] to-[#fb8e43] opacity-10 blur-3xl"></div>
                             </div>
                         </div>
                     </div>
