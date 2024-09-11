@@ -7,7 +7,7 @@ const Monetize: React.FC = () => {
             <div className="">
                 <section className="hidden  md:flex flex-1 items-center justify-center ">
                     <img
-                        src="/back.jpg"
+                        src="/back.gif"
                         alt="Descrição da imagem"
                         className="max-w-screen-xl object-cover"
                     />

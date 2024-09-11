@@ -6,6 +6,7 @@ import NotFound from '../pages/NotFound';
 import { SignIn } from '../pages/SignIn';
 import { SignUp } from '../pages/SignUp';
 import Loan from '../pages/Loan';
+import Contact from '../pages/Contact';
 
 
 
@@ -18,6 +19,7 @@ const AppRoutes: React.FC = () => {
                     <Route path={'/signup'} element={<SignUp />} />
                     <Route path={'/signin'} element={<SignIn />} />
                     <Route path={'/loan'} element={<Loan />} />
+                    <Route path={'/contact'} element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>

@@ -42,7 +42,7 @@ const Alert: React.FC<ModalProps> = ({ text, isOpen, onClose }) => {
                     </div>
                   </div>
                   <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button onClick={handleCloseModal} type="button" className="px-8 inline-flex w-full justify-center rounded-md bg-orange-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 sm:ml-3 sm:w-auto">Certo</button>
+                    <button onClick={handleCloseModal} type="button" className="px-8 inline-flex w-full justify-center rounded-md bg-blue-600 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">Certo</button>
                   </div>
                 </div>
               </div>

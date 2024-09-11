@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Navbar } from "../../components/Navbar";
+import { Alert } from "../../components/Modal/alert";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
 const Loan: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -13,6 +15,11 @@ const Loan: React.FC = () => {
     });
 
     const [error, setError] = useState(""); // Para armazenar mensagens de erro
+    const [alertText, setAlertText] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [files, setFiles] = useState<File[]>([]); // Para armazenar as imagens da garantia
+    const fileInputRef = useRef<HTMLInputElement>(null); // Referência para o campo de arquivos oculto
 
     // Atualiza automaticamente o campo de prazo com base no valor do empréstimo
     useEffect(() => {
@@ -78,17 +85,65 @@ const Loan: React.FC = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const filesList = e.target.files;
+        if (filesList) {
+            setFiles(Array.from(filesList));
+        }
+    };
+
+    const handleFileButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Validação: Verificar se todos os campos estão preenchidos
+        if (!formData.loanAmount || !formData.paymentMethod || !formData.collateral) {
+            setAlertText('Todos os campos são obrigatórios.');
+            setIsModalOpen(true);
+            return;
+        }
 
         // Validação: Não aceitar valores menores que 1000 MT
         const loanAmountValue = parseFloat(formData.loanAmount);
         if (isNaN(loanAmountValue) || loanAmountValue < 1000) {
-            setError("O valor mínimo para solicitar o empréstimo é de 1000 MT.");
+            setAlertText("O valor mínimo para solicitar o empréstimo é de 1000 MT.");
+            setIsModalOpen(true);
             return;
         }
 
-        console.log("Loan Request Submitted:", formData);
+        setLoading(true); // Set loading to true when form submission starts
+
+        try {
+            // Simulação de uma solicitação de empréstimo
+            // Você deve substituir isso pela lógica real de envio de dados
+            // const response = await axios.post(`${apiUrl}/requestLoan`, formData);
+            setAlertText('Solicitação de empréstimo enviada com sucesso!');
+        } catch (error) {
+            console.error('Error submitting loan request:', error);
+            setAlertText('Falha ao enviar a solicitação. Tente novamente mais tarde.');
+        } finally {
+            setLoading(false); // Set loading to false when form submission completes
+            setIsModalOpen(true);
+            setFormData({
+                loanAmount: "",
+                loanTerm: "",
+                paymentMethod: "",
+                accountNumber: "",
+                collateral: "",
+                installments: "",
+                isPartialPayment: true,
+            });
+            setFiles([]); // Limpa os arquivos após o envio
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
     };
 
     // Lógica para mostrar o campo de parcelas e o checkbox
@@ -102,6 +157,8 @@ const Loan: React.FC = () => {
     return (
         <>
             <Navbar />
+            <div className="hidden md:block absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
+            <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
             <div data-aos="zoom-in" className="flex justify-center items-center min-h-screen">
                 <div className="bg-gradient-to-br from-gray-100 via-white to-gray-100 rounded-lg shadow-xl w-full max-w-screen-xl p-8 mx-4 relative overflow-hidden before:content-[''] before:absolute before:w-48 before:h-48 before:bg-gradient-to-r before:from-gray-400 before:to-blue-500 before:opacity-20 before:rounded-full before:top-0 before:left-0 before:-translate-x-1/2 before:-translate-y-1/2 after:content-[''] after:absolute after:w-64 after:h-64 after:bg-gradient-to-r after:from-yellow-400 after:to-red-500 after:opacity-20 after:rounded-full after:bottom-0 after:right-0 after:translate-x-1/2 after:translate-y-1/2">
                     <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Solicitação de Empréstimo</h2>
@@ -147,17 +204,17 @@ const Loan: React.FC = () => {
                                         onChange={handleInputChange}
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
-                                        <option value="">Selecione a forma de pagamento</option>
-                                        <option value="bim">Millenium Bim</option>
+                                        <option value="" disabled>Selecione o banco</option>
                                         <option value="absa">Absa</option>
-                                        <option value="emola">E-mola</option>
-                                        <option value="mpesa">M-pesa</option>
+                                        <option value="bim">Millenium Bim</option>
+                                        <option value="mpesa">M-Pesa</option>
+                                        <option value="emola">E-Mola</option>
                                     </select>
                                 </div>
 
                                 {/* Campo de Número da Conta */}
                                 {shouldShowAccountNumberField && (
-                                    <div className="relative col-span-1 sm:col-span-2">
+                                    <div className="relative">
                                         <label className="block text-sm font-medium text-gray-700">Número da Conta</label>
                                         <input
                                             type="text"
@@ -171,57 +228,100 @@ const Loan: React.FC = () => {
                                 )}
 
                                 <div className="relative">
-                                    <label className="block text-sm font-medium text-gray-700">Garantia de Empréstimo</label>
-                                    <textarea
+                                    <label className="block text-sm font-medium text-gray-700">Garantia</label>
+                                    <input
+                                        type="text"
                                         name="collateral"
                                         value={formData.collateral}
                                         onChange={handleInputChange}
-                                        placeholder="Detalhe o bem penhorado"
+                                        placeholder="Insira a garantia"
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
 
-                                {/* Mostrar o checkbox e o campo de parcelas somente se o valor for maior que 10.000 MT */}
-                                {shouldShowCheckbox && (
-                                    <div className="relative col-span-1 sm:col-span-2">
-                                        <label className="flex items-center">
-                                            <input
-                                                type="checkbox"
-                                                name="isPartialPayment"
-                                                checked={formData.isPartialPayment}
-                                                onChange={handleInputChange}
-                                                className="mr-2"
-                                            />
-                                            Pagamento Total
-                                        </label>
+                                {/* Campo de Parcelas */}
+                                {shouldShowInstallmentsField && (
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700">Número de Parcelas</label>
+                                        <div className="flex gap-4 mt-2">
+                                            <div>
+                                                <input
+                                                    type="checkbox"
+                                                    value="1"
+                                                    checked={formData.installments === "1"}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <label className="ml-2">1 parcela</label>
+                                            </div>
+                                            <div>
+                                                <input
+                                                    type="checkbox"
+                                                    value="3"
+                                                    checked={formData.installments === "3"}
+                                                    onChange={handleCheckboxChange}
+                                                />
+                                                <label className="ml-2">2 parcelas</label>
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
 
-                                {shouldShowInstallmentsField && (
-                                    <div className="relative">
-                                        <label className="block text-sm font-medium text-gray-700">Número de Parcelas</label>
+                                {/* Checkbox de Pagamento Total */}
+                                {shouldShowCheckbox && (
+                                    <div className="relative flex items-center">
                                         <input
-                                            type="number"
-                                            name="installments"
-                                            value={formData.installments}
+                                            type="checkbox"
+                                            name="isPartialPayment"
+                                            checked={formData.isPartialPayment}
                                             onChange={handleInputChange}
-                                            placeholder="Selecione o número de parcelas"
-                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                            className="mr-2"
                                         />
+                                        <label className="text-sm font-medium text-gray-700">Efectuar Pagamento Integral</label>
                                     </div>
                                 )}
+
+                                {/* Botão para Upload de Arquivo */}
+                                <div className="relative">
+                                    <label className="block text-sm font-medium text-gray-700">Imagens da Garantia</label>
+                                    <button
+                                        type="button"
+                                        onClick={handleFileButtonClick}
+                                        className="mt-2 block w-full p-3 rounded-lg border border-slate-400 text-slate-600 bg-white hover:bg-blue-50 focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        {files.length > 0 ? 'Imagens Carregadas' : 'Carregar Imagens'}
+                                        {files.length > 0 && (
+                                            <IoCheckmarkDoneOutline className="h-6 w-6 inline ml-2 text-green-500" />
+                                        )}
+                                    </button>
+                                    <input
+                                        type="file"
+                                        ref={fileInputRef}
+                                        accept="image/*"
+                                        multiple
+                                        onChange={handleFileChange}
+                                        className="hidden"
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className={`w-full py-3 px-4 text-white font-bold rounded-lg shadow-lg transition-all ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+                                >
+                                    {loading ? "Enviando..." : "Enviar Solicitação"}
+                                </button>
                             </div>
                         </div>
-
-                        <button
-                            type="submit"
-                            className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-600 transition-all duration-300"
-                        >
-                            Solicitar Empréstimo
-                        </button>
                     </form>
                 </div>
             </div>
+
+            {/* Modal de Alerta */}
+            <Alert
+                isOpen={isModalOpen}
+                text={alertText}
+                onClose={handleCloseModal}
+            />
         </>
     );
 };

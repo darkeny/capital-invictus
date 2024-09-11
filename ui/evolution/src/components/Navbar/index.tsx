@@ -31,8 +31,8 @@ const Navbar: React.FC = () => {
                             <div className="flex space-x-4 flex-nowrap">
                                 <a href="/" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap" aria-current="page">Home</a>
                                 <a href="/about" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Sobre Nós</a>
-                                <a href="/pics" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
-                                <a href="/hotels" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
+                                <a href="/services" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
+                                <a href="/howabout" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
                                 <a href="/contact" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Contactos</a>
                             </div>
                         </div>
@@ -72,8 +72,8 @@ const Navbar: React.FC = () => {
                         <div className="space-y-1 px-2 pb-3 pt-2">
                             <a href="/" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap" aria-current="page">Home</a>
                             <a href="/about" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Sobre Nós</a>
-                            <a href="/pics" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
-                            <a href="/hotels" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
+                            <a href="/services" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
+                            <a href="/howabout" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
                             <a href="/contact" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Contactos</a>
                             <button onClick={handleRedirect} className='block w-full text-left rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'>
                                 Área do Cliente
