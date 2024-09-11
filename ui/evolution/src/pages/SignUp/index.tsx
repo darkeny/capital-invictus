@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar";
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { Alert } from "../../components/Modal/alert";
 
 const SignUp: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -23,6 +23,9 @@ const SignUp: React.FC = () => {
     const [showGrantorFields, setShowGrantorFields] = useState(false);
     const [selectedBank, setSelectedBank] = useState("");
     const [isFreelancer, setIsFreelancer] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [alertText, setAlertText] = useState("");
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -52,16 +55,96 @@ const SignUp: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form Data Submitted:", formData);
+        setLoading(true);
+
+        // Validação dos campos obrigatórios
+        const requiredFields = [
+            { field: "fullName", message: "Nome completo é obrigatório." },
+            { field: "clientID", message: "Bilhete de identidade é obrigatório." },
+            { field: "birthDate", message: "Data de Nascimento é obrigatório." },
+            { field: "email", message: "Email é obrigatório." },
+            { field: "contact", message: "Contacto é obrigatório." },
+            { field: "gender", message: "Sexo é obrigatório." },
+            { field: "address", message: "Endereço é obrigatório." },
+            { field: "incomeSource", message: "Fonte de Renda é obrigatório." },
+            { field: "monthlyIncome", message: "Renda Mensal é obrigatório." },
+            { field: "bankInfo", message: "Informações bancárias são obrigatórias." },
+            { field: "bankNumber", message: "Número da conta bancária é obrigatório." },
+        ];
+
+        for (const { field, message } of requiredFields) {
+            if (!formData[field]) {
+                setAlertText(message);
+                setIsModalOpen(true);
+                setLoading(false);
+                return;
+            }
+        }
+
+        // Validação da renda mensal para funcionários
+        if (formData.incomeSource === "employee" && !formData.monthlyIncome) {
+            setAlertText("Renda mensal é obrigatória para funcionários.");
+            setIsModalOpen(true);
+            setLoading(false);
+            return;
+        }
+
+        // Validação dos campos do outorgante se for mostrado
+        if (showGrantorFields) {
+            const grantorFields = [
+                { field: "grantorName", message: "Nome do outorgante é obrigatório." },
+                { field: "grantorID", message: "Bilhete de identidade do outorgante é obrigatório." },
+                { field: "grantorContact", message: "Contacto do outorgante é obrigatório." },
+            ];
+
+            for (const { field, message } of grantorFields) {
+                if (!formData[field]) {
+                    setAlertText(message);
+                    setIsModalOpen(true);
+                    setLoading(false);
+                    return;
+                }
+            }
+        }
+
+        // Simulação de envio de formulário
+        setTimeout(() => {
+            setLoading(false);
+            setAlertText("Formulário enviado com sucesso!");
+            setIsModalOpen(true);
+            setFormData({
+                fullName: "",
+                birthDate: "",
+                email: "",
+                contact: "",
+                gender: "",
+                address: "",
+                incomeSource: "",
+                monthlyIncome: "",
+                bankInfo: "",
+                bankNumber: "",
+                clientID: "",
+                grantorName: "",
+                grantorID: "",
+                grantorContact: "",
+            });
+        }, 2000);
     };
 
     const toggleGrantorFields = () => {
         setShowGrantorFields(!showGrantorFields);
     };
 
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <>
             <Navbar />
+            <div className="hidden md:block absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
+            <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
+
             <div data-aos="zoom-in" className="flex justify-center items-center min-h-screen">
                 <div className="bg-gradient-to-br from-gray-100 via-white to-gray-100 rounded-lg shadow-xl w-full max-w-screen-2xl p-8 mx-4 relative overflow-hidden before:content-[''] before:absolute before:w-48 before:h-48 before:bg-gradient-to-r before:from-gray-400 before:to-blue-500 before:opacity-20 before:rounded-full before:top-0 before:left-0 before:-translate-x-1/2 before:-translate-y-1/2 after:content-[''] after:absolute after:w-64 after:h-64 after:bg-gradient-to-r after:from-yellow-400 after:to-red-500 after:opacity-20 after:rounded-full after:bottom-0 after:right-0 after:translate-x-1/2 after:translate-y-1/2">
                     <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Formulário de Inscrição do Cliente</h2>
@@ -137,13 +220,13 @@ const SignUp: React.FC = () => {
                                         onChange={handleInputChange}
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
-                                        <option value="">Selecione</option>
-                                        <option value="masculino">Masculino</option>
-                                        <option value="feminino">Feminino</option>
+                                        <option value="">Selecione o seu sexo</option>
+                                        <option value="male">Masculino</option>
+                                        <option value="female">Feminino</option>
                                     </select>
                                 </div>
 
-                                <div className="relative col-span-1 lg:col-span-2">
+                                <div className="relative">
                                     <label className="block text-sm font-normal text-gray-950">Endereço</label>
                                     <input
                                         type="text"
@@ -163,73 +246,71 @@ const SignUp: React.FC = () => {
                                         onChange={handleIncomeSourceChange}
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
-                                        <option value="">Selecione</option>
-                                        <option value="publico">Funcionário Público</option>
-                                        <option value="privado">Funcionário Privado</option>
+                                        <option value=" ">Selecione a fonte de renda</option>
+                                        <option value="employee">Funcionário</option>
                                         <option value="freelancer">Freelancer</option>
                                     </select>
                                 </div>
 
-                                {!isFreelancer && (
+                                {formData.incomeSource === "employee" && (
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Renda Mensal</label>
                                         <input
-                                            type="number"
+                                            type="text"
                                             name="monthlyIncome"
                                             value={formData.monthlyIncome}
                                             onChange={handleInputChange}
-                                            placeholder="Insira sua renda mensal"
+                                            placeholder="Insira a sua renda mensal"
                                             className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
                                 )}
 
-                                <div className="relative col-span-1 lg:col-span-2">
-                                    <label className="block text-sm font-normal text-gray-950">Informação Bancária</label>
-                                    <div className="flex space-x-4 items-center">
-                                        <select
-                                            name="bankInfo"
-                                            value={selectedBank}
-                                            onChange={handleBankChange}
-                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                                        >
-                                            <option value="">Selecione</option>
-                                            <option value="Millenium Bim">Millenium Bim</option>
-                                            <option value="Absa">Absa</option>
-                                            <option value="E-mola">E-mola</option>
-                                            <option value="Mpesa">Mpesa</option>
-                                        </select>
-                                        {selectedBank && (
-                                            <input
-                                                type="text"
-                                                name="bankNumber"
-                                                value={formData.bankNumber}
-                                                onChange={handleInputChange}
-                                                placeholder="Número da Conta"
-                                                className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        )}
-                                    </div>
+                                <div className="relative">
+                                    <label className="block text-sm font-normal text-gray-950">Informações Bancárias</label>
+                                    <select
+                                        name="bankInfo"
+                                        value={selectedBank}
+                                        onChange={handleBankChange}
+                                        className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        <option value="">Selecione o banco</option>
+                                        <option value="absa">Absa</option>
+                                        <option value="bim">Millenium Bim</option>
+                                        <option value="mpesa">M-Pesa</option>
+                                        <option value="emola">E-Mola</option>
+                                    </select>
                                 </div>
+                                {selectedBank && (
+                                    <div className="relative">
+                                        <label className="block text-sm font-normal text-gray-950">Número da Conta</label>
+                                        <input
+                                            type="text"
+                                            name="bankNumber"
+                                            value={formData.bankNumber}
+                                            onChange={handleInputChange}
+                                            placeholder="Insira o número da conta"
+                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
-
-                        {/* Toggle para Informação do Outorgante */}
-                        <div className="mt-8">
-                            <button
-                                type="button"
-                                onClick={toggleGrantorFields}
-                                className="flex items-center text-blue-600 font-semibold"
-                            >
-                                {showGrantorFields ? <FaChevronUp className="mr-2" /> : <FaChevronDown className="mr-2" />}
-                                Informação do Outorgante
-                            </button>
+                        <div>
+                            <label className="inline-flex items-center mt-3">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox"
+                                    checked={showGrantorFields}
+                                    onChange={toggleGrantorFields}
+                                />
+                                <span className="ml-2 text-gray-700">Incluir informações do outorgante</span>
+                            </label>
                         </div>
-
                         {showGrantorFields && (
-                            <div className="mt-8">
+                            <div>
                                 <h3 className="text-xl font-bold text-gray-700 mb-4">Informação do Outorgante</h3>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Nome do Outorgante</label>
                                         <input
@@ -237,11 +318,10 @@ const SignUp: React.FC = () => {
                                             name="grantorName"
                                             value={formData.grantorName}
                                             onChange={handleInputChange}
-                                            placeholder="Insira o nome do outorgante"
+                                            placeholder="Nome completo do outorgante"
                                             className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
-
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Bilhete de Identidade do Outorgante</label>
                                         <input
@@ -249,11 +329,10 @@ const SignUp: React.FC = () => {
                                             name="grantorID"
                                             value={formData.grantorID}
                                             onChange={handleInputChange}
-                                            placeholder="Insira o número do BI do outorgante"
+                                            placeholder="Número do bilhete de identidade"
                                             className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
-
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Contacto do Outorgante</label>
                                         <input
@@ -261,7 +340,7 @@ const SignUp: React.FC = () => {
                                             name="grantorContact"
                                             value={formData.grantorContact}
                                             onChange={handleInputChange}
-                                            placeholder="Insira o contacto do outorgante"
+                                            placeholder="Contacto do outorgante"
                                             className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                         />
                                     </div>
@@ -269,18 +348,27 @@ const SignUp: React.FC = () => {
                             </div>
                         )}
 
-                        {/* Botão de Envio */}
-                        <div className="mt-8 text-center">
+                        <div className="flex justify-center mt-6">
                             <button
                                 type="submit"
-                                className="w-full bg-blue-600 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
+                                disabled={loading}
+                                className={`px-4 py-2 rounded-lg text-white ${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
+                                    }`}
                             >
-                                Enviar
+                                {loading ? "Enviando..." : "Enviar"}
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
+
+            {isModalOpen && (
+                <Alert
+                    isOpen={isModalOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
