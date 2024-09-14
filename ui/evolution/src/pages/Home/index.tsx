@@ -7,6 +7,7 @@ import Typewriter from "typewriter-effect";
 import { AlertPopUp } from "../../components/Modal/modaPopUp";
 import { Benefits } from "../../components/Benefits";
 import { Monetize } from "../../components/Monetize";
+import { Footer } from "../../components/Footer";
 
 export function Home() {
 
@@ -147,7 +148,7 @@ export function Home() {
             <p className="text-lg text-gray-600 mt-4">
               Proteja seus sonhos! Comece a poupar hoje e veja seu dinheiro crescer com confiança. Com a Capital Invictus, seu futuro está mais próximo de você.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg text-lg mt-6 transition-all duration-300">
+            <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-1 md:py-3 px-8 rounded-lg shadow-lg text-lg mt-6 transition-all duration-300">
               Conheça Mais
             </button>
           </div>
@@ -156,6 +157,7 @@ export function Home() {
       <div className="mx-auto max-w-screen-xl">
         <Benefits />
       </div>
+      <Footer />
     </>
   );
 }
