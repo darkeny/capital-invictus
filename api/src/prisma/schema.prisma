@@ -7,52 +7,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Definição de enum para métodos de pagamento
-enum PaymentMethod {
-  CASH
-  CREDIT_CARD
-  BANK_TRANSFER
-  MOBILE_MONEY
+model Customer {
+  id                String   @id @default(uuid()) @db.Char(36)
+  fullName          String
+  identityNumber    String   @unique
+  dateOfBirth       DateTime
+  email             String   @unique
+  contactNumber     String
+  gender            String   // or Enum if you prefer fixed options
+  address           String
+  incomeSource      String   // e.g., Employee, Self-employed, etc.
+  monthlyIncome     Float
+  bank              String   // e.g., Absa, etc.
+  accountNumber     String   @unique
+  grantor           Grantor?
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
-model User {
-  id          Int           @id @default(autoincrement())
-  name        String
-  email       String        @unique
-  password    String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Loan        Loan[]
-  Transaction Transaction[]
-}
+model Grantor {
+  id                String   @id @default(uuid()) @db.Char(36)
+  fullName          String
+  identityNumber    String   @unique
+  contactNumber     String
+  customerId        String   @unique
+  customer          Customer @relation(fields: [customerId], references: [id])
 
-model Loan {
-  id        Int       @id @default(autoincrement())
-  amount    Float
-  fees  Float
-  duration  Int // Duração em meses
-  status    String    @default("PENDING") // Status do empréstimo (PENDING, APPROVED, PAID)
-  userId    Int
-  user      User      @relation(fields: [userId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Payment   Payment[]
-}
-
-model Payment {
-  id     Int           @id @default(autoincrement())
-  amount Float
-  paidAt DateTime      @default(now())
-  method PaymentMethod // Método de pagamento (CASH, CREDIT_CARD, etc.)
-  loanId Int
-  loan   Loan          @relation(fields: [loanId], references: [id])
-}
-
-model Transaction {
-  id        Int      @id @default(autoincrement())
-  amount    Float
-  type      String // Tipo de transação (CREDIT, DEBIT)
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }

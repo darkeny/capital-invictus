@@ -327,3 +327,5 @@ const Loan: React.FC = () => {
 };
 
 export default Loan;
+
+
