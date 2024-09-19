@@ -3,12 +3,14 @@ import { Alert } from '../../components/Modal/alert';
 import axios from 'axios';
 import { FaSpinner } from 'react-icons/fa';
 import { Navbar } from '../../components/Navbar';
+import { SuccessAlert } from '../../components/Modal/successAlert';
 
 const Contact: React.FC = () => {
     const [subject, setSubject] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
     const [alertText, setAlertText] = useState('');
     const [loading, setLoading] = useState(false);
     const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -25,24 +27,27 @@ const Contact: React.FC = () => {
                 const response = await axios.post(`${apiUrl}/sendMessage`, { subject, email, message });
                 if (response.status === 200) {
                     setAlertText('Mensagem enviada com sucesso!');
+                    setIsModalSuccessOpen(true);
+                    setSubject('');
+                    setEmail('');
+                    setMessage('');
                 } else {
                     setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+                    setIsModalOpen(true);
                 }
             } catch (error) {
                 console.error('Error sending message:', error);
                 setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+                setIsModalOpen(true);
             } finally {
                 setLoading(false); // Set loading to false when form submission completes
-                setIsModalOpen(true);
-                setSubject('');
-                setEmail('');
-                setMessage('');
             }
         }
     };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+        setIsModalSuccessOpen(false);
     };
 
     return (
@@ -126,6 +131,14 @@ const Contact: React.FC = () => {
                 </div>
             </main>
             <Alert text={alertText} isOpen={isModalOpen} onClose={handleCloseModal} />
+            
+            {isModalSuccessOpen && (
+                <SuccessAlert
+                    isOpen={isModalSuccessOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
