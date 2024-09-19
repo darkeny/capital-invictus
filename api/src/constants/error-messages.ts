@@ -20,10 +20,13 @@ const errorLogin = "An error occurred while logging in.";
 
 const duplicateEmail = 'O email já foi utilizado para inscrição.';
 
+const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para inscrição.';
+
 
 const ERROR_MESSAGES = {
     errorLogin,
     duplicateEmail,
+    duplicateIdentityNumber,
     invalidCredentials,
     duplicatedData,
     failedRetrieval,
