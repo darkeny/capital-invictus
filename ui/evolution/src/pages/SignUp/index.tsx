@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Alert } from "../../components/Modal/alert";
+import axios from "axios";
+import { SuccessAlert } from "../../components/Modal/successAlert";
+import ERROR_MESSAGES from "../../../../../api/src/constants/error-messages";
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignUp: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -14,7 +18,7 @@ const SignUp: React.FC = () => {
         monthlyIncome: "",
         bankInfo: "",
         bankNumber: "",
-        clientID: "",
+        identityNumber: "",
         grantorName: "",
         grantorID: "",
         grantorContact: "",
@@ -25,6 +29,7 @@ const SignUp: React.FC = () => {
     const [isFreelancer, setIsFreelancer] = useState(false);
     const [loading, setLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
     const [alertText, setAlertText] = useState("");
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -53,14 +58,14 @@ const SignUp: React.FC = () => {
         });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
 
         // Validação dos campos obrigatórios
         const requiredFields = [
             { field: "fullName", message: "Nome completo é obrigatório." },
-            { field: "clientID", message: "Bilhete de identidade é obrigatório." },
+            { field: "identityNumber", message: "Bilhete de identidade é obrigatório." },
             { field: "birthDate", message: "Data de Nascimento é obrigatório." },
             { field: "email", message: "Email é obrigatório." },
             { field: "contact", message: "Contacto é obrigatório." },
@@ -73,6 +78,7 @@ const SignUp: React.FC = () => {
         ];
 
         for (const { field, message } of requiredFields) {
+            // @ts-ignore
             if (!formData[field]) {
                 setAlertText(message);
                 setIsModalOpen(true);
@@ -98,6 +104,7 @@ const SignUp: React.FC = () => {
             ];
 
             for (const { field, message } of grantorFields) {
+                // @ts-ignore
                 if (!formData[field]) {
                     setAlertText(message);
                     setIsModalOpen(true);
@@ -107,29 +114,88 @@ const SignUp: React.FC = () => {
             }
         }
 
-        // Simulação de envio de formulário
-        setTimeout(() => {
-            setLoading(false);
-            setAlertText("Formulário enviado com sucesso!");
-            setIsModalOpen(true);
-            setFormData({
-                fullName: "",
-                birthDate: "",
-                email: "",
-                contact: "",
-                gender: "",
-                address: "",
-                incomeSource: "",
-                monthlyIncome: "",
-                bankInfo: "",
-                bankNumber: "",
-                clientID: "",
-                grantorName: "",
-                grantorID: "",
-                grantorContact: "",
+        try {
+            // Lógica de submissão do formulário
+            const response = await axios.post(`${apiUrl}/ibuildCustomer`, formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
-        }, 2000);
+
+            if (response.status === 200) {
+                // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
+                setAlertText('Cliente cadastrado com sucesso!');
+                setIsModalSuccessOpen(true);
+                // Limpar o formulário após sucesso
+                setFormData({
+                    fullName: "",
+                    birthDate: "",
+                    email: "",
+                    contact: "",
+                    gender: "",
+                    address: "",
+                    incomeSource: "",
+                    monthlyIncome: "",
+                    bankInfo: "",
+                    bankNumber: "",
+                    identityNumber: "",
+                    grantorName: "",
+                    grantorID: "",
+                    grantorContact: "",
+                });
+                setSelectedBank("");
+                setShowGrantorFields(false);
+            } else {
+                // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
+                setAlertText('Cliente cadastrado com sucesso!');
+                setIsModalSuccessOpen(true);
+                // Limpar o formulário após sucesso
+                setFormData({
+                    fullName: "",
+                    birthDate: "",
+                    email: "",
+                    contact: "",
+                    gender: "",
+                    address: "",
+                    incomeSource: "",
+                    monthlyIncome: "",
+                    bankInfo: "",
+                    bankNumber: "",
+                    identityNumber: "",
+                    grantorName: "",
+                    grantorID: "",
+                    grantorContact: "",
+                });
+                setSelectedBank("");
+                setShowGrantorFields(false);
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        
+            // Fazendo a verificação se o erro é do tipo AxiosError
+            if (axios.isAxiosError(error)) {
+                if (error.response && error.response.data) {
+                    if (error.response.data.error === ERROR_MESSAGES.duplicateEmail) {
+                        setAlertText(ERROR_MESSAGES.duplicateEmail);
+                    } else if (error.response.data.error === ERROR_MESSAGES.duplicateIdentityNumber) {
+                        setAlertText(ERROR_MESSAGES.duplicateIdentityNumber);
+                    } else {
+                        setAlertText('Ocorreu um erro ao enviar o formulário.');
+                    }
+                } else {
+                    setAlertText('Ocorreu um erro ao enviar o formulário.');
+                }
+            } else {
+                setAlertText('Ocorreu um erro desconhecido.');
+            }
+        
+            setIsModalOpen(true); // Abre o modal de erro   
+        } finally {
+            setLoading(false); // Finalize a ação de loading após sucesso ou erro
+        }
+        
     };
+
 
     const toggleGrantorFields = () => {
         setShowGrantorFields(!showGrantorFields);
@@ -137,6 +203,7 @@ const SignUp: React.FC = () => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+        setIsModalSuccessOpen(false);
     };
 
     return (
@@ -169,8 +236,8 @@ const SignUp: React.FC = () => {
                                     <label className="block text-sm font-normal text-gray-950">Bilhete de Identidade</label>
                                     <input
                                         type="text"
-                                        name="clientID"
-                                        value={formData.clientID}
+                                        name="identityNumber"
+                                        value={formData.identityNumber}
                                         onChange={handleInputChange}
                                         placeholder="Insira o número do seu BI"
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
@@ -369,6 +436,15 @@ const SignUp: React.FC = () => {
                     onClose={handleCloseModal}
                 />
             )}
+
+            {isModalSuccessOpen && (
+                <SuccessAlert
+                    isOpen={isModalSuccessOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
+
         </>
     );
 };
