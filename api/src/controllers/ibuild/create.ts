@@ -72,7 +72,7 @@ const IBuild = async (request: Request, response: Response) => {
         });
 
         // Enviar um email de boas-vindas (caso necessário)
-        // await axios.post(`${API_URL}/SendMail`, { email });
+        await axios.post(`${API_URL}/SendMail`, { email });
 
         return response.status(201).json({
             message: SUCCESS_MESSAGES.successCreating,
