@@ -8,6 +8,7 @@ import { AlertPopUp } from "../../components/Modal/modaPopUp";
 import { Benefits } from "../../components/Benefits";
 import { Monetize } from "../../components/Monetize";
 import { Footer } from "../../components/Footer";
+import { CoreValues } from "../../components/CoreValues";
 
 export function Home() {
 
@@ -24,7 +25,6 @@ export function Home() {
   return (
     <>
       <Navbar />
-
       {showModal && <AlertPopUp />}
       <Section className="relative overflow-x-hidden">
         {/* Video Background */}
@@ -38,6 +38,7 @@ export function Home() {
           <source src="/video/FACIM 2024.mp4" type="video/mp4" />
           Your browser does not support the video tag
         </video>
+
 
         {/* Blue Gradient Overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-blue-800 via-transparent to-transparent opacity-80 z-10"></div>
@@ -149,7 +150,7 @@ export function Home() {
               Proteja seus sonhos! Comece a poupar hoje e veja seu dinheiro crescer com confiança. Com a Capital Invictus, seu futuro está mais próximo de você.
             </p>
             <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-1 md:py-3 px-8 rounded-lg shadow-lg text-lg mt-6 transition-all duration-300">
-              Conheça Mais
+              Brevemente
             </button>
           </div>
         </div>
@@ -157,6 +158,7 @@ export function Home() {
       <div className="mx-auto max-w-screen-xl">
         <Benefits />
       </div>
+      <CoreValues />
       <Footer />
     </>
   );
