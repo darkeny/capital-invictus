@@ -3,14 +3,14 @@ import RegisterController from "../controllers/welcome/mailConfig";
 const router = Router();
 
 router.post('/', async (req, res) => {
-    const { email } = req.body;
+    const { email, fullName } = req.body;
 
-    console.log('Received Data:', { email });
+    console.log('Received Data:', { email, fullName });
 
     const registerController = new RegisterController();
 
     try {
-        await registerController.registerUser(email);
+        await registerController.registerUser(email, fullName);
 
         res.status(200).send({ message: 'Email sent successfully.' });
     } catch (error) {

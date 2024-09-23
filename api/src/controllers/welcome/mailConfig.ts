@@ -9,7 +9,7 @@ class RegisterController {
     this.mailer = new Mailer();
   }
 
-  public async registerUser(email: string) {
+  public async registerUser(email: string, fullName: string) {
     // Lógica de cadastro do usuário
     console.log(`Cliente ${email} registrado com sucesso!!`);
 
@@ -25,7 +25,7 @@ class RegisterController {
     const html = fs.readFileSync(htmlPath, 'utf8');
 
     // Substituir placeholders pelo nome do usuário (neste caso o email)
-    const personalizedHtml = html.replace('Cliente', email);
+    const personalizedHtml = html.replace('Cliente', fullName);
 
     // Enviar email de boas-vindas
     const subject = 'Seja Bem-vindo à Capital Invictus!';
