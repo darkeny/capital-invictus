@@ -4,11 +4,11 @@ import ERROR_MESSAGES from "../../constants/error-messages";
 
 const prisma = new PrismaClient();
 
-const deleteCustomer = async (request: Request, response: Response) => {
+const deleteLoan = async (request: Request, response: Response) => {
     const id  = request.params.id;
 
     try {
-        const companyExists = await prisma.customer.findUnique({
+        const companyExists = await prisma.loan.findUnique({
             where: { id: id },
         });
 
@@ -17,14 +17,13 @@ const deleteCustomer = async (request: Request, response: Response) => {
         }
 
         await prisma.$transaction([
-            prisma.grantor.deleteMany({ where: { customerId: id } }),
-            prisma.customer.delete({ where: { id: id } }),
+            prisma.loan.delete({ where: { id: id } }),
         ]);
 
-        return response.status(200).json({ message: 'Empresa eliminada com sucesso' });
+        return response.status(200).json({ message: 'Empréstimo eliminado com sucesso' });
     } catch (error) {
         return response.status(400).json({ error: ERROR_MESSAGES.failedDeletion });
     }
 };
 
-export { deleteCustomer };
+export { deleteLoan };

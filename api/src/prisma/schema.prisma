@@ -8,32 +8,50 @@ datasource db {
 }
 
 model Customer {
-  id                String   @id @default(uuid()) @db.Char(36)
-  fullName          String
-  dateOfBirth       DateTime
-  email             String   @unique
-  contact     String
-  gender            String   // or Enum if you prefer fixed options
-  address           String
-  incomeSource      String   // e.g., Employee, Self-employed, etc.
-  monthlyIncome     Float
-  bankInfo              String   // e.g., Absa, etc.
-  bankNumber     String   
-  identityNumber    String   @unique
-  grantor           Grantor?
+  id             String   @id @default(uuid()) @db.Char(36)
+  fullName       String
+  dateOfBirth    DateTime
+  email          String   @unique
+  contact        String
+  gender         String // ou Enum se preferir opções fixas
+  address        String
+  incomeSource   String // e.g., Empregado, Autônomo, etc.
+  monthlyIncome  Float
+  bankInfo       String // e.g., Absa, etc.
+  bankNumber     String
+  identityNumber String   @unique
+  grantor        Grantor?
 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  loan Loan? // relação opcional com o empréstimo
 }
 
 model Grantor {
-  id                String   @id @default(uuid()) @db.Char(36)
-  grantorName          String
-  grantorID    String   @unique
-  grantorContact     String
-  customerId        String   @unique
-  customer          Customer @relation(fields: [customerId], references: [id])
+  id             String   @id @default(uuid()) @db.Char(36)
+  grantorName    String
+  grantorID      String   @unique
+  grantorContact String
+  customerId     String   @unique
+  customer       Customer @relation(fields: [customerId], references: [id])
 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Loan {
+  id            String   @id @default(uuid()) @db.Char(36)
+  loanAmount    Float
+  paymentTerm   Int // em meses
+  paymentMethod String // e.g., "Transferência", "Dinheiro", etc.
+  accountNumber String
+  collateral    String // e.g., "Imóvel", "Veículo", etc.
+  installments  Int // número de parcelas
+  isActive      Boolean  @default(true) // para indicar se o empréstimo está ativo
+  customerId    String   @unique
+  customer      Customer @relation(fields: [customerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -6,17 +6,13 @@ const prisma = new PrismaClient();
 
 const getAll = async (request: Request, response: Response) => {
     try {
-        const customers = await prisma.customer.findMany({
-            include: {
-                grantor: true
-            }
-        });
+        const loans = await prisma.loan.findMany({});
 
-        if (customers.length === 0) {
+        if (loans.length === 0) {
             return response.status(404).json({ error: ERROR_MESSAGES.notFound });
         }
 
-        return response.status(200).json(customers);
+        return response.status(200).json(loans);
     } catch (error) {
         return response.status(400).json({ error: ERROR_MESSAGES.failedRetrieval });
     }
