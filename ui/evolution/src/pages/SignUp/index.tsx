@@ -4,6 +4,7 @@ import { Alert } from "../../components/Modal/alert";
 import axios from "axios";
 import { SuccessAlert } from "../../components/Modal/successAlert";
 import ERROR_MESSAGES from "../../../../../api/src/constants/error-messages";
+import { FaSpinner } from "react-icons/fa6";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignUp: React.FC = () => {
@@ -171,7 +172,7 @@ const SignUp: React.FC = () => {
             }
         } catch (error) {
             console.error('Error sending message:', error);
-        
+
             // Fazendo a verificação se o erro é do tipo AxiosError
             if (axios.isAxiosError(error)) {
                 if (error.response && error.response.data) {
@@ -188,12 +189,12 @@ const SignUp: React.FC = () => {
             } else {
                 setAlertText('Ocorreu um erro desconhecido.');
             }
-        
+
             setIsModalOpen(true); // Abre o modal de erro   
         } finally {
             setLoading(false); // Finalize a ação de loading após sucesso ou erro
         }
-        
+
     };
 
 
@@ -418,11 +419,17 @@ const SignUp: React.FC = () => {
                         <div className="flex justify-center mt-6">
                             <button
                                 type="submit"
+                                className="rounded-md bg-blue-500 px-10 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
                                 disabled={loading}
-                                className={`px-4 py-2 rounded-lg text-white ${loading ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-                                    }`}
                             >
-                                {loading ? "Enviando..." : "Enviar"}
+                                {loading ? (
+                                    <div className="flex items-center justify-center">
+                                        <FaSpinner className="animate-spin h-5 w-5" />
+                                        <span className="ml-2">Enviando...</span>
+                                    </div>
+                                ) : (
+                                    'Submeter'
+                                )}
                             </button>
                         </div>
                     </form>

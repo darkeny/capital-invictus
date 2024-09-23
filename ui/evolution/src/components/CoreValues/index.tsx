@@ -24,7 +24,7 @@ const CoreValues: React.FC = () => {
                 </svg>
             </div>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                <div className="text-center">
+                <div data-aos="zoom-in" className="text-center">
                     <h2 className="text-base font-semibold leading-4 text-indigo-600">Capital Invictus</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Valores que Guiam Nossa Trajetória</p>
                     <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
