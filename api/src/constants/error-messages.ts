@@ -22,6 +22,8 @@ const duplicateEmail = 'O email já foi utilizado para inscrição.';
 
 const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para inscrição.';
 
+const duplicateActiveLoan = 'Desculpe, não pode efectuar um novo empréstimo, pague o atual primeiro..';
+
 
 const ERROR_MESSAGES = {
     errorLogin,
@@ -35,7 +37,8 @@ const ERROR_MESSAGES = {
     notFound,
     wrong,
     requiredUpload,
-    failedDeletion
+    failedDeletion,
+    duplicateActiveLoan
 }
 
 export default ERROR_MESSAGES;

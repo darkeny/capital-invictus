@@ -8,7 +8,8 @@ const getAll = async (request: Request, response: Response) => {
     try {
         const customers = await prisma.customer.findMany({
             include: {
-                grantor: true
+                grantor: true,
+                loan: true
             }
         });
 

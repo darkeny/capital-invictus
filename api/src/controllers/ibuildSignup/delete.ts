@@ -21,7 +21,7 @@ const deleteCustomer = async (request: Request, response: Response) => {
             prisma.customer.delete({ where: { id: id } }),
         ]);
 
-        return response.status(200).json({ message: 'Empresa eliminada com sucesso' });
+        return response.status(200).json({ message: 'Cliente eliminada com sucesso' });
     } catch (error) {
         return response.status(400).json({ error: ERROR_MESSAGES.failedDeletion });
     }
