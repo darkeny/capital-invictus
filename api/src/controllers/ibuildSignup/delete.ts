@@ -5,14 +5,14 @@ import ERROR_MESSAGES from "../../constants/error-messages";
 const prisma = new PrismaClient();
 
 const deleteCustomer = async (request: Request, response: Response) => {
-    const id  = request.params.id;
+    const id = request.params.id;
 
     try {
-        const companyExists = await prisma.customer.findUnique({
+        const customer = await prisma.customer.findUnique({
             where: { id: id },
         });
 
-        if (!companyExists) {
+        if (!customer) {
             return response.status(404).json({ error: ERROR_MESSAGES.notFound });
         }
 
@@ -21,8 +21,9 @@ const deleteCustomer = async (request: Request, response: Response) => {
             prisma.customer.delete({ where: { id: id } }),
         ]);
 
-        return response.status(200).json({ message: 'Cliente eliminada com sucesso' });
+        return response.status(200).json({ message: 'Cliente eliminado com sucesso' });
     } catch (error) {
+        console.error('Error deleting customer:', error);
         return response.status(400).json({ error: ERROR_MESSAGES.failedDeletion });
     }
 };
