@@ -89,7 +89,7 @@ const SignUp: React.FC = () => {
         }
 
         // Validação da renda mensal para funcionários
-        if (formData.incomeSource === "employee" && !formData.monthlyIncome) {
+        if (formData.incomeSource === "Funcionário" && !formData.monthlyIncome) {
             setAlertText("Renda mensal é obrigatória para funcionários.");
             setIsModalOpen(true);
             setLoading(false);
@@ -289,8 +289,8 @@ const SignUp: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
                                         <option value="">Selecione o seu sexo</option>
-                                        <option value="male">Masculino</option>
-                                        <option value="female">Feminino</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Feminino</option>
                                     </select>
                                 </div>
 
@@ -315,12 +315,12 @@ const SignUp: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
                                         <option value=" ">Selecione a fonte de renda</option>
-                                        <option value="employee">Funcionário</option>
+                                        <option value="Funcionário">Funcionário</option>
                                         <option value="freelancer">Freelancer</option>
                                     </select>
                                 </div>
 
-                                {formData.incomeSource === "employee" && (
+                                {formData.incomeSource === "Funcionário" && (
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Renda Mensal</label>
                                         <input
@@ -343,10 +343,10 @@ const SignUp: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
                                         <option value="">Selecione o banco</option>
-                                        <option value="absa">Absa</option>
-                                        <option value="bim">Millenium Bim</option>
-                                        <option value="mpesa">M-Pesa</option>
-                                        <option value="emola">E-Mola</option>
+                                        <option value="Absa">Absa</option>
+                                        <option value="illenium Bim">Millenium Bim</option>
+                                        <option value="M-Pesa">M-Pesa</option>
+                                        <option value="E-Mola">E-Mola</option>
                                     </select>
                                 </div>
                                 {selectedBank && (
