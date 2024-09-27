@@ -46,7 +46,7 @@ const SignIn: React.FC = () => {
                 formData.append('email', email);
                 formData.append('password', password); // Adiciona a senha no formData
 
-                const response = await axios.post(`${apiUrl}/ibuild`, formData, {
+                const response = await axios.post(`${apiUrl}/ibuildCustomer`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
