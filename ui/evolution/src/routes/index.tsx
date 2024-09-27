@@ -8,6 +8,7 @@ import { SignUp } from '../pages/SignUp';
 import Loan from '../pages/Loan';
 import Contact from '../pages/Contact';
 import Panel from '../pages/Panel';
+import PrivateRoute from '../components/PrivateRoute';
 
 
 
@@ -21,7 +22,7 @@ const AppRoutes: React.FC = () => {
                     <Route path={'/signin'} element={<SignIn />} />
                     <Route path={'/loan'} element={<Loan />} />
                     <Route path={'/contact'} element={<Contact />} />
-                    <Route path={'/panel'} element={<Panel />} />
+                    <Route path={'/panel'} element={<PrivateRoute component={Panel} />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>
