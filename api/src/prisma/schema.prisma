@@ -49,17 +49,23 @@ model Grantor {
 }
 
 model Loan {
-  id            String   @id @default(uuid()) @db.Char(36)
+  id            String     @id @default(uuid()) @db.Char(36)
   loanAmount    Float
   paymentTerm   Int // em meses
   paymentMethod String // e.g., "Transferência", "Dinheiro", etc.
   accountNumber String
   collateral    String // e.g., "Imóvel", "Veículo", etc.
   installments  Int // número de parcelas
-  isActive      Boolean  @default(true) // para indicar se o empréstimo está ativo
-  customerId    String   @unique
-  customer      Customer @relation(fields: [customerId], references: [id])
+  isActive      LoanStatus @default(PENDING)
+  customerId    String     @unique
+  customer      Customer   @relation(fields: [customerId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum LoanStatus {
+  PENDING
+  COMPLETED
+  REFUSED
 }
