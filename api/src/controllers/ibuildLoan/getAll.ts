@@ -6,7 +6,15 @@ const prisma = new PrismaClient();
 
 const getAll = async (request: Request, response: Response) => {
     try {
-        const loans = await prisma.loan.findMany({});
+        const loans = await prisma.loan.findMany({
+            include: {
+                customer: {
+                    select: {
+                        fullName: true, // Inclui apenas o campo fullName
+                    },
+                },
+            },
+        });
 
         if (loans.length === 0) {
             return response.status(404).json({ error: ERROR_MESSAGES.notFound });
