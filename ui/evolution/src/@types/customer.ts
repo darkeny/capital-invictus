@@ -25,7 +25,7 @@ interface Loan {
   installments: number; // número de parcelas
   isActive: boolean; // para indicar se o empréstimo está ativo
   customerId: string; // ID do cliente associado
-  customer: Customer[]; // dados do cliente
+  customer: Customer; // dados do cliente
   createdAt: Date;
   updatedAt: Date;
 }
