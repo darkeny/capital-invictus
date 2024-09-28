@@ -57,9 +57,10 @@ const Loans: React.FC = () => {
         }
     };
 
-    const filteredLoans = loans.filter((loan: Loan) =>
-        loan.customer[0].fullName.toLowerCase().includes(searchTerm.toLowerCase()) // Filtra por nome do cliente
+    const filteredLoans = loans.filter(loan =>
+        loan.customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) // Acessa o fullName do cliente
     );
+
 
     return (
         <div className="container mx-auto">
@@ -78,11 +79,11 @@ const Loans: React.FC = () => {
                 <thead className="bg-gray-50">
                     <tr>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Nome do Cliente</th>
-                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Valor do Empréstimo</th>
-                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Prazo de Pagamento (meses)</th>
+                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Montante</th>
+                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Prazo</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Método de Pagamento</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número da Conta</th>
-                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Colateral</th>
+                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Garantia</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Parcelas</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Ficha</th>
@@ -91,9 +92,9 @@ const Loans: React.FC = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                     {filteredLoans.map((loan: Loan) => (
                         <tr key={loan.id}>
-                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.customer[0].fullName}</td>
-                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.loanAmount.toFixed(2)}</td>
-                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentTerm}</td>
+                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.customer.fullName}</td>
+                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.loanAmount.toFixed(2)}MT</td>
+                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentTerm} dias</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentMethod}</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.accountNumber}</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.collateral}</td>
