@@ -4,30 +4,33 @@ import React, { useEffect, useState } from 'react';
 
 const Chart: React.FC = () => {
     const [data, setData] = useState({ clients: 0, loans: 0, pawn: 0 });
+    const apiUrl = import.meta.env.VITE_APP_API_URL;
 
     useEffect(() => {
         // Função para buscar e processar os dados do banco de dados
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/ibuildCustomer'); // Substitua pelo endpoint da sua API
-                
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                // Buscando o número total de clientes
+                const CustomerResponse = await fetch(`${apiUrl}/ibuildCustomer`);
+                const CustomerResult = await CustomerResponse.json();
+                const clients = CustomerResult.length;
 
-                const result = await response.json();
-                
-                // Supondo que sua API retorna um objeto com as chaves `clients`, `loans` e `pawn`
-                setData({
-                    clients: result.clients || 0,
-                    loans: result.loans || 0,
-                    pawn: result.pawn || 0,
-                });
+                // Buscando o número total de empréstimos
+                const LoansResponse = await fetch(`${apiUrl}/ibuildLoan`);
+                const LoansResult = await LoansResponse.json();
+                const loans = LoansResult.length;
+
+                // Buscando o número total de clientes penhorados
+                // const PawnResponse = await fetch(`${apiUrl}/ibuildPawn`);
+                // const PawnResult = await PawnResponse.json();
+                const pawn = 0;
+
+                // Atualizando o estado com os valores obtidos
+                setData({ clients, loans, pawn });
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
         };
-
         fetchData();
     }, []);
 
