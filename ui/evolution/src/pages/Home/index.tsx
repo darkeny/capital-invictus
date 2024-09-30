@@ -9,6 +9,7 @@ import { Benefits } from "../../components/Benefits";
 import { Monetize } from "../../components/Monetize";
 import { Footer } from "../../components/Footer";
 import { CoreValues } from "../../components/CoreValues";
+import { Newsletter } from "../../components/Newslleter";
 
 export function Home() {
 
@@ -159,6 +160,7 @@ export function Home() {
         <Benefits />
       </div>
       <CoreValues />
+      <Newsletter />
       <Footer />
     </>
   );
