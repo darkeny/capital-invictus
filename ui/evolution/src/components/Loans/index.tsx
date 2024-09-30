@@ -85,6 +85,7 @@ const Loans: React.FC = () => {
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número da Conta</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Garantia</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Parcelas</th>
+                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Estado</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Ficha</th>
                     </tr>
@@ -99,6 +100,7 @@ const Loans: React.FC = () => {
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.accountNumber}</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.collateral}</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.installments}</td>
+                            <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.isActive}</td>
                             <td className="px-6 py-4 text-lg leading-5 text-gray-500">
                                 <DeleteModal
                                     text="Eliminar"
