@@ -1,32 +1,53 @@
-import { FaChessBishop, FaUsers } from 'react-icons/fa'; // Importando ícones do react-icons
-import { GiTakeMyMoney } from "react-icons/gi";
 import React, { useEffect, useState } from 'react';
 
+import { FaChessBishop, FaUsers, FaEnvelope } from 'react-icons/fa'; // Importando ícones do react-icons
+import { GiTakeMyMoney } from "react-icons/gi";
+import { HiPencilSquare } from "react-icons/hi2";
+
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import { BigNumber } from './bigNumber';
+import { BarGraph } from './barGraph';
+import { LineGraph } from './lineGraph';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
 const Chart: React.FC = () => {
-    const [data, setData] = useState({ clients: 0, loans: 0, pawn: 0 });
+    const [data, setData] = useState({ clients: 0, loans: 0, pawn: 0, newsletter: 0 });
     const apiUrl = import.meta.env.VITE_APP_API_URL;
 
     useEffect(() => {
-        // Função para buscar e processar os dados do banco de dados
         const fetchData = async () => {
             try {
-                // Buscando o número total de clientes
                 const CustomerResponse = await fetch(`${apiUrl}/ibuildCustomer`);
                 const CustomerResult = await CustomerResponse.json();
                 const clients = CustomerResult.length;
 
-                // Buscando o número total de empréstimos
                 const LoansResponse = await fetch(`${apiUrl}/ibuildLoan`);
                 const LoansResult = await LoansResponse.json();
                 const loans = LoansResult.length;
 
-                // Buscando o número total de clientes penhorados
-                // const PawnResponse = await fetch(`${apiUrl}/ibuildPawn`);
-                // const PawnResult = await PawnResponse.json();
-                const pawn = 0;
+                const pawn = 0; // Atualize conforme sua necessidade
 
-                // Atualizando o estado com os valores obtidos
-                setData({ clients, loans, pawn });
+                setData({ clients, loans, pawn, newsletter: 1 }); // Atualize 'newsletter' conforme necessário
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
@@ -34,31 +55,87 @@ const Chart: React.FC = () => {
         fetchData();
     }, []);
 
+    const chartData = {
+        labels: ['Clientes', 'Empréstimos', 'Penhorados', 'Newsletter'],
+        datasets: [
+            {
+                label: 'Quantidade',
+                data: [data.clients, data.loans, data.pawn, data.newsletter],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const lineChartData = {
+        labels: ['Clientes', 'Empréstimos', 'Penhorados', 'Newsletter'],
+        datasets: [
+            {
+                label: 'Quantidade ao longo do tempo',
+                data: [data.clients, data.loans, data.pawn, data.newsletter],
+                fill: false,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                tension: 0.4,
+                pointBackgroundColor: [ // Defina cores diferentes para cada ponto
+                    'rgba(54, 162, 235, 1)', // Cor para Clientes
+                    'rgba(75, 192, 192, 1)', // Cor para Empréstimos
+                    'rgba(255, 99, 132, 1)', // Cor para Newsletter
+                    'rgba(255, 206, 86, 1)', // Cor para Penhorados
+                ],
+            },
+        ],
+    };
+    
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: true,
+                text: 'Estatísticas Gerais',
+            },
+        },
+    };
+
+    const lineChartOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top' as const,
+            },
+            title: {
+                display: true,
+                text: 'Tendência de Estatísticas ao Longo do Tempo',
+            },
+        },
+    };
+
     return (
         <>
-            <div className="flex max-w-7xl justify-between py-10 mx-auto">
-                <div className="flex flex-col justify-between px-20 hover:shadow-2xl p-9 bg-white-900 transition duration-1000 ease-in-out rounded-2xl shadow-lg">
-                    <div className="flex items-center space-x-2">
-                        <FaUsers className="text-blue-500" size={32} /> {/* Ícone de usuários colorido */}
-                        <p className="text-lg leading-8 text-gray-600">Total de clientes</p>
-                    </div>
-                    <p className="text-2xl font-extrabold">{data.clients} <span className='text-sm leading-8 text-gray-500'>clientes</span></p>
-                </div>
-                <div className="flex flex-col justify-between px-20 hover:shadow-2xl p-9 bg-white-900 transition duration-1000 ease-in-out rounded-2xl shadow-lg">
-                    <div className="flex items-center space-x-2">
-                        <GiTakeMyMoney className="text-blue-500" size={35} /> {/* Ícone de layout/loans colorido */}
-                        <p className="text-lg leading-8 text-gray-600">Total de Empréstimos</p>
-                    </div>
-                    <p className="text-2xl font-extrabold">{data.loans} <span className='text-sm leading-8 text-gray-500'>Empréstimos</span></p>
-                </div>
-
-                <div className="flex flex-col justify-between px-20 hover:shadow-2xl p-9 bg-white-900 transition duration-1000 ease-in-out rounded-2xl shadow-lg">
-                    <div className="flex items-center space-x-2">
-                        <FaChessBishop className="text-blue-500" size={32} /> {/* Ícone de aprovação colorido */}
-                        <p className="text-lg leading-8 text-gray-600">Clientes Penhorados</p>
-                    </div>
-                    <p className="text-2xl font-extrabold">{data.pawn} <span className='text-sm leading-8 text-gray-500'>clientes</span></p>
-                </div>
+            <div className="flex max-w-screen-2xl justify-between gap-6 py-10 mx-auto">
+                <BigNumber title="Total de clientes" value={data.clients} icon={<FaUsers className="text-blue-500" size={32} />} />
+                <BigNumber title="Total de Empréstimos" value={data.loans} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
+                <BigNumber title="Clientes Penhorados" value={data.pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
+                <BigNumber title="Newsletter" value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
+            </div>
+            <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
+                <BarGraph chartData={chartData} chartOptions={chartOptions} />
+                <LineGraph lineChartData={lineChartData} lineChartOptions={lineChartOptions} />
             </div>
         </>
     );
