@@ -45,9 +45,14 @@ const Chart: React.FC = () => {
                 const LoansResult = await LoansResponse.json();
                 const loans = LoansResult.length;
 
+                const NewsletterResponse = await fetch(`${apiUrl}/newsletter`);
+                const NewsletterResult = await NewsletterResponse.json();
+                const newsletter = NewsletterResult.length;
+                
+
                 const pawn = 0; // Atualize conforme sua necessidade
 
-                setData({ clients, loans, pawn, newsletter: 1 }); // Atualize 'newsletter' conforme necessário
+                setData({ clients, loans, pawn, newsletter}); // Atualize 'newsletter' conforme necessário
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }

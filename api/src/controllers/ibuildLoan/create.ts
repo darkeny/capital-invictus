@@ -31,7 +31,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
 
         // Verificar se o cliente já tem um empréstimo ativo
         const activeLoan = await prisma.loan.findUnique({
-            where: { customerId: customer.id, isActive: true },
+            where: { customerId: customer.id, isActive: 'ACTIVE' },
         });
 
         if (activeLoan) {

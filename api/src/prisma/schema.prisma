@@ -72,6 +72,6 @@ model Newsletter {
 
 enum LoanStatus {
   PENDING
-  COMPLETED
+  ACTIVE
   REFUSED
 }
