@@ -128,10 +128,10 @@ const Chart: React.FC = () => {
     return (
         <>
             <div className="flex max-w-screen-2xl justify-between gap-6 py-10 mx-auto">
-                <BigNumber title="Total de clientes" value={data.clients} icon={<FaUsers className="text-blue-500" size={32} />} />
-                <BigNumber title="Total de Empréstimos" value={data.loans} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
-                <BigNumber title="Clientes Penhorados" value={data.pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
-                <BigNumber title="Newsletter" value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
+                <BigNumber title="Total de clientes" subtitles='Clientes' value={data.clients} icon={<FaUsers className="text-blue-500" size={32} />} />
+                <BigNumber title="Total de Empréstimos" subtitles='Empréstimos' value={data.loans} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
+                <BigNumber title="Clientes Penhorados" subtitles='Penhorados' value={data.pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
+                <BigNumber title="Newslleter" subtitles='Interessados'value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
             </div>
             <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
                 <BarGraph chartData={chartData} chartOptions={chartOptions} />
