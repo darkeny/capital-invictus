@@ -1,12 +1,76 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { FaSpinner } from 'react-icons/fa6';
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { Alert } from '../Modal/alert';
+import { SuccessAlert } from '../Modal/successAlert';
 
 const Posts: React.FC = () => {
+    const [subject, setSubject] = useState('');
+    const [message, setMessage] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
+    const [alertText, setAlertText] = useState('');
+    const [loading, setLoading] = useState(false);
+    const apiUrl = import.meta.env.VITE_APP_API_URL;
+
+    const [pdfFile, setPdfFile] = useState<File | null>(null);
+    const [photoFile, setPhotoFile] = useState<File | null>(null);
     const [pdfUploaded, setPdfUploaded] = useState(false);
     const [photoUploaded, setPhotoUploaded] = useState(false);
 
     const fileInputRefPDF = React.useRef<HTMLInputElement>(null);
     const fileInputRefPhoto = React.useRef<HTMLInputElement>(null);
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        if (!subject || !message) {
+            setAlertText('Todos os campos são obrigatórios.');
+            setIsModalOpen(true);
+            return;
+        }
+
+        setLoading(true); // Set loading to true when form submission starts
+        const formData = new FormData();
+        formData.append('subject', subject);
+        formData.append('message', message);
+
+        if (pdfFile) {
+            formData.append('pdf', pdfFile);
+        }
+
+        if (photoFile) {
+            formData.append('photo', photoFile);
+        }
+
+        try {
+            const response = await axios.post(`${apiUrl}/sendNews`, formData);
+            if (response.status === 200) {
+                setAlertText('Mensagem enviada com sucesso!');
+                setIsModalSuccessOpen(true);
+                setSubject('');
+                setMessage('');
+                setPdfUploaded(false);
+                setPhotoUploaded(false);
+                setPdfFile(null);
+                setPhotoFile(null);
+            } else {
+                setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+                setIsModalOpen(true);
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+            setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+            setIsModalOpen(true);
+        } finally {
+            setLoading(false); // Set loading to false when form submission completes
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setIsModalSuccessOpen(false);
+    };
 
     const handlePDFUpload = () => {
         fileInputRefPDF.current?.click();
@@ -18,12 +82,14 @@ const Posts: React.FC = () => {
 
     const onPDFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
+            setPdfFile(event.target.files[0]);
             setPdfUploaded(true);
         }
     };
 
     const onPhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
+            setPhotoFile(event.target.files[0]);
             setPhotoUploaded(true);
         }
     };
@@ -50,27 +116,48 @@ const Posts: React.FC = () => {
                             </div>
                         </div>
                         <div className="mx-auto mt-10 max-w-md lg:mx-0 lg:flex-auto lg:py-32 lg:mt-0 lg:ml-10">
-                            <form className="space-y-6">
+                            <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div>
                                     <label htmlFor="subject" className="block text-sm font-medium text-gray-900">Assunto</label>
                                     <div className="mt-1">
-                                        <input type="text" name="subject" id="subject" className="peer mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                                        <input value={subject} onChange={(e) => setSubject(e.target.value)} type="text" name="subject" id="subject" className="peer mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="message" className="block text-sm font-medium text-gray-900">Mensagem</label>
                                     <div className="mt-1">
-                                        <textarea id="message" name="message" rows={4} className="peer mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                                        <textarea value={message} onChange={(e) => setMessage(e.target.value)} id="message" name="message" rows={4} className="peer mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-transparent focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
                                     </div>
                                 </div>
                                 <div>
-                                    <button type="submit" className="w-full rounded-md bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900">Enviar</button>
+                                    <button
+                                        type="submit"
+                                        className="w-full rounded-md bg-gray-900 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+                                        disabled={loading}
+                                    >
+                                        {loading ? (
+                                            <div className="flex items-center justify-center">
+                                                <FaSpinner className="animate-spin h-5 w-5" />
+                                                <span className="ml-2">Enviando...</span>
+                                            </div>
+                                        ) : (
+                                            'Enviar'
+                                        )}
+                                    </button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
+            <Alert text={alertText} isOpen={isModalOpen} onClose={handleCloseModal} />
+            {isModalSuccessOpen && (
+                <SuccessAlert
+                    isOpen={isModalSuccessOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
