@@ -64,8 +64,14 @@ model Loan {
   updatedAt DateTime @updatedAt
 }
 
+model Newsletter {
+  id        String   @id @default(uuid()) @db.Char(36)
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
 enum LoanStatus {
   PENDING
-  COMPLETED
+  ACTIVE
   REFUSED
 }
