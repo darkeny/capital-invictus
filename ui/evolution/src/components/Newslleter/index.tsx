@@ -1,6 +1,73 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { Alert } from '../Modal/alert';
+import { SuccessAlert } from '../Modal/successAlert';
+import { FaSpinner } from 'react-icons/fa6';
+import ERROR_MESSAGES from '../../constants/error-messages';
 
 const Newsletter: React.FC = () => {
+
+    const [email, setEmail] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
+    const [alertText, setAlertText] = useState('');
+    const [loading, setLoading] = useState(false);
+    const apiUrl = import.meta.env.VITE_APP_API_URL;
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+        if (!email) {
+            setAlertText('Para se juntar a nossa Newsletter adicione o seu email.');
+            setIsModalOpen(true);
+        } else {
+            setLoading(true); // Set loading to true when form submission starts
+            try {
+                // Lógica de submissão do formulário
+                const response = await axios.post(`${apiUrl}/newsletter`, { email });
+                if (response.status === 200) {
+                    setAlertText('Email cadastrado com sucesso!');
+                    setIsModalSuccessOpen(true);
+
+                    setEmail('');
+
+                } else {
+                    setAlertText('Email cadastrado com sucesso!');
+                    setIsModalSuccessOpen(true);
+
+                    setEmail('');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+                setIsModalOpen(true);
+
+                if (axios.isAxiosError(error)) {
+                    if (error.response && error.response.data) {
+                        if (error.response.data.error === ERROR_MESSAGES.duplicateEmail) {
+                            setAlertText(ERROR_MESSAGES.duplicateEmail);
+
+                        } else {
+                            setAlertText('Ocorreu um erro ao enviar o formulário.');
+                        }
+                    } else {
+                        setAlertText('Ocorreu um erro ao enviar o formulário.');
+                    }
+                } else {
+                    setAlertText('Ocorreu um erro desconhecido.');
+                }
+            } finally {
+                setLoading(false); // Set loading to false when form submission completes
+            }
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setIsModalSuccessOpen(false);
+    };
+
+
+
     return (
         <>
             <div className="relative isolate overflow-hidden  py-16 sm:py-24 lg:py-32">
@@ -19,11 +86,26 @@ const Newsletter: React.FC = () => {
                         <div className="max-w-xl lg:max-w-lg">
                             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Seja o primeiro <br /> a receber nossas novidades!</h2>
                             <p className="mt-4 text-lg leading-8 text-gray-700">Receba ofertas exclusivas e informações sobre nossos produtos. Junte-se a nós e dê o primeiro passo rumo à independência financeira!</p>
-                            <div className="mt-6 flex max-w-md gap-x-4">
-                                <label htmlFor="email" className="sr-only">Endereço de e-mail</label>
-                                <input id="email" name="email" type="email" autoComplete="email" required className="min-w-0 flex-auto rounded-lg border border-gray-300 px-3.5 py-2   focus:ring-gray-400 sm:text-sm sm:leading-6" placeholder="Digite seu e-mail" />
-                                <button type="submit" className="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Inscrever-se</button>
-                            </div>
+                            <form className="space-y-6" onSubmit={handleSubmit}>
+                                <div className="mt-6 flex max-w-md gap-x-4">
+                                    <label htmlFor="email" className="sr-only">Endereço de e-mail</label>
+                                    <input value={email} onChange={(e) => setEmail(e.target.value)} id="email" name="email" type="email" autoComplete="email" className="min-w-0 flex-auto rounded-lg border border-gray-300 px-3.5 py-2   focus:ring-gray-400 sm:text-sm sm:leading-6" placeholder="Digite seu e-mail" />
+                                    <button
+                                        type="submit"
+                                        className="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                        disabled={loading}
+                                    >
+                                        {loading ? (
+                                            <div className="flex items-center justify-center">
+                                                <FaSpinner className="animate-spin h-5 w-5" />
+                                                <span className="ml-2">Enviando...</span>
+                                            </div>
+                                        ) : (
+                                            'Inscrever-se'
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                         <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                             <div className="flex flex-col items-start">
@@ -48,6 +130,15 @@ const Newsletter: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Alert text={alertText} isOpen={isModalOpen} onClose={handleCloseModal} />
+
+            {isModalSuccessOpen && (
+                <SuccessAlert
+                    isOpen={isModalSuccessOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };

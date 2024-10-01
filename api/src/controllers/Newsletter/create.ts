@@ -18,7 +18,7 @@ const IBuildNews = async (request: Request, response: Response) => {
         });
 
         if (existingSubscriber) {
-            return response.status(400).json({ error: 'Este e-mail já está inscrito na newsletter.' });
+            return response.status(400).json({ error: ERROR_MESSAGES.duplicateEmail });
         }
 
         // Criar a inscrição na newsletter

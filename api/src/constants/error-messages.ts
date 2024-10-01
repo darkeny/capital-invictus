@@ -25,6 +25,7 @@ const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para 
 const duplicateActiveLoan = 'Desculpe, não pode efectuar um novo empréstimo, pague o atual primeiro..';
 
 
+
 const ERROR_MESSAGES = {
     errorLogin,
     duplicateEmail,
