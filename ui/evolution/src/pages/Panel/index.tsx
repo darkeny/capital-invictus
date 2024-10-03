@@ -46,7 +46,7 @@ const Panel: React.FC = () => {
                             <div className="flex items-center">
                                 <Link to={'/'}>
                                     <div className="flex-shrink-0">
-                                        <img className="h-8 w-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
+                                        <img className="h-8 w-8" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company" />
                                     </div>
                                 </Link>
                                 <div className="hidden md:block">
