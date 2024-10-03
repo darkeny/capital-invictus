@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
                 {/* Company Name and Description */}
                 <div className="flex space-x-3">
                     <img 
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" 
+                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" 
                         alt="Logo" 
                         className="w-10 h-10 pb-2"
                     />

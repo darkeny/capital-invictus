@@ -6,6 +6,7 @@ import { DeleteModal } from '../Modal/deleteModal';
 
 // Interface Customer atualizada
 interface Customer {
+    loan: any;
     id: string;
     fullName: string;
     dateOfBirth: string;
@@ -19,6 +20,7 @@ interface Customer {
     bankNumber: string;
     identityNumber: string;
     hasActiveLoan: boolean; // Novo campo para indicar se o cliente tem um empréstimo ativo
+    isActive?: 'PENDING' | 'ACTIVE' | 'REFUSED'; // Novo campo para status do empréstimo
 }
 
 const Customers: React.FC = () => {
@@ -111,8 +113,13 @@ const Customers: React.FC = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                     {filteredCustomers.map(customer => (
                         <tr key={customer.id}>
-                            <td className="text-center px-5 text-lg  text-gray-500">
-                                <div className={`w-2 h-2 rounded-full ${customer.hasActiveLoan ? 'bg-green-500' : 'bg-red-500'}`} />
+                            <td className="text-center px-5 text-lg text-gray-500">
+                                {/* Determina a cor com base no status do empréstimo */}
+                                <div className={`w-2 h-2 rounded-full ${customer.loan?.isActive === 'ACTIVE' ? 'bg-green-500' :
+                                        customer.loan?.isActive === 'PENDING' ? 'bg-yellow-500' :
+                                            customer.loan?.isActive === 'REFUSED' ? 'bg-red-500' :
+                                                'bg-gray-500' // caso não haja status
+                                    }`} />
                             </td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{customer.fullName}</td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{customer.identityNumber}</td>
