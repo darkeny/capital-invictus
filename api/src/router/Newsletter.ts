@@ -5,6 +5,6 @@ const router = Router();
 
 router.get('/', controller.getAll);
 router.post('/', controller.IBuildNews);
-router.delete('/', controller.deleteSubscriber);
+router.delete('/:id', controller.deleteSubscriber);
 
 export { router as NewsletterRouter };

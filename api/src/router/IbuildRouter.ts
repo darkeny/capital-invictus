@@ -5,6 +5,6 @@ const router = Router();
 
 router.post('/', controller.IBuild);
 router.get('/', controller.getAll);
-router.delete('/', controller.deleteCustomer);
+router.delete('/:id', controller.deleteCustomer);
 
 export { router as IbuildRouter };

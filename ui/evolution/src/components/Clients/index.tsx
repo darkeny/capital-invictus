@@ -54,26 +54,6 @@ const Customers: React.FC = () => {
         setSearchTerm(e.target.value);
     };
 
-    const downloadPDF = async (id: string) => {
-        if (isDownloading === id) return;
-
-        setIsDownloading(id);
-
-        try {
-            const response = await axios.get(`http://localhost:3001/downloadPDF/${id}`, { responseType: 'blob' });
-            const url = window.URL.createObjectURL(new Blob([response.data]));
-            const link = document.createElement('a');
-            link.href = url;
-            link.setAttribute('download', `customer_${id}.pdf`); // Nome do arquivo
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-        } catch (error) {
-            console.error('Error downloading PDF:', error);
-        } finally {
-            setIsDownloading(null);
-        }
-    };
 
     const filteredCustomers = customers.filter(customer =>
         customer.fullName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -107,7 +87,6 @@ const Customers: React.FC = () => {
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Banco</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número de Conta</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
-                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Ficha</th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -116,9 +95,9 @@ const Customers: React.FC = () => {
                             <td className="text-center px-5 text-lg text-gray-500">
                                 {/* Determina a cor com base no status do empréstimo */}
                                 <div className={`w-2 h-2 rounded-full ${customer.loan?.isActive === 'ACTIVE' ? 'bg-green-500' :
-                                        customer.loan?.isActive === 'PENDING' ? 'bg-yellow-500' :
-                                            customer.loan?.isActive === 'REFUSED' ? 'bg-red-500' :
-                                                'bg-gray-500' // caso não haja status
+                                    customer.loan?.isActive === 'PENDING' ? 'bg-yellow-500' :
+                                        customer.loan?.isActive === 'REFUSED' ? 'bg-red-500' :
+                                            'bg-gray-500' // caso não haja status
                                     }`} />
                             </td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{customer.fullName}</td>
@@ -137,18 +116,6 @@ const Customers: React.FC = () => {
                                     onSubmit={() => deleteCustomer(customer.id)}
                                     id={customer.id}
                                 />
-                            </td>
-                            <td className="px-6 py-4 text-lg leading-5 text-gray-500">
-                                <button
-                                    onClick={() => downloadPDF(customer.id)}
-                                    className="text-indigo-600 hover:text-indigo-900"
-                                >
-                                    {isDownloading === customer.id ? (
-                                        <FaSpinner className="animate-spin h-5 w-5" />
-                                    ) : (
-                                        <HiOutlineDownload className="h-5 w-5" />
-                                    )}
-                                </button>
                             </td>
                         </tr>
                     ))}

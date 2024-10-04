@@ -55,6 +55,7 @@ model Loan {
   paymentMethod String // e.g., "Transferência", "Dinheiro", etc.
   accountNumber String
   collateral    String // e.g., "Imóvel", "Veículo", etc.
+  pawn          PawnStatus @default(NO)
   installments  Int // número de parcelas
   isActive      LoanStatus @default(PENDING)
   customerId    String     @unique
@@ -74,4 +75,9 @@ enum LoanStatus {
   PENDING
   ACTIVE
   REFUSED
+}
+
+enum PawnStatus {
+  YES
+  NO
 }
