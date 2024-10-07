@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 // Função para atualizar o estado do Pawn (Penhor)
 const updatePawnStatus = async (request: Request, response: Response) => {
     const id = request.params.id; // ID do empréstimo
-    const { Pawn } = request.body; // Novo estado de 'Pawn' (Sim ou NO)
+    const { pawn } = request.body; // Novo estado de 'Pawn' (Sim ou NO)
 
     try {
         // Verifica se o empréstimo existe
@@ -23,7 +23,7 @@ const updatePawnStatus = async (request: Request, response: Response) => {
         const updatedLoan = await prisma.loan.update({
             where: { id: id },
             data: {
-                Pawn: Pawn, // Atualizando o campo 'Pawn' para "Sim" ou "NO"
+                pawn: pawn, // Atualizando o campo 'Pawn' para "Sim" ou "NO"
             },
         });
 
