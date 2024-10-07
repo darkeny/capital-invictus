@@ -63,7 +63,7 @@ const Loans: React.FC = () => {
             const response = await axios.put(`${apiUrl}/ibuildLoan/pawn/${loanId}`, {
                 pawn: newStatus, // Atualiza o estado do penhor para 'YES' ou 'NO'
             });
-    
+
             if (response.status === 200) {
                 setAlertText('Estado do penhor atualizado com sucesso!');
                 setIsModalSuccessOpen(true);
@@ -75,7 +75,18 @@ const Loans: React.FC = () => {
             setIsModalOpen(true);
         }
     };
-    
+
+    const isPaymentTermExceeded = (createdAt: string | Date): boolean => {
+        const loanCreatedAt = new Date(createdAt); // Converte o createdAt para um objeto Date
+        const currentDate = new Date(); // Data atual
+        const diffInTime = currentDate.getTime() - loanCreatedAt.getTime(); // Diferença em milissegundos
+        const diffInDays = diffInTime / (1000 * 3600 * 24); // Converte para dias
+
+        return diffInDays < 30; // Retorna true se o prazo de 30 dias não foi atingido
+    };
+
+
+
 
     const filteredLoans = loans.filter(loan =>
         loan.customer.fullName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -110,6 +121,7 @@ const Loans: React.FC = () => {
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número da Conta</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Garantia</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Parcelas</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Solicitado</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Penhor</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Estado</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
@@ -126,10 +138,20 @@ const Loans: React.FC = () => {
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.collateral}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.installments}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">
+                                    {new Date(loan.createdAt).toLocaleDateString('pt-BR')}
+                                </td>
+
+                                <td className="px-6 py-4 text-xs leading-5 text-gray-500">
                                     <input
                                         type="checkbox"
-                                        checked={loan.pawn === 'YES'} // Verifica se o estado atual é 'YES'
-                                        onChange={(e) => updatePawnStatus(loan.id, e.target.checked ? 'YES' : 'NO')} // Altera o valor entre 'YES' e 'NO'
+                                        checked={loan.pawn === 'YES'}
+                                        onChange={(e) => updatePawnStatus(loan.id, e.target.checked ? 'YES' : 'NO')}
+                                        disabled={isPaymentTermExceeded(loan.createdAt)} // Passa o campo "createdAt"
+                                        title={
+                                            isPaymentTermExceeded(loan.createdAt)
+                                                ? "Você não pode penhorar o usuário antes de 30 dias do empréstimo."
+                                                : ""
+                                        }
                                     />
                                 </td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">
