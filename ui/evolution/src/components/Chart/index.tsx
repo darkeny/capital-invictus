@@ -45,14 +45,17 @@ const Chart: React.FC = () => {
                 const LoansResult = await LoansResponse.json();
                 const loans = LoansResult.length;
 
+                const PawnResponse = await fetch(`${apiUrl}/ibuildLoan`);
+                const PawnResult = await PawnResponse.json();
+                const loansWithPawn = PawnResult.filter((loan: Loan) => loan.pawn === 'YES');
+                const pawn = loansWithPawn.length;
+
                 const NewsletterResponse = await fetch(`${apiUrl}/newsletter`);
                 const NewsletterResult = await NewsletterResponse.json();
                 const newsletter = NewsletterResult.length;
-                
 
-                const pawn = 0; // Atualize conforme sua necessidade
 
-                setData({ clients, loans, pawn, newsletter}); // Atualize 'newsletter' conforme necessário
+                setData({ clients, loans, pawn, newsletter }); // Atualize 'newsletter' conforme necessário
             } catch (error) {
                 console.error('Erro ao buscar dados:', error);
             }
@@ -69,7 +72,7 @@ const Chart: React.FC = () => {
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(255, 80, 71, 0.6)',
                     'rgba(153, 102, 255, 0.6)',
                 ],
                 borderColor: [
@@ -102,7 +105,7 @@ const Chart: React.FC = () => {
             },
         ],
     };
-    
+
 
     const chartOptions = {
         responsive: true,
@@ -136,7 +139,7 @@ const Chart: React.FC = () => {
                 <BigNumber title="Total de clientes" subtitles='Clientes' value={data.clients} icon={<FaUsers className="text-blue-500" size={32} />} />
                 <BigNumber title="Total de Empréstimos" subtitles='Empréstimos' value={data.loans} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
                 <BigNumber title="Clientes Penhorados" subtitles='Penhorados' value={data.pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
-                <BigNumber title="Newslleter" subtitles='Interessados'value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
+                <BigNumber title="Newslleter" subtitles='Interessados' value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
             </div>
             <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
                 <BarGraph chartData={chartData} chartOptions={chartOptions} />
