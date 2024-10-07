@@ -113,6 +113,7 @@ const Customers: React.FC = () => {
                             <td className="px-6 py-4 text-lg leading-5 text-gray-500">
                                 <DeleteModal
                                     text="Eliminar"
+                                    subtitles='Tem certeza de que deseja excluir esta inscrição?'
                                     onSubmit={() => deleteCustomer(customer.id)}
                                     id={customer.id}
                                 />

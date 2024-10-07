@@ -50,23 +50,32 @@ const Loans: React.FC = () => {
                 setAlertText('Estado atualizado com sucesso!');
                 setIsModalSuccessOpen(true);
             }
+            fetchLoans()
         } catch (error) {
             console.error("Erro ao atualizar o status do empréstimo", error);
-            setAlertText('Falha ao enviar a mensagem. Tente novamente mais tarde.');
+            setAlertText('Erro ao atualizar o status do empréstimo.');
             setIsModalOpen(true);
         }
     };
 
-    const updatePawnStatus = async (loanId: string, isPawned: boolean) => {
+    const updatePawnStatus = async (loanId: string, newStatus: string) => {
         try {
-            await axios.put(`${apiUrl}/ibuildLoan/${loanId}`, {
-                pawn: isPawned ? 'YES' : 'NO',
+            const response = await axios.put(`${apiUrl}/ibuildLoan/pawn/${loanId}`, {
+                pawn: newStatus, // Atualiza o estado do penhor para 'YES' ou 'NO'
             });
-            fetchLoans(); // Refresh loans after updating
+    
+            if (response.status === 200) {
+                setAlertText('Estado do penhor atualizado com sucesso!');
+                setIsModalSuccessOpen(true);
+            }
+            fetchLoans(); // Atualiza a lista após a modificação
         } catch (error) {
             console.error("Erro ao atualizar o estado do penhor", error);
+            setAlertText('Erro ao atualizar o estado do penhor.');
+            setIsModalOpen(true);
         }
     };
+    
 
     const filteredLoans = loans.filter(loan =>
         loan.customer.fullName.toLowerCase().includes(searchTerm.toLowerCase())
@@ -119,8 +128,8 @@ const Loans: React.FC = () => {
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">
                                     <input
                                         type="checkbox"
-                                        value={loan.pawn}
-                                        onChange={(e) => updatePawnStatus(loan.id, e.target.checked)}
+                                        checked={loan.pawn === 'YES'} // Verifica se o estado atual é 'YES'
+                                        onChange={(e) => updatePawnStatus(loan.id, e.target.checked ? 'YES' : 'NO')} // Altera o valor entre 'YES' e 'NO'
                                     />
                                 </td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">
@@ -138,6 +147,7 @@ const Loans: React.FC = () => {
                                 <td className="px-6 py-4 text-lg leading-5 text-gray-500">
                                     <DeleteModal
                                         text="Eliminar"
+                                        subtitles='Tem certeza de que deseja excluir esta inscrição?'
                                         onSubmit={() => deleteLoan(loan.id)}
                                         id={loan.id}
                                     />

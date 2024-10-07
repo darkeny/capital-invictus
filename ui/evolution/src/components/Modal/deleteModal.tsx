@@ -3,12 +3,14 @@ import { AiOutlineDelete } from 'react-icons/ai';
 
 interface ModalProps {
     text: string;
+    subtitles: string
     id: string; // New ID prop
     onSubmit: (id: string) => void; // Updated onSubmit function
 }
 
 const DeleteModal: React.FC<ModalProps> = ({
     text,
+    subtitles,
     id,
     onSubmit,
 }) => {
@@ -61,7 +63,7 @@ const DeleteModal: React.FC<ModalProps> = ({
                                             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                                                 <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">Atenção</h3>
                                                 <div className="mt-2">
-                                                    <p className="text-sm text-gray-500">Tem certeza de que deseja excluir esta inscrição?</p>
+                                                    <p className="text-sm text-gray-500">{subtitles}</p>
                                                 </div>
                                             </div>
                                         </div>
