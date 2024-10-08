@@ -5,6 +5,7 @@ import axios from "axios";
 import { SuccessAlert } from "../../components/Modal/successAlert";
 import ERROR_MESSAGES from "../../../../../api/src/constants/error-messages";
 import { FaSpinner } from "react-icons/fa6";
+import { handleError } from "../../handleError";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignUp: React.FC = () => {
@@ -170,26 +171,10 @@ const SignUp: React.FC = () => {
                 setSelectedBank("");
                 setShowGrantorFields(false);
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error sending message:', error);
-
-            // Fazendo a verificação se o erro é do tipo AxiosError
-            if (axios.isAxiosError(error)) {
-                if (error.response && error.response.data) {
-                    if (error.response.data.error === ERROR_MESSAGES.duplicateEmail) {
-                        setAlertText(ERROR_MESSAGES.duplicateEmail);
-                    } else if (error.response.data.error === ERROR_MESSAGES.duplicateIdentityNumber) {
-                        setAlertText(ERROR_MESSAGES.duplicateIdentityNumber);
-                    } else {
-                        setAlertText('Ocorreu um erro ao enviar o formulário.');
-                    }
-                } else {
-                    setAlertText('Ocorreu um erro ao enviar o formulário.');
-                }
-            } else {
-                setAlertText('Ocorreu um erro desconhecido.');
-            }
-
+            const errorMessage = handleError(error); // Tratamento de erro centralizado
+            setAlertText(errorMessage)
             setIsModalOpen(true); // Abre o modal de erro   
         } finally {
             setLoading(false); // Finalize a ação de loading após sucesso ou erro

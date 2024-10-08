@@ -14,6 +14,9 @@ const requiredUpload = "Please upload a PDF file.";
 
 const duplicateEmail = 'O email já foi utilizado para inscrição.';
 
+const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para inscrição.';
+
+
 
 
 
@@ -21,6 +24,7 @@ const duplicateEmail = 'O email já foi utilizado para inscrição.';
 const ERROR_MESSAGES = {
     duplicatedData,
     duplicateEmail,
+    duplicateIdentityNumber,
     failedRetrieval,
     requiredFields,
     errorCreating,
