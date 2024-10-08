@@ -26,17 +26,17 @@ const Loan: React.FC = () => {
         const loanAmountValue = parseFloat(formData.loanAmount);
 
         if (!isNaN(loanAmountValue)) {
-            if (loanAmountValue >= 1000 && loanAmountValue <= 1999) {
+            if (loanAmountValue >= 2000 && loanAmountValue <= 2499) {
                 setFormData(prevState => ({
                     ...prevState,
-                    loanTerm: "7" // Uma semana
+                    loanTerm: "14" // duas semanas
                 }));
-            } else if (loanAmountValue >= 2000 && loanAmountValue <= 3499) {
+            } else if (loanAmountValue >= 2500 && loanAmountValue <= 4999) {
                 setFormData(prevState => ({
                     ...prevState,
                     loanTerm: "21" // Três semanas
                 }));
-            } else if (loanAmountValue >= 3500) {
+            } else if (loanAmountValue >= 5000) {
                 setFormData(prevState => ({
                     ...prevState,
                     loanTerm: "30" // Um mês
@@ -111,7 +111,7 @@ const Loan: React.FC = () => {
         // Validação: Não aceitar valores menores que 1000 MT
         const loanAmountValue = parseFloat(formData.loanAmount);
         if (isNaN(loanAmountValue) || loanAmountValue < 1000) {
-            setAlertText("O valor mínimo para solicitar o empréstimo é de 1000 MT.");
+            setAlertText("O valor mínimo para solicitar o empréstimo é de 2000 MT.");
             setIsModalOpen(true);
             return;
         }
