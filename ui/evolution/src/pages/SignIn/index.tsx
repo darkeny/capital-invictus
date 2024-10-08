@@ -6,18 +6,21 @@ import axios from 'axios';
 import ERROR_MESSAGES from '../../constants/error-messages';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
+import { useAuth } from '../../auth';
+import { handleError } from '../../handleError';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignIn: React.FC = () => {
     console.log('API URL:', apiUrl);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState(''); // Novo estado para senha
+    const [password, setPassword] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState('');
     const [loading, setLoading] = useState(false);
-    const [showPasswordField, setShowPasswordField] = useState(false); // Controle de visibilidade do campo de senha
+    const [showPasswordField, setShowPasswordField] = useState(false);
+    const { setAuth } = useAuth();
 
     const validateEmail = (email: string) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -27,7 +30,6 @@ const SignIn: React.FC = () => {
     const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const emailValue = event.target.value;
         setEmail(emailValue);
-        // Verifica se o e-mail é válido para exibir o campo de senha
         setShowPasswordField(validateEmail(emailValue));
     };
 
@@ -35,43 +37,40 @@ const SignIn: React.FC = () => {
         setPassword(event.target.value);
     };
 
+
     const onSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setFormSubmitted(true);
         setLoading(true);
 
-        if (email && password) { // Verifica se o email e senha foram preenchidos
-            try {
-                const formData = new FormData();
-                formData.append('email', email);
-                formData.append('password', password); // Adiciona a senha no formData
-
-                const response = await axios.post(`${apiUrl}/ibuildCustomer`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-
-                console.log('Form submitted successfully', response.data);
-                setModalText('Formulário enviado com sucesso!');
-                setModalOpen(true);
-                setLoading(false);
-                setTimeout(() => navigate('/'), 2000); // Redireciona após 2 segundos
-
-            } catch (error: any) {
-                console.error('Error submitting form', error);
-                if (error.response && error.response.data && error.response.data.error === ERROR_MESSAGES.duplicateEmail) {
-                    setModalText(ERROR_MESSAGES.duplicateEmail);
-                } else {
-                    setModalText('Ocorreu um erro ao enviar o formulário.');
-                }
-                setModalOpen(true);
-                setLoading(false);
-            }
-        } else {
+        if (!email || !password) {
             setModalText('Por favor, preencha todos os campos obrigatórios.');
             setModalOpen(true);
             setLoading(false);
+            return;
+        }
+
+        try {
+            const requestData = { email, password };
+            const response = await axios.post(`${apiUrl}/admin/login`, requestData, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            // Não há necessidade de usar response.ok com axios, ele já lança erros
+            const { token } = response.data;
+            setAuth(token); // Armazena o token
+
+            // Exibe mensagem de sucesso
+            setModalText('Seja Bem Vindo de Volta!');
+            setModalOpen(true);
+            setTimeout(() => navigate('/panel'), 2000); // Redireciona após 2 segundos
+
+        } catch (error: any) {
+            const errorMessage = handleError(error); // Tratamento de erro centralizado
+            setModalText(errorMessage);
+            setModalOpen(true);
+        } finally {
+            setLoading(false); // Garantir que loading seja desativado
         }
     };
 
@@ -93,7 +92,6 @@ const SignIn: React.FC = () => {
                                 <span className='px-5 text-xl pt-20'>Faça login para entrar na sua conta</span>
                             </div>
                         </a>
-
 
                         <form onSubmit={onSubmit} className="rounded-lg shadow-2xl bg-white w-full p-4 sm:p-10" encType="multipart/form-data">
                             <div className="text-center">
@@ -146,4 +144,3 @@ const SignIn: React.FC = () => {
 };
 
 export { SignIn };
-
