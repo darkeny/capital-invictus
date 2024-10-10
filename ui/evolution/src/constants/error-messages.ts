@@ -16,6 +16,8 @@ const duplicateEmail = 'O email já foi utilizado para inscrição.';
 
 const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para inscrição.';
 
+const invalidCredentials = "Email ou senha incorretas!";
+
 
 
 
@@ -24,6 +26,7 @@ const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para 
 const ERROR_MESSAGES = {
     duplicatedData,
     duplicateEmail,
+    invalidCredentials,
     duplicateIdentityNumber,
     failedRetrieval,
     requiredFields,

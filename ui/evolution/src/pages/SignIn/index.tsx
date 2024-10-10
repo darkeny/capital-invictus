@@ -3,7 +3,6 @@ import { FaFileDownload, FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc";
 import { Alert } from '../../components/Modal/alert';
 import axios from 'axios';
-import ERROR_MESSAGES from '../../constants/error-messages';
 import { useNavigate } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar';
 import { useAuth } from '../../auth';
@@ -56,14 +55,9 @@ const SignIn: React.FC = () => {
                 headers: { 'Content-Type': 'application/json' },
             });
 
-            // Não há necessidade de usar response.ok com axios, ele já lança erros
             const { token } = response.data;
             setAuth(token); // Armazena o token
-
-            // Exibe mensagem de sucesso
-            setModalText('Seja Bem Vindo de Volta!');
-            setModalOpen(true);
-            setTimeout(() => navigate('/panel'), 2000); // Redireciona após 2 segundos
+            navigate('/panel')
 
         } catch (error: any) {
             const errorMessage = handleError(error); // Tratamento de erro centralizado

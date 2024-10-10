@@ -9,6 +9,7 @@ import Loan from '../pages/Loan';
 import Contact from '../pages/Contact';
 import Panel from '../pages/Panel';
 import PrivateRoute from '../components/PrivateRoute';
+import ClientPanel from '../pages/Finance';
 
 
 
@@ -23,6 +24,7 @@ const AppRoutes: React.FC = () => {
                     <Route path={'/loan'} element={<Loan />} />
                     <Route path={'/contact'} element={<Contact />} />
                     <Route path={'/panel'} element={<PrivateRoute component={Panel} />} />
+                    <Route path={'/mypanel'} element={<PrivateRoute component={ClientPanel} />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </AuthProvider>

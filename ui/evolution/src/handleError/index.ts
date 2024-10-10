@@ -13,6 +13,9 @@ const handleError = (error: any) => {
         if (errorMessage === ERROR_MESSAGES.duplicateIdentityNumber) {
             return ERROR_MESSAGES.duplicateIdentityNumber;
         }
+        if (errorMessage === ERROR_MESSAGES.invalidCredentials) {
+            return ERROR_MESSAGES.invalidCredentials;
+        }
     }
     return 'Ocorreu um erro ao enviar o formulário.';
 };
