@@ -27,6 +27,7 @@ model Customer {
   monthlyIncome  Float
   bankInfo       String // e.g., Absa, etc.
   bankNumber     String
+  password       String
   identityNumber String   @unique
   grantor        Grantor?
 

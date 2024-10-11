@@ -3,12 +3,16 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import ERROR_MESSAGES from '../../constants/error-messages';
 import SUCCESS_MESSAGES from '../../constants/success-messages';
 import axios from 'axios';
+import bcrypt from 'bcrypt'; // Importando bcrypt para hashing
 import env from 'dotenv';
+import { generatePassword } from '../../utils';
 
 env.config();
 
 const prisma = new PrismaClient();
 const API_URL = String(process.env.API_BASE_URL);
+const SALT_ROUNDS = 10;  // Definindo o número de rounds para o salt
+
 
 const IBuild = async (request: Request, response: Response) => {
     const {
@@ -42,6 +46,12 @@ const IBuild = async (request: Request, response: Response) => {
             return response.status(400).json({ error: 'Data de nascimento inválida.' });
         }
 
+        // Gerar senha automaticamente
+        const generatedPassword = generatePassword();
+
+        // Criptografar a senha gerada
+        const hashedPassword = await bcrypt.hash(generatedPassword, SALT_ROUNDS);
+
         // Criação do cliente e, opcionalmente, do outorgante (grantor)
         const createCustomerData: Prisma.CustomerCreateInput = {
             fullName,
@@ -55,12 +65,14 @@ const IBuild = async (request: Request, response: Response) => {
             monthlyIncome: parseFloat(monthlyIncome), // Garantindo que seja um número
             bankInfo,
             bankNumber,
+            password: hashedPassword,  // A senha criptografada é atribuída aqui
             // Se houver dados de outorgante, ele será criado junto com o cliente
             grantor: grantorName ? {
                 create: {
                     grantorName: grantorName,
                     grantorID: grantorID,
-                    grantorContact: grantorContact,               }
+                    grantorContact: grantorContact,
+                }
             } : undefined
         };
 
@@ -71,8 +83,8 @@ const IBuild = async (request: Request, response: Response) => {
             },
         });
 
-        // Enviar um email de boas-vindas (caso necessário)
-        await axios.post(`${API_URL}/SendMail`, { email, fullName });
+        // Enviar um email de boas-vindas com a senha gerada (não criptografada)
+        await axios.post(`${API_URL}/SendMail`, { email, fullName, generatedPassword});
 
         return response.status(201).json({
             message: SUCCESS_MESSAGES.successCreating,

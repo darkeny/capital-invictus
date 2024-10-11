@@ -14,6 +14,7 @@ const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [userType, setUserType] = useState('admin'); // Novo estado para o tipo de usuário
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState('');
@@ -36,6 +37,10 @@ const SignIn: React.FC = () => {
         setPassword(event.target.value);
     };
 
+    // Função para alterar o tipo de usuário
+    const onUserTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setUserType(event.target.value);
+    };
 
     const onSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -51,14 +56,15 @@ const SignIn: React.FC = () => {
 
         try {
             const requestData = { email, password };
-            const response = await axios.post(`${apiUrl}/admin/login`, requestData, {
+            // Definir o endpoint baseado no tipo de usuário
+            const endpoint = userType === 'admin' ? '/admin/login' : '/user/login';
+            const response = await axios.post(`${apiUrl}${endpoint}`, requestData, {
                 headers: { 'Content-Type': 'application/json' },
             });
 
             const { token } = response.data;
             setAuth(token); // Armazena o token
-            navigate('/panel')
-
+            navigate('/panel');
         } catch (error: any) {
             const errorMessage = handleError(error); // Tratamento de erro centralizado
             setModalText(errorMessage);
@@ -109,6 +115,14 @@ const SignIn: React.FC = () => {
                                         </div>
                                     )}
 
+                                    {/* Novo campo para selecionar o tipo de usuário */}
+                                    <div className="py-2">
+                                        <label htmlFor="userType" className="block text-xs sm:text-sm text-left ml-2 text-gray-600">Você é um:</label>
+                                        <select id="userType" name="userType" className="block w-full px-3 py-2 border border-gray-300 rounded-md text-xs sm:text-sm" value={userType} onChange={onUserTypeChange}>
+                                            <option value="user">Cliente</option>
+                                            <option value="admin">Administrador</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
