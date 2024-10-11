@@ -2,10 +2,7 @@ import React from 'react';
 import { GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { PiPiggyBankFill } from "react-icons/pi";
 import { FaUserAlt } from "react-icons/fa";
-import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { PieChart } from '../Chart/PieGraph';
 
 const ClientFinance: React.FC = () => {
     const user = {
@@ -16,24 +13,14 @@ const ClientFinance: React.FC = () => {
 
     const loan = {
         amountDue: 7800,
-        status: 'ACTIVO', // Estados possíveis: PENDENTE, RECUSADO, ACTIVO
-        totalDays: 30, // Duração total do empréstimo em dias
-        daysLeft: 0 // Dias restantes para o empréstimo terminar
+        status: 'ACTIVO',
+        totalDays: 30, 
+        daysLeft: 30
     };
 
     const savings = {
-        amount: 20000, // Estados possíveis: PENDENTE, ACTIVO
-        status: 'ACTIVO' // Estado da poupança
-    };
-
-    const data = {
-        datasets: [
-            {
-                data: [loan.daysLeft, loan.totalDays - loan.daysLeft],
-                backgroundColor: ['#4caf50', '#e0e0e0'], // Verde para o tempo restante, cinza para o restante
-                borderWidth: 1,
-            },
-        ],
+        amount: 20000,
+        status: 'ACTIVO'
     };
 
     return (
@@ -45,7 +32,7 @@ const ClientFinance: React.FC = () => {
                     {user.photo ? (
                         <img src={user.photo} alt="User Profile" className="w-32 h-32 rounded-full mb-4" />
                     ) : (
-                        <FaUserAlt className="w-32 h-32 text-gray-400 mb-4" /> // Ícone padrão
+                        <FaUserAlt className="w-32 h-32 text-gray-400 mb-4" />
                     )}
                     <h2 className="text-xl font-bold text-gray-800">{user.name}</h2>
                     <p className="text-gray-500">{user.position}</p>
@@ -56,7 +43,7 @@ const ClientFinance: React.FC = () => {
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Status Financeiro</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {/* Cartão Solicitação */}
-                        <div className="p-6  border  rounded-xl shadow-md hover:shadow-lg transition-all duration-300 bg-blue-50 border-blue-800 text-blue-700">
+                        <div className="p-6 border rounded-xl shadow-md hover:shadow-lg transition-all duration-300 bg-blue-50 border-blue-800 text-blue-700">
                             <div className="flex items-center mb-3">
                                 <GiReceiveMoney className="text-blue-600 mb-4" size={40} />
                                 <div className="ml-4">
@@ -100,41 +87,29 @@ const ClientFinance: React.FC = () => {
                     </div>
                 </div>
             </div>
+
             <div className="lg:flex lg:space-x-6">
                 {/* Nova Seção para o Gráfico de Pizza */}
                 <div className="lg:w-1/3 w-full flex flex-col items-center bg-white p-5 mt-5 rounded-lg shadow-md">
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Tempo Restante</h3>
-                    <div className="w-40 h-40 relative">
-                        <Doughnut data={data} options={{ cutout: '75%' }} />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xl font-bold text-gray-800">
-                                {loan.daysLeft} dias
-                            </span>
-                        </div>
-                    </div>
+                    <PieChart daysLeft={loan.daysLeft} totalDays={loan.totalDays} /> {/* Usando o componente PieChart */}
                 </div>
+
                 <div className="lg:w-2/3 w-full bg-white p-6 mt-5 rounded-lg shadow-md">
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Datas Financeiras</h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {/* Cartão da data de início de empréstimo */}
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Data de Início</h4>
                             <p className="text-gray-500">00/00/0000</p>
                         </div>
-
-                        {/* Cartão da data de fim do empréstimo */}
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Data de Fim</h4>
                             <p className="text-gray-500">00/00/0000</p>
                         </div>
-
-                        {/* Cartão de multas */}
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Multas</h4>
                             <p className="text-red-500">Nenhuma</p>
                         </div>
-
-                        {/* Cartão de taxa de juros */}
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Taxa de Juros</h4>
                             <p className="text-gray-500">30% do Valor</p>
