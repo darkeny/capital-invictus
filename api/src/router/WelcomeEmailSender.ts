@@ -1,16 +1,17 @@
 import { Router } from "express";
 import RegisterController from "../controllers/welcome/mailConfig";
+import { generatePassword } from "../utils";
 const router = Router();
 
 router.post('/', async (req, res) => {
-    const { email, fullName } = req.body;
+    const { email, fullName, generatedPassword } = req.body;
 
-    console.log('Received Data:', { email, fullName });
+    console.log('Received Data:', { email, fullName, generatedPassword });
 
     const registerController = new RegisterController();
 
     try {
-        await registerController.registerUser(email, fullName);
+        await registerController.registerUser(email, fullName, generatedPassword);
 
         res.status(200).send({ message: 'Email sent successfully.' });
     } catch (error) {

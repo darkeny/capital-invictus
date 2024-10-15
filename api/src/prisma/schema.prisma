@@ -27,6 +27,7 @@ model Customer {
   monthlyIncome  Float
   bankInfo       String // e.g., Absa, etc.
   bankNumber     String
+  password       String
   identityNumber String   @unique
   grantor        Grantor?
 
@@ -51,6 +52,7 @@ model Grantor {
 model Loan {
   id            String     @id @default(uuid()) @db.Char(36)
   loanAmount    Float
+  balanceDue    Float
   paymentTerm   Int // em meses
   paymentMethod String // e.g., "Transferência", "Dinheiro", etc.
   accountNumber String

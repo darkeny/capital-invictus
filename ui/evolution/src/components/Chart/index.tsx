@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { FaChessBishop, FaUsers, FaEnvelope } from 'react-icons/fa'; // Importando ícones do react-icons
+import { FaChessBishop, FaUsers } from 'react-icons/fa';
 import { GiTakeMyMoney } from "react-icons/gi";
 import { HiPencilSquare } from "react-icons/hi2";
 
@@ -31,44 +31,69 @@ ChartJS.register(
 );
 
 const Chart: React.FC = () => {
-    const [data, setData] = useState({ clients: 0, loans: 0, pawn: 0, newsletter: 0 });
+    const [clients, setClients] = useState(0);
+    const [loans, setLoans] = useState(0);
+    const [pawn, setPawn] = useState(0);
+    const [newsletter, setNewsletter] = useState(0);
     const apiUrl = import.meta.env.VITE_APP_API_URL;
 
     useEffect(() => {
-        const fetchData = async () => {
+        // Funções assíncronas separadas para cada requisição
+        const fetchClients = async () => {
             try {
-                const CustomerResponse = await fetch(`${apiUrl}/ibuildCustomer`);
-                const CustomerResult = await CustomerResponse.json();
-                const clients = CustomerResult.length;
-
-                const LoansResponse = await fetch(`${apiUrl}/ibuildLoan`);
-                const LoansResult = await LoansResponse.json();
-                const loans = LoansResult.length;
-
-                const PawnResponse = await fetch(`${apiUrl}/ibuildLoan`);
-                const PawnResult = await PawnResponse.json();
-                const loansWithPawn = PawnResult.filter((loan: Loan) => loan.pawn === 'YES');
-                const pawn = loansWithPawn.length;
-
-                const NewsletterResponse = await fetch(`${apiUrl}/newsletter`);
-                const NewsletterResult = await NewsletterResponse.json();
-                const newsletter = NewsletterResult.length;
-
-
-                setData({ clients, loans, pawn, newsletter }); // Atualize 'newsletter' conforme necessário
+                const response = await fetch(`${apiUrl}/ibuildCustomer`);
+                const result = await response.json();
+                setClients(result.length);
             } catch (error) {
-                console.error('Erro ao buscar dados:', error);
+                console.error('Erro ao buscar clientes:', error);
             }
         };
-        fetchData();
-    }, []);
 
+        const fetchLoans = async () => {
+            try {
+                const response = await fetch(`${apiUrl}/ibuildLoan`);
+                const result = await response.json();
+                setLoans(result.length);
+            } catch (error) {
+                console.error('Erro ao buscar empréstimos:', error);
+            }
+        };
+
+        const fetchPawn = async () => {
+            try {
+                const response = await fetch(`${apiUrl}/ibuildLoan`);
+                const result = await response.json();
+                const loansWithPawn = result.filter((loan: any) => loan.pawn === 'YES');
+                setPawn(loansWithPawn.length);
+            } catch (error) {
+                console.error('Erro ao buscar empréstimos penhorados:', error);
+            }
+        };
+
+        const fetchNewsletter = async () => {
+            try {
+                const response = await fetch(`${apiUrl}/newsletter`);
+                const result = await response.json();
+                setNewsletter(result.length);
+            } catch (error) {
+                console.error('Erro ao buscar newsletter:', error);
+            }
+        };
+
+        // Chama as funções
+        fetchClients();
+        fetchLoans();
+        fetchPawn();
+        fetchNewsletter();
+    }, [apiUrl]);
+
+    // Dados para os gráficos
     const chartData = {
         labels: ['Clientes', 'Empréstimos', 'Penhorados', 'Newsletter'],
         datasets: [
             {
                 label: 'Quantidade',
-                data: [data.clients, data.loans, data.pawn, data.newsletter],
+                data: [clients, loans, pawn, newsletter],
                 backgroundColor: [
                     'rgba(54, 162, 235, 0.6)',
                     'rgba(75, 192, 192, 0.6)',
@@ -91,56 +116,46 @@ const Chart: React.FC = () => {
         datasets: [
             {
                 label: 'Quantidade ao longo do tempo',
-                data: [data.clients, data.loans, data.pawn, data.newsletter],
+                data: [clients, loans, pawn, newsletter],
                 fill: false,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 tension: 0.4,
-                pointBackgroundColor: [ // Defina cores diferentes para cada ponto
-                    'rgba(54, 162, 235, 1)', // Cor para Clientes
-                    'rgba(75, 192, 192, 1)', // Cor para Empréstimos
-                    'rgba(255, 99, 132, 1)', // Cor para Newsletter
-                    'rgba(255, 206, 86, 1)', // Cor para Penhorados
+                pointBackgroundColor: [
+                    'rgba(54, 162, 235, 1)', 
+                    'rgba(75, 192, 192, 1)', 
+                    'rgba(255, 99, 132, 1)', 
+                    'rgba(255, 206, 86, 1)', 
                 ],
             },
         ],
     };
 
-
     const chartOptions = {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Estatísticas Gerais',
-            },
+            legend: { position: 'top' },
+            title: { display: true, text: 'Estatísticas Gerais' },
         },
     };
 
     const lineChartOptions = {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top' as const,
-            },
-            title: {
-                display: true,
-                text: 'Tendência de Estatísticas ao Longo do Tempo',
-            },
+            legend: { position: 'top' },
+            title: { display: true, text: 'Tendência de Estatísticas ao Longo do Tempo' },
         },
     };
 
     return (
         <>
             <div className="flex max-w-screen-2xl justify-between gap-6 py-10 mx-auto">
-                <BigNumber title="Total de clientes" subtitles='Clientes' value={data.clients} icon={<FaUsers className="text-blue-500" size={32} />} />
-                <BigNumber title="Total de Empréstimos" subtitles='Empréstimos' value={data.loans} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
-                <BigNumber title="Clientes Penhorados" subtitles='Penhorados' value={data.pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
-                <BigNumber title="Newslleter" subtitles='Interessados' value={data.newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
+                <BigNumber title="Total de Clientes" subtitles='Clientes' value={clients || 0} icon={<FaUsers className="text-blue-500" size={32} />} />
+                <BigNumber title="Total de Empréstimos" subtitles='Empréstimos' value={loans || 0} icon={<GiTakeMyMoney className="text-blue-500" size={35} />} />
+                <BigNumber title="Clientes Penhorados" subtitles='Penhorados' value={pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
+                <BigNumber title="Newsletter" subtitles='Interessados' value={newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
             </div>
+            
             <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
                 <BarGraph chartData={chartData} chartOptions={chartOptions} />
                 <LineGraph lineChartData={lineChartData} lineChartOptions={lineChartOptions} />

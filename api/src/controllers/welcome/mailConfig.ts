@@ -1,5 +1,5 @@
 import fs from 'fs';
-import path from 'path'; // Importe o módulo 'path'
+import path from 'path';
 import Mailer from '../../service/mail/mailer';
 
 class RegisterController {
@@ -9,7 +9,7 @@ class RegisterController {
     this.mailer = new Mailer();
   }
 
-  public async registerUser(email: string, fullName: string) {
+  public async registerUser(email: string, fullName: string, generatedPassword: string) {
     // Lógica de cadastro do usuário
     console.log(`Cliente ${email} registrado com sucesso!!`);
 
@@ -24,8 +24,9 @@ class RegisterController {
     // Ler o conteúdo do arquivo HTML
     const html = fs.readFileSync(htmlPath, 'utf8');
 
-    // Substituir placeholders pelo nome do usuário (neste caso o email)
-    const personalizedHtml = html.replace('Cliente', fullName);
+    // Substituir placeholders pelo nome do usuário e pela senha gerada
+    let personalizedHtml = html.replace('Cliente', fullName);
+    personalizedHtml = personalizedHtml.replace('Password', generatedPassword);
 
     // Enviar email de boas-vindas
     const subject = 'Seja Bem-vindo à Capital Invictus!';

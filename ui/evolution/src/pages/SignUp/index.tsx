@@ -329,7 +329,7 @@ const SignUp: React.FC = () => {
                                     >
                                         <option value="">Selecione o banco</option>
                                         <option value="Absa">Absa</option>
-                                        <option value="illenium Bim">Millenium Bim</option>
+                                        <option value="Millenium Bim">Millenium Bim</option>
                                         <option value="M-Pesa">M-Pesa</option>
                                         <option value="E-Mola">E-Mola</option>
                                     </select>

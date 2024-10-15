@@ -16,7 +16,7 @@ if (!JWT_SECRET) {
     throw new Error('JWT_SECRET não está configurado. Verifique o arquivo .env.');
 }
 
-const loginAdminUser = async (request: Request, response: Response) => {
+const loginUser = async (request: Request, response: Response) => {
     const { email, password } = request.body;
 
     // Validação de campos obrigatórios
@@ -26,16 +26,16 @@ const loginAdminUser = async (request: Request, response: Response) => {
 
     try {
         // Verificar se o usuário admin existe
-        const adminUser = await prisma.adminUser.findUnique({
+        const user = await prisma.customer.findUnique({
             where: { email },
         });
 
-        if (!adminUser) {
+        if (!user) {
             return response.status(401).json({ error: ERROR_MESSAGES.invalidCredentials });
         }
 
         // Verificar se a senha está correta
-        const isPasswordValid = await bcrypt.compare(password, adminUser.password);
+        const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
             return response.status(401).json({ error: ERROR_MESSAGES.invalidCredentials });
@@ -43,7 +43,7 @@ const loginAdminUser = async (request: Request, response: Response) => {
 
         // Gerar o token JWT
         const token = jwt.sign(
-            { userId: adminUser.id, email: adminUser.email }, // Adiciona mais informações ao payload do token
+            { userId: user.id, email: user.email }, // Adiciona mais informações ao payload do token
             JWT_SECRET,
             { expiresIn: '1h' }
         );
@@ -59,4 +59,4 @@ const loginAdminUser = async (request: Request, response: Response) => {
     }
 };
 
-export { loginAdminUser };
+export { loginUser };

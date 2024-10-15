@@ -18,6 +18,7 @@ const deleteCustomer = async (request: Request, response: Response) => {
 
         await prisma.$transaction([
             prisma.grantor.deleteMany({ where: { customerId: id } }),
+            prisma.loan.deleteMany({ where: { customerId: id } }),
             prisma.customer.delete({ where: { id: id } }),
         ]);
 
