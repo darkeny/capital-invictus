@@ -18,6 +18,8 @@ const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para 
 
 const invalidCredentials = "Email ou senha incorretas!";
 
+const duplicateActiveLoan = 'Você já possui um empréstimo ativo.';
+
 
 
 
@@ -27,6 +29,7 @@ const ERROR_MESSAGES = {
     duplicatedData,
     duplicateEmail,
     invalidCredentials,
+    duplicateActiveLoan,
     duplicateIdentityNumber,
     failedRetrieval,
     requiredFields,

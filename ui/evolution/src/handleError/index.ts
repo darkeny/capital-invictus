@@ -17,7 +17,7 @@ const handleError = (error: any) => {
             return ERROR_MESSAGES.invalidCredentials;
         }
     }
-    return 'Ocorreu um erro ao enviar o formulário.';
+    return 'Usuário ou senha incorreto.';
 };
 
 export { handleError }

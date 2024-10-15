@@ -9,6 +9,7 @@ env.config();
 const prisma = new PrismaClient();
 
 const IBuildLoan = async (request: Request, response: Response) => {
+    
     const {
         customerId,
         loanAmount,
@@ -18,6 +19,11 @@ const IBuildLoan = async (request: Request, response: Response) => {
         collateral,
         installments,
     } = request.body;
+
+    // Verifique se customerId está presente
+    if (!customerId) {
+        return response.status(400).json({ error: "customerId é obrigatório." });
+    }
 
     try {
         // Verificar se o cliente existe
@@ -31,13 +37,15 @@ const IBuildLoan = async (request: Request, response: Response) => {
 
         // Verificar se o cliente já tem um empréstimo ativo
         const activeLoan = await prisma.loan.findUnique({
-            where: { customerId: customer.id, isActive: 'ACTIVE' },
+            where: { customerId: customer.id, isActive: "ACTIVE" },
         });
 
         if (activeLoan) {
             return response.status(400).json({ error: 'Este cliente já possui um empréstimo ativo.' });
         }
 
+        const balanceDue = loanAmount * 1.30;
+        
         // Criação do empréstimo
         const createLoanData: Prisma.LoanCreateInput = {
             loanAmount: parseFloat(loanAmount),
@@ -46,6 +54,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
             accountNumber,
             collateral,
             installments,
+            balanceDue: balanceDue,
             customer: {
                 connect: { id: customer.id }, // Associando o empréstimo ao cliente
             },
@@ -61,7 +70,6 @@ const IBuildLoan = async (request: Request, response: Response) => {
         });
     } catch (error: any) {
         console.error('Error creating loan:', error);
-
         return response.status(500).json({ error: ERROR_MESSAGES.errorCreating });
     }
 };

@@ -14,7 +14,7 @@ const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState('admin'); // Novo estado para o tipo de usuário
+    const [userType, setUserType] = useState('user'); // Novo estado para o tipo de usuário
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState('');
@@ -64,7 +64,11 @@ const SignIn: React.FC = () => {
 
             const { token } = response.data;
             setAuth(token); // Armazena o token
-            navigate('/panel');
+            if (userType === 'admin') {
+                navigate('/panel'); // Painel de admin
+            } else {
+                navigate('/mypanel'); // Painel de usuário comum
+            }
         } catch (error: any) {
             const errorMessage = handleError(error); // Tratamento de erro centralizado
             setModalText(errorMessage);

@@ -16,15 +16,18 @@ const failedDeletion = "Error deleting item";
 
 const invalidCredentials = "Invalid email or password.";
 
-const errorLogin = "An error occurred while logging in.";
+const errorLogin = "Erro ao efetuar login. Tente novamente mais tarde."
 
 const duplicateEmail = 'O email já foi utilizado para inscrição.';
 
 const duplicateIdentityNumber = 'O Bilhete de Identidade já foi utilizado para inscrição.';
 
-const duplicateActiveLoan = 'Desculpe, não pode efectuar um novo empréstimo, pague o atual primeiro..';
+const duplicateActiveLoan = 'Este cliente já possui um empréstimo ativo.';
 
 const failedUpdate = "Error updating item";
+
+
+const invalidToken = 'Token inválido ou ausente.';
 
 
 
@@ -33,6 +36,7 @@ const ERROR_MESSAGES = {
     failedUpdate,
     duplicateEmail,
     duplicateIdentityNumber,
+    invalidToken,
     invalidCredentials,
     duplicatedData,
     failedRetrieval,
