@@ -3,13 +3,14 @@ import { GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { PiPiggyBankFill } from "react-icons/pi";
 import { FaUserAlt } from "react-icons/fa";
 import { PieChart } from '../Chart/PieGraph';
-import axios, { toFormData } from 'axios';
-import Loan from '../../pages/Loan';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { calculateDaysLeft, CalculationOfFines } from '../../utils';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 
 const ClientFinance: React.FC = () => {
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         name: '',
         position: '',
@@ -35,7 +36,7 @@ const ClientFinance: React.FC = () => {
 
     const daysLeft = calculateDaysLeft(loan.createdAt, loan.totalDays);
 
-    console.log("Dias restantes: ",daysLeft)
+    console.log("Dias restantes: ", daysLeft)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -67,6 +68,7 @@ const ClientFinance: React.FC = () => {
 
             } catch (err) {
                 setError('Erro ao carregar os dados do usuário');
+                navigate('/signin')
             } finally {
                 setLoading(false);
             }
@@ -74,6 +76,8 @@ const ClientFinance: React.FC = () => {
 
         fetchUserData();
     }, []);
+
+    const TotalMultas = multas / 100 * loan.balanceDue
 
 
 
@@ -176,7 +180,7 @@ const ClientFinance: React.FC = () => {
                         </div>
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Total de Multas</h4>
-                            <p className="text-gray-500">{multas < 0 ? "Sem multas" : `${multas} dia/s`}</p>
+                            <p className="text-gray-500">{multas < 0 ? "Sem multas" : `${multas} dia/s / ${TotalMultas}.00 MT`}</p>
                         </div>
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Taxa de Juros</h4>
