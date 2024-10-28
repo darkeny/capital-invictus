@@ -115,7 +115,8 @@ const Loans: React.FC = () => {
                     <thead className="bg-gray-100">
                         <tr>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Nome do Cliente</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Montante</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Solicitado</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">A pagar</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Prazo</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Método de Pagamento</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número da Conta</th>
@@ -132,6 +133,7 @@ const Loans: React.FC = () => {
                             <tr key={loan.id}>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.customer.fullName}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.loanAmount.toFixed(2)}MT</td>
+                                <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.balanceDue.toFixed(2)}MT</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentTerm} dias</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentMethod}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.accountNumber}</td>

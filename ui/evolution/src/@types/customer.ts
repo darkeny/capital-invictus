@@ -16,6 +16,7 @@ interface Customer {
 }
 
 interface Loan {
+  balanceDue: any;
   id: string;
   loanAmount: number;
   paymentTerm: number; // em meses
