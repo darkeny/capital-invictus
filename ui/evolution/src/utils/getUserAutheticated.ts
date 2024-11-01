@@ -36,7 +36,7 @@ const useFetchUserData = () => {
                 setUser({
                     name: userData.fullName,
                     position: userData.incomeSource,
-                    photo: userData.photo || '../../../public/perfil.jpg',
+                    photo: userData.photo || '/perfil.jpg',
                     role: userData.role,
                 });
 

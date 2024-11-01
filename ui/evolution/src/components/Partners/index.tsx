@@ -8,7 +8,7 @@ const Partners: React.FC = () => {
 
                 {/* Coluna da Imagem */}
                 <div className="flex justify-center lg:justify-start">
-                    <img data-aos="slide-right" src="/public/Colorful Logo.png" alt="Logo da OPAC Advogados" className="max-w-full rounded-xl shadow-xl" />
+                    <img data-aos="slide-right" src="/Colorful Logo.png" alt="Logo da OPAC Advogados" className="max-w-full rounded-xl shadow-xl" />
                 </div>
 
                 {/* Coluna de Texto */}

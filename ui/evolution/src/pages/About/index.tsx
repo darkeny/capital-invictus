@@ -3,6 +3,7 @@ import { Navbar } from "../../components/Navbar";
 import { CoreValues } from "../../components/CoreValues";
 import { WhoWeAre } from "../../components/WhoWeAre";
 import { Partners } from "../../components/Partners";
+import { Footer } from "../../components/Footer";
 
 const About: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const About: React.FC = () => {
         <CoreValues />
       </div>
       <Partners />
+      <Footer />
     </>
   );
 };

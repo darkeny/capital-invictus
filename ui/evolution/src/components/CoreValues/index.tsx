@@ -11,7 +11,7 @@ const CoreValues: React.FC = () => {
     };
 
     return (
-        <div className="relative overflow-hidden py-20 sm:py-24">
+        <div className="relative overflow-hidden py-12 sm:py-24">
             {/* Background SVG */}
             {/* <div className="inset-0 -z-10 overflow-hidden">
                 <svg className="absolute left-[max(50%,25rem)] top-0 h-[34rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">

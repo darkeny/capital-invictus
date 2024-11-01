@@ -16,7 +16,7 @@ const WhoWeAre: React.FC = () => {
                             Quem somos?
                         </p>
                         <p className="my-5 text-lg text-justify leading-8 text-gray-600">
-                            Capital Invictus é uma organização de poupança e crédito, somos movidos pela missão de transformar sonhos em realizações financeiras. Oferecemos soluções de microcrédito sólidas e acessíveis, dedicadas a apoiar indivíduos e pequenas empresas a prosperar e superar desafios. Nossa força está em um atendimento personalizado, condições justas e no incentivo à poupança responsável, ajudando nossos clientes a conquistar um futuro financeiro seguro e sustentável. Com a Capital Invictus, você encontra mais do que crédito – encontra um parceiro comprometido com o seu sucesso.
+                        A Capital Invictus é uma organização de poupança e crédito dedicada a transformar sonhos em realizações financeiras. Oferecemos microcréditos acessíveis, focando no apoio a indivíduos e pequenas empresas. Nossa missão é proporcionar atendimento personalizado e condições justas, promovendo a poupança responsável e ajudando nossos clientes a conquistar um futuro financeiro seguro. Com a Capital Invictus, você não encontra apenas crédito, mas um parceiro comprometido com o seu sucesso.
                         </p>
 
                         {/* Botão Solicitar Crédito */}
@@ -32,7 +32,7 @@ const WhoWeAre: React.FC = () => {
 
                 {/* Coluna da Imagem */}
                 <div className="flex justify-center lg:justify-end">
-                    <img data-aos="slide-left" src="../../../public/GettyImages-1370735949.jpg" alt="Product screenshot" className=" max-w-full rounded-xl shadow-xl" />
+                    <img data-aos="slide-left" src="/GettyImages-1370735949.jpg" alt="Product screenshot" className=" max-w-full rounded-xl shadow-xl" />
                 </div>
             </div>
         </div>

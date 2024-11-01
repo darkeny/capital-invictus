@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 const Navbar: React.FC = () => {
     const navigate = useNavigate();
@@ -29,11 +29,11 @@ const Navbar: React.FC = () => {
                         {/* Main navigation for larger screens */}
                         <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center">
                             <div className="flex space-x-4 flex-nowrap">
-                                <a href="/" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap" aria-current="page">Home</a>
-                                <a href="/about" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Sobre Nós</a>
-                                <a href="/services" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
-                                <a href="/howabout" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
-                                <a href="/contact" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Contactos</a>
+                                <NavLink to="/" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`} aria-current="page">Home</NavLink>
+                                <NavLink to="/about" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Sobre Nós</NavLink>
+                                <NavLink to="/services" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Serviços</NavLink>
+                                <NavLink to="/howabout" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Como Funciona</NavLink>
+                                <NavLink to="/contact" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Contactos</NavLink>
                             </div>
                         </div>
 
@@ -70,11 +70,11 @@ const Navbar: React.FC = () => {
                 {menuOpen && (
                     <div className="sm:hidden" id="mobile-menu">
                         <div className="space-y-1 px-2 pb-3 pt-2">
-                            <a href="/" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap" aria-current="page">Home</a>
-                            <a href="/about" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Sobre Nós</a>
-                            <a href="/services" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Serviços</a>
-                            <a href="/howabout" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Como Funciona</a>
-                            <a href="/contact" className="block text-sm font-normal leading-6 text-gray-900 px-3 py-2 hover:text-blue-500 whitespace-nowrap">Contactos</a>
+                            <NavLink to="/" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`} aria-current="page">Home</NavLink>
+                            <NavLink to="/about" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Sobre Nós</NavLink>
+                            <NavLink to="/services" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Serviços</NavLink>
+                            <NavLink to="/howabout" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Como Funciona</NavLink>
+                            <NavLink to="/contact" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Contactos</NavLink>
                             <button onClick={handleRedirect} className='block w-full text-left rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'>
                                 Área do Cliente
                             </button>
