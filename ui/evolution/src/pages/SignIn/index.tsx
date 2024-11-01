@@ -10,7 +10,6 @@ import { handleError } from '../../handleError';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignIn: React.FC = () => {
-    console.log('API URL:', apiUrl);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

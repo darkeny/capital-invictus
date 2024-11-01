@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Navbar } from "../../components/Navbar";
 import { Alert } from "../../components/Modal/alert";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import axios from "axios";
+import { handleError } from "../../handleError";
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const Loan: React.FC = () => {
     const [formData, setFormData] = useState({
@@ -119,26 +122,49 @@ const Loan: React.FC = () => {
         setLoading(true); // Set loading to true when form submission starts
 
         try {
-            // Simulação de uma solicitação de empréstimo
-            // Você deve substituir isso pela lógica real de envio de dados
-            // const response = await axios.post(`${apiUrl}/requestLoan`, formData);
-            setAlertText('Solicitação de empréstimo enviada com sucesso!');
-        } catch (error) {
-            console.error('Error submitting loan request:', error);
-            setAlertText('Falha ao enviar a solicitação. Tente novamente mais tarde.');
-        } finally {
-            setLoading(false); // Set loading to false when form submission completes
-            setIsModalOpen(true);
-            setFormData({
-                loanAmount: "",
-                loanTerm: "",
-                paymentMethod: "",
-                accountNumber: "",
-                collateral: "",
-                installments: "",
-                isPartialPayment: true,
+            // Lógica de submissão do formulário
+            const response = await axios.post(`${apiUrl}/ibuildLoan`, formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
-            setFiles([]); // Limpa os arquivos após o envio
+
+            if (response.status === 200) {
+                // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
+                setAlertText('Empréstimo criado com sucesso');
+                setIsModalOpen(true);
+                // Limpar o formulário após sucesso
+                setFormData({
+                    loanAmount: "",
+                    loanTerm: "", // Prazo de pagamento
+                    paymentMethod: "",
+                    accountNumber: "", // Número da conta
+                    collateral: "" ,
+                    installments: "", // Número de parcelas selecionado
+                    isPartialPayment: true, // Para o checkbox de pagamento total
+                });
+            } else {
+                // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
+                setAlertText('Empréstimo criado com sucesso');
+                setIsModalOpen(true);
+                // Limpar o formulário após sucesso
+                setFormData({
+                    loanAmount: "",
+                    loanTerm: "", // Prazo de pagamento
+                    paymentMethod: "",
+                    accountNumber: "", // Número da conta
+                    collateral: "",
+                    installments: "", // Número de parcelas selecionado
+                    isPartialPayment: true, // Para o checkbox de pagamento total
+                });
+            }
+        } catch (error: any) {
+            console.error('Error sending message:', error);
+            const errorMessage = handleError(error); // Tratamento de erro centralizado
+            setAlertText(errorMessage)
+            setIsModalOpen(true); // Abre o modal de erro   
+        } finally {
+            setLoading(false); // Finalize a ação de loading após sucesso ou erro
         }
     };
 

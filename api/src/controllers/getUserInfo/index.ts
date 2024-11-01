@@ -30,6 +30,7 @@ const getUserInfo = async (req: Request, res: Response) => {
                 email: customer.email,
                 fullName: customer.fullName, // Adicionando fullName
                 incomeSource: customer.incomeSource, // Adicionando incomeSource
+                role: customer.role,
                 loan: customer.loan ? {
                     loanAmount: customer.loan.loanAmount, // Adicionando loanAmount
                     balanceDue: customer.loan.balanceDue, // Saldo devido

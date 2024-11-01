@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { PiPiggyBankFill } from "react-icons/pi";
 import { FaUserAlt } from "react-icons/fa";
 import { PieChart } from '../Chart/PieGraph';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { calculateDaysLeft, CalculationOfFines } from '../../utils';
+import { calculateDaysLeft, CalculationOfFines, useFetchUserData } from '../../utils';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 
 const ClientFinance: React.FC = () => {
-    const navigate = useNavigate();
-    const [user, setUser] = useState({
-        name: '',
-        position: '',
-        photo: ''
-    });
-
-    const [loan, setLoan] = useState({
-        amountDue: "" || 0,
-        balanceDue: "" || 0,
-        status: "",
-        totalDays: "" || 0,
-        daysLeft: 30,
-        createdAt: ""
-    });
-
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const { user, loan, loading, error } = useFetchUserData();
 
     const today = new Date();
     const loanCreatedAt = new Date(loan.createdAt);
@@ -38,48 +19,7 @@ const ClientFinance: React.FC = () => {
 
     console.log("Dias restantes: ", daysLeft)
 
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                // Fazendo a requisição à rota /me
-                const response = await axios.get(`${apiUrl}/me`, {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('authToken')}`, // Substitua pelo método que você usa para armazenar o token
-                    },
-                });
-                const userData = response.data.user;
-
-                // Ajuste de acordo com a estrutura dos dados recebidos
-                setUser({
-                    name: userData.fullName,
-                    position: userData.incomeSource,
-                    photo: userData.photo || '../../../public/perfil.jpg', // Adapte conforme necessário
-                });
-
-                setLoan({
-                    amountDue: userData.loan.loanAmount,
-                    balanceDue: userData.loan.balanceDue,
-                    status: userData.loan.isActive,
-                    totalDays: Number(userData.loan.totalDays),
-                    daysLeft: Number(userData.day),
-                    createdAt: userData.loan.createdAt
-                });
-
-
-            } catch (err) {
-                setError('Erro ao carregar os dados do usuário');
-                navigate('/signin')
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchUserData();
-    }, []);
-
     const TotalMultas = multas / 100 * loan.balanceDue
-
-
 
     const savings = {
         amount: 20000,

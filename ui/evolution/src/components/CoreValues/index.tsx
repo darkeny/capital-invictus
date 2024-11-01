@@ -11,10 +11,10 @@ const CoreValues: React.FC = () => {
     };
 
     return (
-        <div className="relative overflow-hidden py-20 sm:py-24">
+        <div className="relative overflow-hidden py-12 sm:py-24">
             {/* Background SVG */}
-            <div className="inset-0 -z-10 overflow-hidden">
-                <svg className="absolute left-[max(50%,25rem)] top-0 h-[34rem] w-[128rem] -translate-x-4/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
+            {/* <div className="inset-0 -z-10 overflow-hidden">
+                <svg className="absolute left-[max(50%,25rem)] top-0 h-[34rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
                     <defs>
                         <pattern id="e813992c-7d03-4cc4-a2bd-151760b470a0" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
                             <path d="M100 200V.5M.5 .5H200" fill="none" />
@@ -22,7 +22,7 @@ const CoreValues: React.FC = () => {
                     </defs>
                     <rect width="100%" height="100%" strokeWidth="0" fill="url(#e813992c-7d03-4cc4-a2bd-151760b470a0)" />
                 </svg>
-            </div>
+            </div> */}
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div data-aos="zoom-in" className="text-center">
                     <h2 className="text-base font-semibold leading-4 text-indigo-600">Capital Invictus</h2>

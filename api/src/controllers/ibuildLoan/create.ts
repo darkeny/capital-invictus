@@ -22,7 +22,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
 
     // Verifique se customerId está presente
     if (!customerId) {
-        return response.status(400).json({ error: "customerId é obrigatório." });
+        return response.status(400).json({ error: ERROR_MESSAGES.requiredCustomer });
     }
 
     try {
