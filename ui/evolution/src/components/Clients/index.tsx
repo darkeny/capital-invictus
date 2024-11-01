@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { HiOutlineDownload } from 'react-icons/hi';
-import { FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 import { DeleteModal } from '../Modal/deleteModal';
 
@@ -61,11 +59,6 @@ const Customers: React.FC = () => {
 
     return (
         <div className="container mx-auto">
-            <div className="text-right">
-                <button className="mr-8 bg-blue-600 hover:bg-blue-800 text-white font-bold py-1 mb-4 md:py-3 px-10 rounded-lg shadow-lg text-lg transition-all duration-300">
-                    Novo
-                </button>
-            </div>
             <div className="relative text-gray-600 mb-4">
                 <input
                     type="search"

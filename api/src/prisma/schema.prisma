@@ -12,6 +12,7 @@ model AdminUser {
   username  String   @unique
   email     String   @unique
   password  String
+  role      Role     @default(ADMIN)
   createdAt DateTime @default(now())
 }
 
@@ -29,6 +30,7 @@ model Customer {
   bankNumber     String
   password       String
   identityNumber String   @unique
+  role           Role     @default(USER)
   grantor        Grantor?
 
   createdAt DateTime @default(now())
@@ -77,6 +79,11 @@ enum LoanStatus {
   PENDING
   ACTIVE
   REFUSED
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 
 enum PawnStatus {

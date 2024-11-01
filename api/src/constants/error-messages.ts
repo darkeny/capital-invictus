@@ -26,6 +26,7 @@ const duplicateActiveLoan = 'Este cliente já possui um empréstimo ativo.';
 
 const failedUpdate = "Error updating item";
 
+const requiredCustomer = "Usuário não Associado!.";
 
 const invalidToken = 'Token inválido ou ausente.';
 
@@ -35,6 +36,7 @@ const ERROR_MESSAGES = {
     errorLogin,
     failedUpdate,
     duplicateEmail,
+    requiredCustomer,
     duplicateIdentityNumber,
     invalidToken,
     invalidCredentials,

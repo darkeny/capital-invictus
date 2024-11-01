@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../auth';
-import { Chart } from '../../components/Chart';
 import Clients from '../../components/Clients';
 import { Posts } from '../../components/posts';
 import { Link } from 'react-router-dom';
@@ -14,18 +13,16 @@ const ClientPanel: React.FC = () => {
         logout();
     };
 
-    const [activeTab, setActiveTab] = useState<'finance' | 'clients' | 'posts' | 'loans'>('finance');
+    const [activeTab, setActiveTab] = useState<'finance' | 'loans' | 'savings'>('finance');
     const [userMenuOpen, setUserMenuOpen] = useState(false);
     const renderContent = () => {
-        if (activeTab === 'clients') {
-            return <Clients />;
-        }
-        if (activeTab === 'posts') {
-            return <Posts />;
-        }
 
         if (activeTab === 'loans') {
             return <Loans />;
+        }
+        
+        if (activeTab === 'savings') {
+            return <Clients />;
         }
 
         return (
@@ -55,10 +52,10 @@ const ClientPanel: React.FC = () => {
                                         <a href="#"
                                             className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'finance' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('finance')} aria-current="page">Situação Financeira
                                         </a>
-                                        <a href="#"
-                                            className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'clients' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('clients')}>Minhas Poupanças
-                                        </a>
                                         <a href="#" className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'loans' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('loans')}>Meus Empréstimos</a>
+                                        <a href="#"
+                                            className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'savings' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('savings')}>Minhas Poupanças
+                                        </a>
                                     </div>
                                 </div>
                             </div>

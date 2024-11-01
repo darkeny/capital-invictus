@@ -20,6 +20,8 @@ const invalidCredentials = "Email ou senha incorretas!";
 
 const duplicateActiveLoan = 'Você já possui um empréstimo ativo.';
 
+const requiredCustomer = "Usuário não Associado!.";
+
 
 
 
@@ -28,6 +30,7 @@ const duplicateActiveLoan = 'Você já possui um empréstimo ativo.';
 const ERROR_MESSAGES = {
     duplicatedData,
     duplicateEmail,
+    requiredCustomer,
     invalidCredentials,
     duplicateActiveLoan,
     duplicateIdentityNumber,

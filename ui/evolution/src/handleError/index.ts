@@ -16,8 +16,14 @@ const handleError = (error: any) => {
         if (errorMessage === ERROR_MESSAGES.invalidCredentials) {
             return ERROR_MESSAGES.invalidCredentials;
         }
+        if (errorMessage === ERROR_MESSAGES.requiredCustomer) {
+            return ERROR_MESSAGES.requiredCustomer;
+        }
     }
     return 'Usuário ou senha incorreto.';
 };
 
 export { handleError }
+
+
+

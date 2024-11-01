@@ -11,6 +11,7 @@ interface Customer {
   bankInfo: string;
   bankNumber: string;
   identityNumber: string;
+  role: string;
   createdAt: Date;
   updatedAt: Date;
 }
