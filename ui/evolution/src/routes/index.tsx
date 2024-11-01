@@ -11,6 +11,7 @@ import Panel from '../pages/Panel';
 import PrivateRoute from '../components/PrivateRoute';
 import ClientPanel from '../pages/Finance';
 import { About } from '../pages/About';
+import { Services } from '../pages/Services';
 
 
 
@@ -23,6 +24,7 @@ const AppRoutes: React.FC = () => {
                     <Route path={'/signup'} element={<SignUp />} />
                     <Route path={'/signin'} element={<SignIn />} />
                     <Route path={'/about'} element={<About />} />
+                    <Route path={'/services'} element={<Services />} />
                     <Route path={'/contact'} element={<Contact />} />
                     <Route path={'/loan'} element={<PrivateRoute component={Loan} />} />
                     <Route path={'/panel'} element={<PrivateRoute component={Panel} />} />

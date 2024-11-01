@@ -138,7 +138,6 @@ export function Home() {
           </section>
         </PageContainer>
       </Section>
-
       {/* Modern Section below the video */}
       <div className="relative right-0 p-10 w-full max-w-7xl bg-white rounded-3xl shadow-lg z-30 -mt-12 mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">

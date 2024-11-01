@@ -28,7 +28,7 @@ const Partners: React.FC = () => {
                         {/* Botão Solicitar Crédito */}
                         <div className="flex justify-center md:justify-start">
                             <Link to="/loan">
-                                <div className="inline-block md:mt-2 rounded-md bg-blue-600 px-10 py-1 text-center text-normal font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                <div className="inline-block md:mt-2 rounded-md bg-blue-950 px-10 py-1 text-center text-normal font-semibold text-white shadow-md hover:bg-indigo-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                     Solicitar crédito
                                 </div>
                             </Link>
