@@ -6,7 +6,6 @@ import { Section } from "../../components/section";
 import Typewriter from "typewriter-effect";
 import { AlertPopUp } from "../../components/Modal/modaPopUp";
 import { Benefits } from "../../components/Benefits";
-import { Monetize } from "../../components/Monetize";
 import { Footer } from "../../components/Footer";
 import { CoreValues } from "../../components/CoreValues";
 import { Newsletter } from "../../components/Newslleter";
