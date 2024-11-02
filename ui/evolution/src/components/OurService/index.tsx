@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { FaEye, FaHandsHelping } from "react-icons/fa";
-import { GiBullseye } from "react-icons/gi";
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const OurServices: React.FC = () => {
@@ -107,7 +105,7 @@ const OurServices: React.FC = () => {
                                 Acompanhamento do seu investimento
                             </li>
                         </ul>
-                        <a href="#" aria-describedby="tier-enterprise" className="mt-8 block rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Comece hoje mesmo</a>
+                        <a href="#" aria-describedby="tier-enterprise" className="mt-8 block rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Brevemente</a>
                     </div>
                 </div>
             </div>
