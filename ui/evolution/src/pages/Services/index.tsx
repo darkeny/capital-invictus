@@ -2,6 +2,7 @@ import React from "react";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { OurServices } from "../../components/OurService";
+import { ForWhom } from "../../components/ForWhom";
 
 const Services: React.FC = () => {
     return (
@@ -10,6 +11,7 @@ const Services: React.FC = () => {
                 <Navbar />
             </div>
             <OurServices />
+            <ForWhom />
             <Footer />
         </>
     );
