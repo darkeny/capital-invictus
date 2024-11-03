@@ -28,7 +28,7 @@ const ForWhom: React.FC = () => {
                     </p>
                 </div>
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-20">
                 <div data-aos="fade-up" className="mt-16 grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
                     {[
                         {
@@ -64,7 +64,7 @@ const ForWhom: React.FC = () => {
                     ].map((target, index) => (
                         <div
                             key={index}
-                            className={`relative text-center bg-white rounded-2xl shadow-lg p-8 transition-all duration-600 transform hover:scale-105 hover:shadow-2xl cursor-pointer ${expandedIndex === index ? 'h-auto' : 'h-92 overflow-hidden'
+                            className={`relative text-center bg-white rounded-2xl shadow-lg p-8 transition-all duration-1000 transform hover:scale-105 hover:shadow-2xl cursor-pointer ${expandedIndex === index ? 'h-auto' : 'h-92 overflow-hidden'
                                 } flex flex-col justify-between`}
                             onClick={() => handleToggleExpand(index)}
                         >

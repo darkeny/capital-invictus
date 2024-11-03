@@ -65,7 +65,7 @@ const CoreValues: React.FC = () => {
                     ].map((value, index) => (
                         <div
                             key={index}
-                            className={`relative text-center bg-white rounded-2xl shadow-lg p-8 transition-all duration-600 transform hover:scale-105 hover:shadow-2xl cursor-pointer ${expandedIndex === index ? 'h-auto' : 'h-96 overflow-hidden'
+                            className={`relative text-center bg-white rounded-2xl shadow-lg p-8 transition-all duration-1000 transform hover:scale-105 hover:shadow-2xl cursor-pointer ${expandedIndex === index ? 'h-auto' : 'h-96 overflow-hidden'
                                 } flex flex-col justify-between`}
                             onClick={() => handleToggleExpand(index)}
                         >

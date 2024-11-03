@@ -3,6 +3,7 @@ import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 import { OurServices } from "../../components/OurService";
 import { ForWhom } from "../../components/ForWhom";
+import { InvestmentPackages } from "../../components/InvestmentPackages";
 
 const Services: React.FC = () => {
     return (
@@ -12,6 +13,7 @@ const Services: React.FC = () => {
             </div>
             <OurServices />
             <ForWhom />
+            <InvestmentPackages />
             <Footer />
         </>
     );

@@ -29,7 +29,7 @@ const OurServices: React.FC = () => {
                             <span className="text-5xl font-semibold tracking-tight text-gray-900">1000 MT</span>
                             <span className="text-base text-gray-500">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-600">O plano perfeito se você está começando a usar nosso produto.</p>
+                        <p className="mt-6 text-base/7 text-gray-600">Adira já o seu crédito e impulsione os seus investimentos financeiros agora.</p>
                         <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -41,7 +41,7 @@ const OurServices: React.FC = () => {
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
                                 </svg>
-                                Até 2.000 assinantes
+                                Sem taxas de impostos
                             </li>
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -62,50 +62,38 @@ const OurServices: React.FC = () => {
                     </div>
                     <div data-aos="slide-right" className="relative rounded-3xl bg-gray-900 p-8 shadow-2xl ring-1 ring-gray-900/10 sm:p-10">
                         <h3 id="tier-enterprise" className="text-base/7 font-semibold text-indigo-400">Poupança</h3>
-                        <p className="mt-4 flex items-baseline gap-x-2">
+                        <p className="py-5 flex items-baseline gap-x-2">
                             <span className="text-5xl font-semibold tracking-tight text-white">15.000 MT</span>
                             <span className="text-base text-gray-400">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-300">Suporte e infraestrutura dedicados para você.</p>
-                        <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-300 sm:mt-10">
+                        <p className="mt-6 text-base/7 text-gray-300">Começe agora investindo connosco com a melhor infraestrutura dedicados para você.</p>
+                        <ul role="list" className="py-2 mt-8 space-y-3 text-sm/6 text-gray-300 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
                                 </svg>
-                                Análise avançada
+                                90 dias de contrato
                             </li>
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
                                 </svg>
-                                Assinantes limitados
+                                2.5% de taxas de lucro
                             </li>
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
                                 </svg>
-                                Rápido e simples
+                                Valor a receber no fim do contracto
                             </li>
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
                                 </svg>
-                                Representante de suporte dedicado
-                            </li>
-                            <li className="flex gap-x-3">
-                                <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
-                                </svg>
-                                Automações de marketing
-                            </li>
-                            <li className="flex gap-x-3">
-                                <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
-                                </svg>
-                                Acompanhamento do seu investimento
+                                Tempo de resposta de suporte 24 horas
                             </li>
                         </ul>
-                        <a href="#" aria-describedby="tier-enterprise" className="mt-8 block rounded-md bg-indigo-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Brevemente</a>
+                        <a onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })} aria-describedby="tier-enterprise" className="mt-8 block rounded-md bg-indigo-500 px-3.5 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Começar a investir</a>
                     </div>
                 </div>
             </div>
