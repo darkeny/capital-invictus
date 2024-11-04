@@ -83,7 +83,7 @@ const Newsletter: React.FC = () => {
                 </div>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
-                        <div className="max-w-xl lg:max-w-lg">
+                        <div data-aos="zoom-in" className="max-w-xl lg:max-w-lg">
                             <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Seja o primeiro <br /> a receber nossas novidades!</h2>
                             <p className="mt-4 text-lg leading-8 text-gray-700">Receba ofertas exclusivas e informações sobre nossos produtos. Junte-se a nós e dê o primeiro passo rumo à independência financeira!</p>
                             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -107,7 +107,7 @@ const Newsletter: React.FC = () => {
                                 </div>
                             </form>
                         </div>
-                        <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
+                        <dl data-aos="fade-right" className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                             <div className="flex flex-col items-start">
                                 <div className="rounded-full bg-indigo-100 p-4">
                                     <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">

@@ -19,7 +19,7 @@ const Benefits: React.FC = () => {
                                     <div className="relative pl-9">
                                         <FaSquareCheck className="absolute left-1 top-1 h-5 w-5 text-indigo-600" aria-hidden="true" />
                                         <dt className="inline font-semibold text-gray-900">Facilidade de aprovação.</dt>
-                                        <dd className="inline"> Nosso sistema permite um processo rápido e simples para acessar o seu crédito com agilidade.</dd>
+                                        <dd className="inline"> Nosso sistema permite um processo rápido e simples para acessar o seu crédito e investimento com agilidade.</dd>
                                     </div>
                                     <div className="relative pl-9">
                                         <SiBuzzfeed className="absolute left-1 top-1 h-5 w-5 text-indigo-600" aria-hidden="true" />
