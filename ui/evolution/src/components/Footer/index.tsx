@@ -5,17 +5,17 @@ const Footer: React.FC = () => {
         <footer className="bg-gray-900 text-white py-8">
             <div data-aos="zoom-in" className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 {/* Company Name and Description */}
-                <div className="flex space-x-3">
+                <div className="flex flex-col items-center md:items-start space-x-0 md:flex-row md:space-x-3 justify-center">
                     <img 
                         src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" 
                         alt="Logo" 
                         className="w-10 h-10 pb-2"
                     />
-                    <h2 className="text-xl font-semibold">Capital Invictus</h2>
+                    <h2 className="text-xl font-semibold mt-2 md:mt-0 text-center md:text-left">Capital Invictus</h2>
                 </div>
 
                 {/* Solutions */}
-                <div>
+                <div className='hidden md:block'>
                     <h3 className="text-xl font-semibold mb-3">Soluções</h3>
                     <ul className="space-y-1">
                         <li><a href="/loan" className="text-gray-400 hover:text-gray-300">Crédito</a></li>
@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 {/* Support */}
-                <div>
+                <div className='hidden md:block'>
                     <h3 className="text-xl font-semibold mb-3">Suporte</h3>
                     <ul className="space-y-1">
                         <li><a href="#" className="text-gray-400 hover:text-gray-300">Pricing</a></li>
@@ -35,7 +35,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 {/* Company */}
-                <div>
+                <div className='hidden md:block'>
                     <h3 className="text-xl font-semibold mb-3">Empresa</h3>
                     <ul className="space-y-1">
                         <li><a href="/" className="text-gray-400 hover:text-gray-300">Home</a></li>
@@ -47,7 +47,7 @@ const Footer: React.FC = () => {
                 </div>
 
                 {/* Legal */}
-                <div>
+                <div className='hidden md:block'>
                     <h3 className="text-xl font-semibold mb-3">Jurídico</h3>
                     <ul className="space-y-1">
                         <li><a href="#" className="text-gray-400 hover:text-gray-300">Termos</a></li>

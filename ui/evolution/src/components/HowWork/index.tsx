@@ -1,11 +1,12 @@
 import React from 'react';
 import { RiCheckDoubleFill } from "react-icons/ri";
+import { Link } from 'react-router-dom';
 
 const HowWork: React.FC = () => {
 
     return (
         <>
-            <div className="py-24 sm:py-16">
+            <div className="py-14 sm:py-16">
                 <div className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl" aria-hidden="true">
                     <div
                         className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#00aaff] to-[#005f99] opacity-30"
@@ -17,7 +18,7 @@ const HowWork: React.FC = () => {
                 <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
                     <div data-aos="zoom-in">
                         <h2 className="text-center text-base/7 font-semibold text-indigo-600">Como funciona?</h2>
-                        <p className="mx-auto mt-2 max-w-4xl text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">Conheça o processo para adquirir o seu crédito</p>
+                        <p className="mx-auto mt-2 max-w-4xl text-balance text-center font-semibold tracking-tight text-gray-950 text-2xl sm:text-5xl">Conheça o processo para adquirir o seu crédito</p>
                     </div>
                     <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
                         <div data-aos="slide-right" className="relative lg:row-span-2">
@@ -40,7 +41,7 @@ const HowWork: React.FC = () => {
                             </div>
                             <div className="pointer-events-none absolute inset-px rounded-lg shadow ring-1 ring-black/5 lg:rounded-l-[2rem]"></div>
                         </div>
-                        <div data-aos="fade-down" className="relative max-lg:row-start-1">
+                        <div data-aos="fade-down" className="relative max-lg:row-start-2">
                             <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
                             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
@@ -79,7 +80,7 @@ const HowWork: React.FC = () => {
                         <div data-aos="zoom-in" className="relative lg:row-span-2">
                             <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-b-[2rem] lg:rounded-r-[2rem]"></div>
                             <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-b-[calc(2rem+1px)] lg:rounded-r-[calc(2rem+1px)]">
-                                <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                                <div className="px-8 pb-3 pt-48 sm:px-10 sm:pb-0 sm:pt-10">
                                     <div className="flex items-center">
                                         <div className="rounded-full bg-green-100 p-2">
                                             <RiCheckDoubleFill className="h-6 w-6 text-green-600" />
@@ -98,6 +99,11 @@ const HowWork: React.FC = () => {
                         </div>
                     </div>
                 </div>
+
+                <Link to={'/loan'} className='text-center flex justify-center'>
+                    <div className="mt-8 block max-auto rounded-md bg-indigo-500 px-10 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Solicitar créditor</div>
+                </Link>
+
             </div>
         </>
     );

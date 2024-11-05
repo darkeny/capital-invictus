@@ -27,16 +27,16 @@ const CoreValues: React.FC = () => {
                     }}
                 />
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto max-w-7xl px-7 lg:px-8">
                 <div data-aos="zoom-in" className="text-center">
                     <h2 className="text-base font-semibold leading-4 text-indigo-600">Nossos valores</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Valores que Guiam Nossa Trajetória</p>
-                    <p className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+                    <p className="mt-2 font-bold tracking-tight text-gray-900 text-2xl sm:text-4xl">Valores que Guiam Nossa Trajetória</p>
+                    <p className="my-5 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
                         Conheça o que guia nossa jornada e inspira cada passo que damos para apoiar você.
                     </p>
                 </div>
 
-                <div data-aos="fade-up" className="mt-16 grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
+                <div data-aos="fade-up" className="grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
                     {[
                         {
                             icon: <GiBullseye className="mx-auto h-12 w-12 text-indigo-600" />,

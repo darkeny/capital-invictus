@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 const Benefits: React.FC = () => {
     return (
         <>
-            <div className="overflow-hidden bg-white py-24 sm:scroll-py-20">
-                <div className="px-6 lg:px-8">
-                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+            <div className="overflow-hidden bg-white py-16 sm:scroll-py-20">
+                <div className="px-8 lg:px-8">
+                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div data-aos="slide-right" className="lg:pr-8 lg:pt-7">
                             <div className="lg:max-w-lg">
                                 <h2 className="text-base text-center md:text-left font-semibold leading-4 text-indigo-600">Capital Invictus</h2>
@@ -35,7 +35,7 @@ const Benefits: React.FC = () => {
                                 {/* Botão Saber Mais */}
                                 <div className="flex justify-center md:justify-start">
                                     <Link to="/services">
-                                        <div className="inline-block mt-8 md:mt-5 rounded-md bg-blue-600 px-10 py-1 text-center text-normal font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                        <div className="inline-block mt-5 md:mt-5 rounded-md bg-blue-600 px-10 py-2 text-center text-normal font-semibold text-white shadow-md hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                                             Saber Mais
                                         </div>
                                     </Link>

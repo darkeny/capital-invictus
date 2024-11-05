@@ -5,6 +5,7 @@ import { OurServices } from "../../components/OurService";
 import { ForWhom } from "../../components/ForWhom";
 import { InvestmentPackages } from "../../components/InvestmentPackages";
 import { WhyInvest } from "../../components/WhyInvest";
+import { FinancialConsulting } from "../../components/FinancialConsulting";
 
 const Services: React.FC = () => {
     return (
@@ -13,6 +14,7 @@ const Services: React.FC = () => {
                 <Navbar />
             </div>
             <OurServices />
+            <FinancialConsulting />
             <ForWhom />
             <WhyInvest />
             <InvestmentPackages />

@@ -8,15 +8,15 @@ import { Link } from 'react-router-dom';
 const WhyInvest: React.FC = () => {
     return (
         <>
-            <div className="container mx-auto max-w-screen-xl overflow-hidden bg-white py-24 sm:scroll-py-20">
+            <div className="container px-3 mx-auto max-w-screen-xl overflow-hidden bg-white py-24 sm:scroll-py-20">
                 <div className="px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div data-aos="fade-up" className="lg:pr-8">
                             <div className="lg:max-w-lg">
                                 <h2 className="text-base text-center md:text-left font-semibold leading-4 text-indigo-600">Porquê?</h2>
                                 <p className="mt-2 text-2xl text-center md:text-left font-bold tracking-tight text-gray-900 md:text-4xl">Investir na capital invictus?</p>
-                                <p className="my-5 text-lg leading-8 text-gray-600">
-                                    Rentabilidade alta, Baixas taxas de manutenção de capital, Segurança e transparência, Facilidade de adesão, sem burocracias, Garantia de retorno de investimento.
+                                <p className="my-5 text-justify md:text-left  text-lg leading-8 text-gray-600">
+                                    Rentabilidade alta, sem taxas de manutenção de capital, segurança e transparência, facilidade de adesão, sem burocracias, garantia de retorno de investimento.
                                 </p>
                                 <dl className="max-w-xl space-y-5 text-base leading-7 text-gray-600 lg:max-w-none">
                                     <div className="relative pl-9">
@@ -38,21 +38,23 @@ const WhyInvest: React.FC = () => {
                             </div>
                         </div>
                         <div className="mx-auto grid max-w-lg grid-cols-1 justify-center items-center gap-y-6 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2 gap-x-8">
-                            <div data-aos="fade-right" className="rounded-3xl bg-white/60 p-8 ring-1 ring-red-500 sm:p-10">
-                                <PiPiggyBankFill className="h-9 w-9 text-red-500" aria-hidden="true" />
+                            <div data-aos="fade-right" className="rounded-3xl bg-white/60 p-8 ring-1 ring-r-500 sm:p-10">
+                            <div className="text-center">
+                                <PiPiggyBankFill className="flex h-9 w-9 text-blue-600" aria-hidden="true" />
+                            </div>
                                 <p className="mt-4 flex items-baseline ">
-                                    <span className="text-2xl font-extrabold tracking-tight text-red-500">Conta poupança nos bancos</span>
+                                    <span className="text-2xl font-extrabold tracking-tight text-blue-600">Conta oupança nos bancos</span>
                                 </p>
                                 <p className="mt-6 text-base leading-7 text-gray-600">
                                     Taxa de Administração
                                 </p>
-                                <p className="mt-2 text-sm font-extrabold tracking-tight text-red-500">
+                                <p className="mt-2 text-sm font-extrabold tracking-tight text-blue-600">
                                     Juros Variáveis e Falta de transparência
                                 </p>
                                 <p className="mt-6 text-base leading-7 text-gray-600">
                                     Taxas de lucratividade
                                 </p>
-                                <p className="mt-2 text-xl font-extrabold tracking-tight text-red-500">
+                                <p className="mt-2 text-xl font-extrabold tracking-tight text-blue-600">
                                     1.8% a 2.5%
                                 </p>
                                 <ul className="my-8 pb-3 space-y-3 text-sm leading-6 text-gray-600"></ul>

@@ -84,7 +84,7 @@ const Newsletter: React.FC = () => {
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
                         <div data-aos="zoom-in" className="max-w-xl lg:max-w-lg">
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Seja o primeiro <br /> a receber nossas novidades!</h2>
+                            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">Seja o primeiro <br /> a receber nossas novidades!</h2>
                             <p className="mt-4 text-lg leading-8 text-gray-700">Receba ofertas exclusivas e informações sobre nossos produtos. Junte-se a nós e dê o primeiro passo rumo à independência financeira!</p>
                             <form className="space-y-6" onSubmit={handleSubmit}>
                                 <div className="mt-6 flex max-w-md gap-x-4">
@@ -108,7 +108,7 @@ const Newsletter: React.FC = () => {
                             </form>
                         </div>
                         <dl data-aos="fade-right" className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
-                            <div className="flex flex-col items-start">
+                            <div className="flex flex-col items-center md:items-start">
                                 <div className="rounded-full bg-indigo-100 p-4">
                                     <svg className="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 7v10l6 5 6-5V7m0-4v4l6 5m-6-9L9 7m0-4L3 7m6 0v4m0 0l3-3 3 3" />
@@ -117,7 +117,7 @@ const Newsletter: React.FC = () => {
                                 <dt className="mt-4 font-semibold text-gray-900">Dicas financeiras</dt>
                                 <dd className="mt-2 text-gray-600">Receba conteúdos sobre como gerir suas finanças, economizar e aproveitar melhor seu capital.</dd>
                             </div>
-                            <div className="flex flex-col items-start">
+                            <div className="flex flex-col items-center md:items-start">
                                 <div className="rounded-full bg-green-100 p-4">
                                     <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M4 15l2 2 4-4m5 6h6M12 6h8m-8 8h4M6 18v-6m0 0H2v6m0-6h2" />

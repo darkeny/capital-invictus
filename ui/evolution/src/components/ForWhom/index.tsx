@@ -19,16 +19,16 @@ const ForWhom: React.FC = () => {
                     }}
                 />
             </div>
-            <div className="bg-gray-900 py-20">
+            <div className="bg-gray-900 py-20 px-2">
                 <div data-aos="zoom-in" className="text-center">
                     <h2 className="text-base font-semibold leading-4 pb-5 text-indigo-400">Ideal para quem?</h2>
-                    <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Quem pode se beneficiar dos nossos serviços?</p>
+                    <p className="mt-2 font-bold tracking-tight text-white text-2xl md:text-5xl">Quem pode se beneficiar dos nossos serviços?</p>
                     <p className="mt-6 text-base/7 text-gray-300 leading-8 max-w-2xl mx-auto">
                         A Capital Invictus é dedicado a apoiar indivíduos e empresas em diferentes estágios de crescimento e necessidades.
                     </p>
                 </div>
             </div>
-            <div className="mx-auto max-w-7xl px-6 lg:px-8 pt-20">
+            <div className="mx-auto max-w-7xl px-7 lg:px-8 pt-20">
                 <div data-aos="fade-up" className="mt-16 grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
                     {[
                         {

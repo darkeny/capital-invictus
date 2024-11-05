@@ -26,7 +26,7 @@ const InvestmentPackages: React.FC = () => {
                     <div data-aos="fade-right" className="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-bl-3xl lg:rounded-tr-none">
                         <h3 id="tier-hobby" className="text-xl font-semibold text-indigo-600">Starter</h3>
                         <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-5xl font-extrabold tracking-tight text-gray-900">15.000 mzn</span>
+                            <span className="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900">15.000 mzn</span>
                             <span className="text-base text-gray-500">/ valor mínimo</span>
                         </p>
                         <p className="mt-6 text-base/7 text-gray-600">O plano starter oferece <strong>2.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
@@ -63,7 +63,7 @@ const InvestmentPackages: React.FC = () => {
                     <div data-aos="zoom-in" className="relative rounded-3xl bg-gray-900 p-8 shadow-2xl ring-1 ring-gray-900/10 sm:p-10">
                         <h3 id="tier-enterprise" className="text-xl font-semibold text-indigo-400">Essential</h3>
                         <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-5xl font-semibold tracking-tight text-white">25.000 mzn</span>
+                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-white">25.000 mzn</span>
                             <span className="text-base text-gray-400">/ valor mínimo</span>
                         </p>
                         <p className="mt-6 text-base/7 text-gray-300">O plano partner oferece <strong>4.0%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
@@ -98,7 +98,7 @@ const InvestmentPackages: React.FC = () => {
                     <div data-aos="fade-left" className="rounded-3xl rounded-t-none bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-3xl sm:p-10 lg:mx-0 lg:rounded-bl-none lg:rounded-tr-3xl">
                         <h3 id="tier-hobby" className="text-xl font-semibold text-indigo-600">Premium</h3>
                         <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-5xl font-semibold tracking-tight text-gray-900">50.000 mzn</span>
+                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-gray-900">50.000 mzn</span>
                             <span className="text-base text-gray-500">/ valor mínimo</span>
                         </p>
                         <p className="mt-6 text-base/7 text-gray-600">O plano premium oferece <strong>5.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>

@@ -6,7 +6,7 @@ const OurServices: React.FC = () => {
     return (
         <>
 
-            <div className="relative isolate bg-white px-6 py-12 sm:py-32 lg:px-8">
+            <div className="relative isolate bg-white px-8 py-12 sm:py-32 lg:px-8">
                 <div className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl" aria-hidden="true">
                     <div
                         className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#00aaff] to-[#005f99] opacity-30"
@@ -26,7 +26,7 @@ const OurServices: React.FC = () => {
                     <div data-aos="slide-left" className="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-bl-3xl lg:rounded-tr-none">
                         <h3 id="tier-hobby" className="text-base/7 font-semibold text-indigo-600">Crédito</h3>
                         <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-5xl font-semibold tracking-tight text-gray-900">1000 MT</span>
+                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-gray-900">1000 MT</span>
                             <span className="text-base text-gray-500">/ valor mínimo</span>
                         </p>
                         <p className="mt-6 text-base/7 text-gray-600">Adira já o seu crédito e impulsione os seus investimentos financeiros agora.</p>
@@ -63,7 +63,7 @@ const OurServices: React.FC = () => {
                     <div data-aos="slide-right" className="relative rounded-3xl bg-gray-900 p-8 shadow-2xl ring-1 ring-gray-900/10 sm:p-10">
                         <h3 id="tier-enterprise" className="text-base/7 font-semibold text-indigo-400">Poupança</h3>
                         <p className="py-5 flex items-baseline gap-x-2">
-                            <span className="text-5xl font-semibold tracking-tight text-white">15.000 MT</span>
+                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-white">15.000 MT</span>
                             <span className="text-base text-gray-400">/ valor mínimo</span>
                         </p>
                         <p className="mt-6 text-base/7 text-gray-300">Começe agora investindo connosco com a melhor infraestrutura dedicados para você.</p>
