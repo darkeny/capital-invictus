@@ -200,11 +200,11 @@ const SignUp: React.FC = () => {
 
             <div data-aos="zoom-in" className="flex justify-center items-center min-h-screen">
                 <div className="bg-gradient-to-br from-gray-100 via-white to-gray-100 rounded-lg shadow-xl w-full max-w-screen-2xl p-8 mx-4 relative overflow-hidden before:content-[''] before:absolute before:w-48 before:h-48 before:bg-gradient-to-r before:from-gray-400 before:to-blue-500 before:opacity-20 before:rounded-full before:top-0 before:left-0 before:-translate-x-1/2 before:-translate-y-1/2 after:content-[''] after:absolute after:w-64 after:h-64 after:bg-gradient-to-r after:from-yellow-400 after:to-red-500 after:opacity-20 after:rounded-full after:bottom-0 after:right-0 after:translate-x-1/2 after:translate-y-1/2">
-                    <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Formulário de Inscrição do Cliente</h2>
+                    <h2 className="lg:text-3xl text-xl font-extrabold text-center text-gray-800 mb-6">Formulário de Inscrição do Cliente</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Informação do Cliente */}
                         <div>
-                            <h3 className="text-xl font-bold text-gray-700 mb-4">Informação do Cliente</h3>
+                            <h3 className="lg:text-xl text-md font-bold text-gray-700 mb-4">Informação do Cliente</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="relative">
                                     <label className="block text-sm font-normal text-gray-950">Nome Completo</label>
@@ -362,7 +362,7 @@ const SignUp: React.FC = () => {
                         </div>
                         {showGrantorFields && (
                             <div>
-                                <h3 className="text-xl font-bold text-gray-700 mb-4">Informação do Outorgante</h3>
+                                <h3 className="lg:text-xl text-md font-bold text-gray-700 mb-4">Informação do Outorgante</h3>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                                     <div className="relative">
                                         <label className="block text-sm font-normal text-gray-950">Nome do Outorgante</label>

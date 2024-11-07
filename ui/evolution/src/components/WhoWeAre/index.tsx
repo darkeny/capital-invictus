@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const WhoWeAre: React.FC = () => {
     return (
-        <div className="overflow-hidden px-4 max-w-7xl py-14 sm:py-32 mx-auto">
+        <div className="overflow-hidden px-5 max-w-7xl py-14 sm:py-32 mx-auto">
             <div className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl" aria-hidden="true">
                 <div
                     className="mx-auto aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#00aaff] to-[#319cdf] opacity-30"
@@ -23,7 +23,7 @@ const WhoWeAre: React.FC = () => {
                         <p className="mt-2 text-2xl text-center md:text-left font-bold tracking-tight text-gray-900 md:text-4xl">
                             Quem somos?
                         </p>
-                        <p className="my-5 text-lg text-justify leading-8 text-gray-600">
+                        <p className="my-5 md:text-lg text-sm text-justify md:leading-8 leading-7 text-gray-800">
                             A Capital Invictus é uma organização de poupança e crédito dedicada a transformar sonhos em realidade. Oferecemos microcréditos acessíveis e atendimento personalizado para apoiar indivíduos e pequenas empresas. Com foco na poupança responsável e condições justas, somos parceiros no sucesso financeiro de nossos clientes.
                         </p>
 

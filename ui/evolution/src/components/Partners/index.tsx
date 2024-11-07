@@ -17,10 +17,10 @@ const Partners: React.FC = () => {
                         <h2 className="text-base text-center md:text-left font-semibold leading-4 text-indigo-600">
                             Parcerias
                         </h2>
-                        <p className="mt-2 text-2xl text-center md:text-left font-bold tracking-tight text-gray-900 md:text-4xl">
+                        <p className="mt-2 text-xl text-center md:text-left font-bold tracking-tight text-gray-900 md:text-4xl">
                             Nossos parceiros
                         </p>
-                        <p className="my-5 text-lg text-justify leading-8 text-gray-600">
+                        <p className="my-5 lg:text-lg text-sm text-justify lg:leading-8 leading-7 text-gray-600">
                             A Capital Invictus tem a honra de contar com a OPAC Advogados, SU, Limitada como nosso parceiro estratégico. Com sua vasta experiência jurídica, a OPAC nos oferece proteção e orientação em questões legais, assegurando que nossa empresa esteja bem estruturada. Essa colaboração é essencial para garantir segurança e confiança aos nossos clientes, permitindo que nos concentremos em transformar sonhos em realizações financeiras.
                         </p>
 
