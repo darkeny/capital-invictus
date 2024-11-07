@@ -2,16 +2,16 @@ import React from 'react';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-gray-900 text-white py-8">
+        <footer className="bg-gray-900 text-white py-2 lg:py-8">
             <div data-aos="zoom-in" className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
                 {/* Company Name and Description */}
                 <div className="flex flex-col items-center md:items-start space-x-0 md:flex-row md:space-x-3 justify-center">
-                    <img 
-                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600" 
-                        alt="Logo" 
-                        className="w-10 h-10 pb-2"
+                    <img
+                        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                        alt="Logo"
+                        className="md:w-10 md:h-10 h-8 w-8 lg:pb-2"
                     />
-                    <h2 className="text-xl font-semibold mt-2 md:mt-0 text-center md:text-left">Capital Invictus</h2>
+                    <h2 className="md:text-xl font-semibold md:mt-0 text-center md:text-left">Capital Invictus</h2>
                 </div>
 
                 {/* Solutions */}
@@ -56,8 +56,10 @@ const Footer: React.FC = () => {
                 </div>
             </div>
 
-            <div className="mt-8 border-t border-gray-700 pt-6 text-center text-gray-400">
-                <p>&copy; {new Date().getFullYear()} Capital Invictus. Todos os direitos reservados.</p>
+            <div className="flex px-5 justify-center text-sm  lg:mt-8 mt-4 border-t border-gray-700 pt-4 text-center text-gray-400">
+                <div className="ma">
+                    <p>&copy; {new Date().getFullYear()} Capital Invictus. Todos os direitos reservados.</p>
+                </div>
             </div>
         </footer>
     );

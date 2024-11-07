@@ -18,19 +18,19 @@ const OurServices: React.FC = () => {
                 <div data-aos="zoom-in">
                     <div className="mx-auto max-w-4xl text-center">
                         <h2 className="text-base/7 font-semibold text-indigo-600">Nossos serviços</h2>
-                        <p className="mt-2 text-2xl text-center font-bold tracking-tight text-gray-900 md:text-6xl">Conheça os nossos serviços</p>
+                        <p className="mt-2 text-xl text-center font-bold tracking-tight text-gray-900 md:text-6xl">Conheça os nossos serviços</p>
                     </div>
-                    <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600 sm:text-xl/8">Escolha o serviço que deseja começar que nós o proporcionaremos os melhores recursos e fidelidade para impulsionar seus objectivos.</p>
+                    <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-6 text-gray-600 sm:text-xl/8">Escolha o serviço que deseja começar que nós o proporcionaremos os melhores recursos e fidelidade para impulsionar seus objectivos.</p>
                 </div>
-                <div className="mx-auto mt-16 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
+                <div className="mx-auto mt-10 grid max-w-lg grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-4xl lg:grid-cols-2">
                     <div data-aos="slide-left" className="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-bl-3xl lg:rounded-tr-none">
                         <h3 id="tier-hobby" className="text-base/7 font-semibold text-indigo-600">Crédito</h3>
-                        <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-gray-900">1000 MT</span>
-                            <span className="text-base text-gray-500">/ valor mínimo</span>
+                        <p className="md:mt-4 flex items-baseline gap-x-2">
+                            <span className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-900">1000 MT</span>
+                            <span className="text-sm text-gray-500">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-600">Adira já o seu crédito e impulsione os seus investimentos financeiros agora.</p>
-                        <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
+                        <p className="md:my-6 my-5  text-sm text-gray-600">Adira já o seu crédito e impulsione os seus investimentos financeiros agora.</p>
+                        <ul role="list" className="space-y-2 md:space-y-3 text-sm/6 text-gray-600 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
@@ -62,12 +62,12 @@ const OurServices: React.FC = () => {
                     </div>
                     <div data-aos="slide-right" className="relative rounded-3xl bg-gray-900 p-8 shadow-2xl ring-1 ring-gray-900/10 sm:p-10">
                         <h3 id="tier-enterprise" className="text-base/7 font-semibold text-indigo-400">Poupança</h3>
-                        <p className="py-5 flex items-baseline gap-x-2">
-                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-white">15.000 MT</span>
-                            <span className="text-base text-gray-400">/ valor mínimo</span>
+                        <p className="md:my-6 flex items-baseline gap-x-2">
+                            <span className="text-2xl md:text-5xl font-semibold tracking-tight text-white">15.000 MT</span>
+                            <span className="text-sm text-gray-400">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-300">Começe agora investindo connosco com a melhor infraestrutura dedicados para você.</p>
-                        <ul role="list" className="py-2 mt-8 space-y-3 text-sm/6 text-gray-300 sm:mt-10">
+                        <p className="md:mt-6 my-4 text-sm text-gray-300">Começe agora investindo connosco com a melhor infraestrutura dedicados para você.</p>
+                        <ul role="list" className="py-3 space-y-2 md:space-y-3 text-sm/6 text-gray-300 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
@@ -93,7 +93,7 @@ const OurServices: React.FC = () => {
                                 Tempo de resposta de suporte 24 horas
                             </li>
                         </ul>
-                        <a onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })} aria-describedby="tier-enterprise" className="mt-8 block rounded-md bg-indigo-500 px-3.5 py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Começar a investir</a>
+                        <a onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })} aria-describedby="tier-enterprise" className="mt-4 block rounded-md bg-indigo-500 px-3.5 py-3 md:py-4 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 sm:mt-10">Começar a investir</a>
                     </div>
                 </div>
             </div>

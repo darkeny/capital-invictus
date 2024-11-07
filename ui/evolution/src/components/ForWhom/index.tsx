@@ -10,7 +10,7 @@ const ForWhom: React.FC = () => {
     };
 
     return (
-        <div className="relative overflow-hidden py-10 sm:pb-24">
+        <div className="relative overflow-hidden pb-6">
             <div className="absolute inset-x-0 -top-150 -z-10 transform-gpu overflow-hidden px-36 blur-3xl" aria-hidden="true">
                 <div
                     className="mx-auto aspect-[1155/778] w-[72.1875rem] bg-gradient-to-tr from-[#00aaff] to-[#005f99] opacity-30"
@@ -19,45 +19,45 @@ const ForWhom: React.FC = () => {
                     }}
                 />
             </div>
-            <div className="bg-gray-900 py-20 px-2">
-                <div data-aos="zoom-in" className="text-center">
-                    <h2 className="text-base font-semibold leading-4 pb-5 text-indigo-400">Ideal para quem?</h2>
-                    <p className="mt-2 font-bold tracking-tight text-white text-2xl md:text-5xl">Quem pode se beneficiar dos nossos serviços?</p>
-                    <p className="mt-6 text-base/7 text-gray-300 leading-8 max-w-2xl mx-auto">
+            <div className="bg-gray-900 py-10 lg:py-20 px-2">
+                <div data-aos="zoom-in" className="px-3 text-center">
+                    <h2 className="text-base font-semibold leading-4 text-indigo-400">Ideal para quem?</h2>
+                    <p className="mt-2 font-bold tracking-tight text-white text-xl md:text-5xl">Quem pode se beneficiar dos nossos serviços?</p>
+                    <p className="md:mt-6  mt-4 md:text-base/7 text-sm text-gray-300 leading-8 max-w-2xl mx-auto">
                         A Capital Invictus é dedicado a apoiar indivíduos e empresas em diferentes estágios de crescimento e necessidades.
                     </p>
                 </div>
             </div>
-            <div className="mx-auto max-w-7xl px-7 lg:px-8 pt-20">
-                <div data-aos="fade-up" className="mt-16 grid grid-cols-1 gap-y-12 lg:grid-cols-3 lg:gap-x-8">
+            <div className="mx-auto max-w-7xl px-7 lg:px-8 lg:py-20">
+                <div data-aos="fade-up" className="mt-16 grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:gap-x-8">
                     {[
                         {
-                            icon: <FaUserTie className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaUserTie className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Pequenos Empreendedores",
                             description: "Donos de pequenas empresas e startups que precisam de capital para crescimento e novos projetos."
                         },
                         {
-                            icon: <FaLightbulb className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaLightbulb className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Indivíduos em Crescimento Pessoal",
                             description: "Pessoas que buscam apoio financeiro para realizar sonhos pessoais, como educação ou reformas."
                         },
                         {
-                            icon: <FaBriefcase className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaBriefcase className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Microempresas",
                             description: "Empresas de pequeno porte que precisam de crédito para operar e adquirir novos equipamentos."
                         },
                         {
-                            icon: <FaUsers className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaUsers className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Empreendedores Locais",
                             description: "Profissionais que desejam desenvolver projetos locais e comunitários."
                         },
                         {
-                            icon: <FaWrench className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaWrench className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Trabalhadores Autônomos",
                             description: "Freelancers que precisam de um impulso financeiro para expandir suas atividades."
                         },
                         {
-                            icon: <FaChalkboardTeacher className="mx-auto h-12 w-12 text-indigo-600" />,
+                            icon: <FaChalkboardTeacher className="mx-auto md:h-10 md:w-10 h-8 w-8 text-indigo-600" />,
                             title: "Educadores e Treinadores",
                             description: "Profissionais da educação que desejam investir em recursos para melhorar suas aulas e cursos."
                         }
@@ -70,8 +70,8 @@ const ForWhom: React.FC = () => {
                         >
                             <div>
                                 {target.icon}
-                                <h3 className="mt-4 text-xl font-bold text-gray-900">{target.title}</h3>
-                                <p className={`mt-4 text-base leading-7 text-gray-600 ${expandedIndex === index ? '' : 'line-clamp-6'}`}>
+                                <h3 className="mt-3 md:text-xl text-md font-bold text-gray-900">{target.title}</h3>
+                                <p className={`mt-3 lg:text-base text-sm leading-7 text-gray-600 ${expandedIndex === index ? '' : 'line-clamp-6'}`}>
                                     {target.description}
                                 </p>
                             </div>

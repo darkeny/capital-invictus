@@ -18,19 +18,19 @@ const InvestmentPackages: React.FC = () => {
                 <div data-aos="zoom-in">
                     <div className="mx-auto max-w-7xl text-center">
                         <h2 className="text-base/7 font-semibold text-indigo-600">Planos de investimento</h2>
-                        <p className="mt-2 text-2xl text-center font-bold tracking-tight text-gray-900 md:text-6xl">Conheça os planos de investimento</p>
+                        <p className="mt-2 text-xl text-center font-bold tracking-tight text-gray-900 md:text-6xl">Conheça os planos de investimento</p>
                     </div>
-                    <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600 sm:text-xl/8">Escolha o plano que deseja investir que nós o proporcionaremos os melhores recursos e fidelidade para impulsionar seus objectivos.</p>
+                    <p className="mx-auto md:mt-6 mt-4 max-w-2xl text-center md:text-lg text-sm leading-8 text-gray-600 sm:text-xl/8">Escolha o plano que deseja investir que nós o proporcionaremos os melhores recursos e fidelidade para impulsionar seus objectivos.</p>
                 </div>
-                <div className="mx-auto mt-16 grid grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-screen-2xl lg:grid-cols-3">
+                <div className="mx-auto mt-10 grid grid-cols-1 items-center gap-y-6 sm:mt-20 sm:gap-y-0 lg:max-w-screen-2xl lg:grid-cols-3">
                     <div data-aos="fade-right" className="rounded-3xl rounded-t-3xl bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-none sm:p-10 lg:mx-0 lg:rounded-bl-3xl lg:rounded-tr-none">
                         <h3 id="tier-hobby" className="text-xl font-semibold text-indigo-600">Starter</h3>
-                        <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-3xl md:text-5xl font-extrabold tracking-tight text-gray-900">15.000 mzn</span>
-                            <span className="text-base text-gray-500">/ valor mínimo</span>
+                        <p className="md:mt-4 flex items-baseline gap-x-2">
+                            <span className="text-2xl md:text-5xl font-extrabold tracking-tight text-gray-900">15.000 mzn</span>
+                            <span className="md:text-base text-sm text-gray-500">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-600">O plano starter oferece <strong>2.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
-                        <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
+                        <p className="md:mt-6 mt-4 md:text-base/7 text-sm text-gray-600">O plano starter oferece <strong>2.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
+                        <ul role="list" className="mt-8 md:space-y-3 space-y-2 text-sm/6 text-gray-600 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
@@ -62,12 +62,12 @@ const InvestmentPackages: React.FC = () => {
                     </div>
                     <div data-aos="zoom-in" className="relative rounded-3xl bg-gray-900 p-8 shadow-2xl ring-1 ring-gray-900/10 sm:p-10">
                         <h3 id="tier-enterprise" className="text-xl font-semibold text-indigo-400">Essential</h3>
-                        <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-white">25.000 mzn</span>
-                            <span className="text-base text-gray-400">/ valor mínimo</span>
+                        <p className="md:mt-4 flex items-baseline gap-x-2">
+                            <span className="text-2xl md:text-5xl font-semibold tracking-tight text-white">25.000 mzn</span>
+                            <span className="md:text-base text-sm text-gray-400">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-300">O plano partner oferece <strong>4.0%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
-                        <ul role="list" className="py-6 mt-8 space-y-3 text-sm/6 text-gray-300 sm:mt-10">
+                        <p className="md:mt-6 mt-4 md:text-base/7 text-sm text-gray-300">O plano partner oferece <strong>4.0%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
+                        <ul role="list" className="md:py-6 mt-8 md:space-y-3 space-y-2 text-sm/6 text-gray-300 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />
@@ -97,12 +97,12 @@ const InvestmentPackages: React.FC = () => {
                     </div>
                     <div data-aos="fade-left" className="rounded-3xl rounded-t-none bg-white/60 p-8 ring-1 ring-gray-900/10 sm:mx-8 sm:rounded-b-3xl sm:p-10 lg:mx-0 lg:rounded-bl-none lg:rounded-tr-3xl">
                         <h3 id="tier-hobby" className="text-xl font-semibold text-indigo-600">Premium</h3>
-                        <p className="mt-4 flex items-baseline gap-x-2">
-                            <span className="text-3xl md:text-5xl font-semibold tracking-tight text-gray-900">50.000 mzn</span>
-                            <span className="text-base text-gray-500">/ valor mínimo</span>
+                        <p className="md:mt-4 flex items-baseline gap-x-2">
+                            <span className="text-2xl md:text-5xl font-semibold tracking-tight text-gray-900">50.000 mzn</span>
+                            <span className="md:text-base text-sm text-gray-500">/ valor mínimo</span>
                         </p>
-                        <p className="mt-6 text-base/7 text-gray-600">O plano premium oferece <strong>5.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
-                        <ul role="list" className="mt-8 space-y-3 text-sm/6 text-gray-600 sm:mt-10">
+                        <p className="md:mt-6 mt-4 md:text-base/7 text-sm text-gray-600">O plano premium oferece <strong>5.5%</strong> de taxa de lucro a ser arecadado todos os meses.</p>
+                        <ul role="list" className="mt-8 md:space-y-3 space-y-2 text-sm/6 text-gray-600 sm:mt-10">
                             <li className="flex gap-x-3">
                                 <svg className="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clipRule="evenodd" />

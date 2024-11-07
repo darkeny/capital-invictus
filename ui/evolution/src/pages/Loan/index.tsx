@@ -187,11 +187,11 @@ const Loan: React.FC = () => {
             <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
             <div data-aos="zoom-in" className="flex justify-center items-center min-h-screen">
                 <div className="bg-gradient-to-br from-gray-100 via-white to-gray-100 rounded-lg shadow-xl w-full max-w-screen-xl p-8 mx-4 relative overflow-hidden before:content-[''] before:absolute before:w-48 before:h-48 before:bg-gradient-to-r before:from-gray-400 before:to-blue-500 before:opacity-20 before:rounded-full before:top-0 before:left-0 before:-translate-x-1/2 before:-translate-y-1/2 after:content-[''] after:absolute after:w-64 after:h-64 after:bg-gradient-to-r after:from-yellow-400 after:to-red-500 after:opacity-20 after:rounded-full after:bottom-0 after:right-0 after:translate-x-1/2 after:translate-y-1/2">
-                    <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-6">Solicitação de Empréstimo</h2>
+                    <h2 className="lg:text-3xl text-xl font-extrabold text-center text-gray-800 mb-6">Solicitação de Empréstimo</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Informação do Empréstimo */}
                         <div>
-                            <h3 className="text-xl font-bold text-gray-700 mb-4">Informação do Empréstimo</h3>
+                            <h3 className="lg:text-xl text-md font-bold text-gray-700 mb-4">Informação do Empréstimo</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                                 <div className="relative">
