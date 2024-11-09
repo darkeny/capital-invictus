@@ -10,7 +10,7 @@ import { FinancialConsulting } from "../../components/FinancialConsulting";
 const Services: React.FC = () => {
     return (
         <>
-            <div className="container mx-auto px-4 sm:px-8">
+            <div className="container mx-auto px-4">
                 <Navbar />
             </div>
             <OurServices />

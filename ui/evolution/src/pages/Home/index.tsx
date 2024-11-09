@@ -10,6 +10,7 @@ import { Footer } from "../../components/Footer";
 import { CoreValues } from "../../components/CoreValues";
 import { Newsletter } from "../../components/Newslleter";
 import { WhoWeAre } from "../../components/WhoWeAre";
+import { Statistics } from "../../components/Statistics";
 
 export function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -23,7 +24,9 @@ export function Home() {
 
   return (
     <>
-      <Navbar />
+      <div className="container mx-auto px-4">
+        <Navbar />
+      </div>
       {showModal && <AlertPopUp />}
       <Section className="relative overflow-x-hidden">
         {/* Video Background */}
@@ -46,23 +49,23 @@ export function Home() {
 
         {/* Content */}
         <PageContainer className="relative z-20">
-          <section className="flex flex-col-reverse md:flex-row items-center justify-between min-h-[60vh] gap-4  my-10 p-4 md:p-10">
+          <section className="flex max-w-4xl flex-col-reverse md:flex-row items-center justify-between min-h-[64vh]">
             <div className="flex-1 text-white text-center md:text-left mt-6 md:mt-0">
               <h1
-                data-aos="fade-up"
-                className="font-extrabold uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight"
+                data-aos="slide-right"
+                className="font-extrabold uppercase text-2xl sm:text-4xl md:text-4xl lg:text-5xl leading-tight"
               >
-                <div className="min-h-[100px] md:min-h-[150px]">
+                <div className="min-h-[107px] md:min-h-[100px]">
                   <Typewriter
                     options={{
                       strings: [
-                        "Não é só sobre o dinheiro, mas pela confiança",
-                        "Assegure o que importa e avance com tranquilidade"
+                        "Não é apenas sobre o<br/>dinheiro, mas pela confiança",
+                        "Garanta um futuro<br/>próspero e seguro agora!"
                       ],
                       autoStart: true,
                       loop: true,
-                      delay: 75,
-                      deleteSpeed: 85,
+                      delay: 80,
+                      deleteSpeed: 15,
                     }}
                   />
                 </div>
@@ -71,22 +74,22 @@ export function Home() {
                 </span>
               </h1>
               <div
-                data-aos="fade-up"
+                data-aos="slide-right"
                 className="flex flex-col sm:flex-row items-center justify-center md:justify-start mt-6 space-y-4 sm:space-y-0 sm:space-x-4"
               >
                 <Link to="/loan">
-                  <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg shadow-lg text-lg transition-all duration-300">
+                  <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-6 rounded-lg shadow-lg text-lg transition-all duration-300">
                     Solicitar Crédito
                   </button>
                 </Link>
                 <Link to="/services">
-                  <button className="border border-white text-white hover:bg-white hover:text-blue-800 font-bold py-2 px-6 rounded-lg shadow-lg text-lg transition-all duration-300">
+                  <button className="ring-1 ring-white text-white hover:bg-white hover:text-blue-800 font-bold py-3 px-6 rounded-lg shadow-lg text-lg transition-all duration-300">
                     Fazer Poupança
                   </button>
                 </Link>
               </div>
             </div>
-            <div className="flex flex-1  items-center justify-center w-full md:w-auto">
+            <div className="flex  items-center justify-center w-full md:w-auto">
               {/* <img
                 src="/back.gif"
                 alt="Descrição da imagem"
@@ -107,9 +110,11 @@ export function Home() {
             <p className="text-sm md:text-lg leading-7 text-gray-600 mt-4">
               Proteja seus sonhos! Comece a poupar hoje e veja seu dinheiro crescer com confiança. Com a Capital Invictus, seu futuro está mais próximo de você.
             </p>
-            <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 md:py-3 px-3 md:px-8 rounded-lg shadow-lg text-base md:text-lg md:mt-6 mt-3 transition-all duration-300">
-              Começar a investir
-            </button>
+            <Link to={'/services'}>
+              <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 md:py-3 px-3 md:px-8 rounded-lg shadow-lg text-base md:text-lg md:mt-6 mt-3 transition-all duration-300">
+                Começar a investir
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -121,6 +126,7 @@ export function Home() {
         <Benefits />
       </div>
       <CoreValues />
+      <Statistics />
       <Newsletter />
       <Footer />
     </>
