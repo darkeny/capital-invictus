@@ -13,7 +13,7 @@ const About: React.FC = () => {
         <WhoWeAre />
       </div>
       {/* Seção com fundo claro e figuras geométricas no lado direito */}
-      <div className="relative bg-gray-200 text-gray-800 w-full overflow-hidden">
+      <div className="relative bg-gray-200 w-full overflow-hidden">
         <CoreValues />
       </div>
       <Partners />

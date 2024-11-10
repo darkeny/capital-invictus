@@ -3,9 +3,9 @@ import { Request, Response } from 'express';
 import { PrismaClient } from '@prisma/client'; // Importar o cliente Prisma
 
 const prisma = new PrismaClient(); // Instanciar o cliente Prisma
-
 const getUserInfo = async (req: Request, res: Response) => {
     try {
+        //@ts-ignore
         const user = req.user; // Contém o payload JWT
         const userId = user.userId; // Obter o ID do usuário do token
 

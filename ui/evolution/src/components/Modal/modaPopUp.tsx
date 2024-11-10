@@ -20,10 +20,10 @@ const AlertPopUp: React.FC = () => {
                     id="static-modal"
                     tabIndex={-1}
                     aria-hidden="true"
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
+                    className="fixed px-4 inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 transition-opacity duration-300"
                 >
                     <div
-                        className="relative z-10 bg-white rounded-lg shadow-xl transform transition-all duration-300 sm:my-8 sm:max-w-lg w-full p-6"
+                        className="relative z-10 bg-white rounded-lg shadow-xl transform transition-all duration-300 sm:my-8 sm:max-w-lg w-full p-2 md:p-6"
                         aria-labelledby="modal-title"
                         role="dialog"
                         aria-modal="true"
@@ -51,11 +51,11 @@ const AlertPopUp: React.FC = () => {
                                     Inscreva-se para a Capital Invictus
                                 </h1>
                                 <p className="mt-6 text-lg leading-8 text-gray-600">
-                                Aproveite esta oportunidade! Alcance seus objetivos e faça seus negócios crescerem!.
+                                    Aproveite esta oportunidade! Alcance seus objetivos e faça seus negócios crescerem!.
                                 </p>
                             </div>
                             <div className="absolute inset-0 z-10">
-                                <div className="relative w-full h-full bg-gradient-to-tr from-[#f97316] to-[#fb8e43] opacity-10 blur-3xl"></div>
+                                <div className="relative w-full h-full bg-gradient-to-tr from-[#5c84ce] to-[#5492e2] opacity-10 blur-3xl"></div>
                             </div>
                             <div className="text-center mt-4 relative z-20">
                                 <button

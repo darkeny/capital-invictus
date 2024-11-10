@@ -56,16 +56,16 @@ const Contact: React.FC = () => {
                 <Navbar />
             </header>
             <main className='bg-gray-10'>
-                <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 ">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
                     <div className="hidden md:block absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
                     <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
 
-                    <div data-aos="zoom-in" className="mx-auto max-w-8xl py-24 sm:px-10 sm:py-32 lg:px-8">
-                        <div className="relative isolate overflow-hidden bg-slate-100 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
+                    <div data-aos="zoom-in" className="mx-auto max-w-8xl sm:px-10 sm:py-32 lg:px-8">
+                        <div className="relative isolate overflow-hidden bg-slate-100 px-6 py-5 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0">
                             <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
-                                <h2 className="text-3xl font-bold tracking-tight text-blue-950 sm:text-4xl">Caro Cliente, <br /> Fale connosco aqui!
+                                <h2 className="text-2xl font-bold tracking-tight text-blue-950 sm:text-4xl">Caro Cliente, <br /> Fale connosco aqui!
                                 </h2>
-                                <p className="mt-4 text-sm leading-6 text-gray-700 sm:mt-6 sm:text-base sm:leading-8">Estimado Cliente, este é o seu espaço para compartilhar mensagens e informações. Envie-nos sua mensagem e estamos prontos para ajudar. Aguardamos o seu Contacto!</p>
+                                <p className="my-4 text-sm leading-6 text-gray-700 sm:mt-6 sm:text-base sm:leading-8">Estimado Cliente, este é o seu espaço para compartilhar mensagens e informações. Envie-nos sua mensagem e estamos prontos para ajudar. Aguardamos o seu Contacto!</p>
                             </div>
                             <div className="mx-auto  lg:mx-0 lg:flex-auto lg:mt-0 md:pt-24">
                                 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -108,22 +108,21 @@ const Contact: React.FC = () => {
                                             ></textarea>
                                         </div>
                                     </div>
-                                    <div className='pb-20'>
-                                        <button
-                                            type="submit"
-                                            className="w-full rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
-                                            disabled={loading}
-                                        >
-                                            {loading ? (
-                                                <div className="flex items-center justify-center">
-                                                    <FaSpinner className="animate-spin h-5 w-5" />
-                                                    <span className="ml-2">Enviando...</span>
-                                                </div>
-                                            ) : (
-                                                'Enviar'
-                                            )}
-                                        </button>
-                                    </div>
+
+                                    <button
+                                        type="submit"
+                                        className="w-full rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+                                        disabled={loading}
+                                    >
+                                        {loading ? (
+                                            <div className="flex items-center justify-center">
+                                                <FaSpinner className="animate-spin h-5 w-5" />
+                                                <span className="ml-2">Enviando...</span>
+                                            </div>
+                                        ) : (
+                                            'Enviar'
+                                        )}
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -131,7 +130,7 @@ const Contact: React.FC = () => {
                 </div>
             </main>
             <Alert text={alertText} isOpen={isModalOpen} onClose={handleCloseModal} />
-            
+
             {isModalSuccessOpen && (
                 <SuccessAlert
                     isOpen={isModalSuccessOpen}

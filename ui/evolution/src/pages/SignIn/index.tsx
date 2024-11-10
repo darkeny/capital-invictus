@@ -92,7 +92,7 @@ const SignIn: React.FC = () => {
                     <div className="w-full md:w-1/2 flex flex-col items-center">
                         <a href='/' className="flex flex-col items-center justify-start">
                             <div className="flex flex-col items-center">
-                                <span className='px-5 text-xl pt-20'>Faça login para entrar na sua conta</span>
+                                <span className='px-5 lg:text-xl text-md pt-20'>Faça login para entrar na sua conta</span>
                             </div>
                         </a>
 

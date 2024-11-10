@@ -102,14 +102,14 @@ const ClientPanel: React.FC = () => {
                 </nav>
 
                 <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                        <h1 className="text-2xl font-extralight text-gray-900">Painel do Usúario</h1>
+                    <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+                        <h1 className="text-2xl font-extralight text-gray-900">Painel do usúario</h1>
                     </div>
                 </header>
-                <main className='bg-gray-10 mx-44'>
+                <main className='bg-gray-10 md:mx-44'>
                     <div className="mx-auto  px-4 py-6 sm:px-6 lg:px-8 ">
-                        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
-                        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
+                        {/* <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.200),white)] opacity-20"></div>
+                        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div> */}
                         {/* <!-- Your content --> */}
                         {renderContent()}
                     </div>

@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
                             <NavLink to="/howabout" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Como Funciona</NavLink>
                             <NavLink to="/contact" className={({ isActive }) => `block text-sm font-normal leading-6 px-3 py-2 ${isActive ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-900 hover:text-blue-500'} whitespace-nowrap`}>Contactos</NavLink>
                             <button onClick={handleRedirect} className='block w-full text-left rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'>
-                                Área do Cliente
+                                Inscreva-se
                             </button>
                         </div>
                     </div>
