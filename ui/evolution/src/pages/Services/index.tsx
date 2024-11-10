@@ -6,6 +6,7 @@ import { ForWhom } from "../../components/ForWhom";
 import { InvestmentPackages } from "../../components/InvestmentPackages";
 import { WhyInvest } from "../../components/WhyInvest";
 import { FinancialConsulting } from "../../components/FinancialConsulting";
+import { ConsultingModal } from "../../components/Modal/ConsultingModal";
 
 const Services: React.FC = () => {
     return (
@@ -19,6 +20,7 @@ const Services: React.FC = () => {
             <WhyInvest />
             <InvestmentPackages />
             <Footer />
+            <ConsultingModal text="test" subtitles="Obrigado por solicitar uma consulta financeira com os nossos consultores, informe os dados para finalizar" />
         </>
     );
 };
