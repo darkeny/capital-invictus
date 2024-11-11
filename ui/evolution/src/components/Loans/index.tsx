@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { HiOutlineDownload } from 'react-icons/hi';
+import { FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 import { DeleteModal } from '../Modal/deleteModal';
 import { SuccessAlert } from '../Modal/successAlert';
@@ -16,7 +18,6 @@ const Loans: React.FC = () => {
     const { user } = useFetchUserData();
     const apiUrl = import.meta.env.VITE_APP_API_URL;
 
-    console.log('Dados do Usuario:', user)
 
     useEffect(() => {
         fetchLoans();
@@ -111,9 +112,13 @@ const Loans: React.FC = () => {
         <>
             <div className="container mx-auto">
                 <div className="text-right">
-                    <button onClick={handleNavigate} className="mr-8 bg-blue-600 hover:bg-blue-800 text-white font-bold py-1 mb-2 md:py-3 px-10 rounded-lg shadow-lg text-lg transition-all duration-300">
-                        Novo
-                    </button>
+                    {user.role === 'USER' && (
+                        <>
+                            <button onClick={handleNavigate} className="mr-8 bg-blue-600 hover:bg-blue-800 text-white font-bold py-1 mb-2 md:py-3 px-10 rounded-lg shadow-lg text-lg transition-all duration-300">
+                                Novo
+                            </button>
+                        </>
+                    )}
                 </div>
                 <div className="relative text-gray-600 my-2">
                     <input

@@ -4,7 +4,7 @@ import { authenticateJWT } from "../middleware/authMiddleware";
 
 const router = Router();
 
-router.get('/', authenticateJWT, controller.getUserInfo);
+router.get('/', authenticateJWT, controller.getUserData);
 
 
-export { router as UserRouter };
+export { router as UserAuthRouter };

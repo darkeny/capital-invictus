@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GiReceiveMoney, GiTakeMyMoney } from "react-icons/gi";
 import { PiPiggyBankFill } from "react-icons/pi";
 import { FaUserAlt } from "react-icons/fa";
 import { PieChart } from '../Chart/PieGraph';
 import { calculateDaysLeft, CalculationOfFines, useFetchUserData } from '../../utils';
-const apiUrl = import.meta.env.VITE_APP_API_URL;
-
 
 const ClientFinance: React.FC = () => {
     const { user, loan, loading, error } = useFetchUserData();
+    const navigate = useNavigate();
+
+    // Verificar se o usuário tem permissão para acessar a página
+    useEffect(() => {
+        if (user.role && user.role !== 'USER') {
+            navigate('/signin'); // Redirecionar para a página de login (ou qualquer outra) se o papel não for 'USER'
+        }
+    }, [user.role, navigate]);
 
     const today = new Date();
     const loanCreatedAt = new Date(loan.createdAt);
     const endDate = new Date(loanCreatedAt.setDate(loanCreatedAt.getDate() + 31));
     const multas = CalculationOfFines(endDate, today);
-
     const daysLeft = calculateDaysLeft(loan.createdAt, loan.totalDays);
-
-    const TotalMultas = multas / 100 * loan.balanceDue
+    const TotalMultas = (multas / 100) * loan.balanceDue;
 
     const savings = {
         amount: 20000,
@@ -96,7 +101,7 @@ const ClientFinance: React.FC = () => {
                 {/* Nova Seção para o Gráfico de Pizza */}
                 <div className="lg:w-1/3 w-full flex flex-col items-center bg-white p-5 mt-5 rounded-lg shadow-md">
                     <h3 className="text-xl font-semibold mb-4 text-gray-700">Tempo Restante</h3>
-                    <PieChart daysLeft={daysLeft} totalDays={loan.totalDays} /> {/* Usando o componente PieChart */}
+                    <PieChart daysLeft={daysLeft} totalDays={loan.totalDays} />
                 </div>
 
                 <div className="lg:w-2/3 w-full bg-white md:p-6 p-3 mt-5 rounded-lg shadow-md">
