@@ -43,7 +43,7 @@ const loginAdminUser = async (request: Request, response: Response) => {
 
         // Gerar o token JWT
         const token = jwt.sign(
-            { userId: adminUser.id, email: adminUser.email }, // Adiciona mais informações ao payload do token
+            { userId: adminUser.id, email: adminUser.email, role: adminUser.role }, // Adiciona mais informações ao payload do token
             JWT_SECRET,
             { expiresIn: '1h' }
         );

@@ -13,6 +13,7 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET); // Decodifica o token
+        //@ts-ignore
         req.user = decoded; // Armazena o payload do token no request
         next();
     } catch (error) {

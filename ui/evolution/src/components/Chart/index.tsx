@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { FaChessBishop, FaUsers } from 'react-icons/fa';
 import { GiTakeMyMoney } from "react-icons/gi";
 import { HiPencilSquare } from "react-icons/hi2";
@@ -18,6 +18,7 @@ import {
 import { BigNumber } from './bigNumber';
 import { BarGraph } from './barGraph';
 import { LineGraph } from './lineGraph';
+import { useFetchUserData } from '../../utils';
 
 ChartJS.register(
     CategoryScale,
@@ -31,11 +32,21 @@ ChartJS.register(
 );
 
 const Chart: React.FC = () => {
+
     const [clients, setClients] = useState(0);
     const [loans, setLoans] = useState(0);
     const [pawn, setPawn] = useState(0);
     const [newsletter, setNewsletter] = useState(0);
     const apiUrl = import.meta.env.VITE_APP_API_URL;
+    const navigate = useNavigate();
+    const { user, loan, loading, error } = useFetchUserData();
+
+    // Verificar se o usuário tem permissão para acessar a página
+    useEffect(() => {
+        if (user.role && user.role !== 'ADMIN') {
+            navigate('/signin'); // Redirecionar para a página de login (ou qualquer outra) se o papel não for 'USER'
+        }
+    }, [user.role, navigate]);
 
     useEffect(() => {
         // Funções assíncronas separadas para cada requisição
@@ -122,10 +133,10 @@ const Chart: React.FC = () => {
                 borderColor: 'rgba(75, 192, 192, 1)',
                 tension: 0.4,
                 pointBackgroundColor: [
-                    'rgba(54, 162, 235, 1)', 
-                    'rgba(75, 192, 192, 1)', 
-                    'rgba(255, 99, 132, 1)', 
-                    'rgba(255, 206, 86, 1)', 
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 206, 86, 1)',
                 ],
             },
         ],
@@ -155,7 +166,7 @@ const Chart: React.FC = () => {
                 <BigNumber title="Clientes Penhorados" subtitles='Penhorados' value={pawn} icon={<FaChessBishop className="text-blue-500" size={32} />} />
                 <BigNumber title="Newsletter" subtitles='Interessados' value={newsletter} icon={<HiPencilSquare className="text-blue-500" size={32} />} />
             </div>
-            
+
             <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:grid-cols-2">
                 <BarGraph chartData={chartData} chartOptions={chartOptions} />
                 <LineGraph lineChartData={lineChartData} lineChartOptions={lineChartOptions} />
