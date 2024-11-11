@@ -3,17 +3,18 @@ import { FaFileDownload, FaSpinner } from 'react-icons/fa';
 import { FcGoogle } from "react-icons/fc";
 import { Alert } from '../../components/Modal/alert';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
 import { Navbar } from '../../components/Navbar';
 import { useAuth } from '../../auth';
 import { handleError } from '../../handleError';
+
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignIn: React.FC = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userType, setUserType] = useState('user'); // Novo estado para o tipo de usuário
+    const [userType, setUserType] = useState('user');
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState('');
@@ -36,7 +37,6 @@ const SignIn: React.FC = () => {
         setPassword(event.target.value);
     };
 
-    // Função para alterar o tipo de usuário
     const onUserTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setUserType(event.target.value);
     };
@@ -55,25 +55,24 @@ const SignIn: React.FC = () => {
 
         try {
             const requestData = { email, password };
-            // Definir o endpoint baseado no tipo de usuário
             const endpoint = userType === 'admin' ? '/admin/login' : '/user/login';
             const response = await axios.post(`${apiUrl}${endpoint}`, requestData, {
                 headers: { 'Content-Type': 'application/json' },
             });
 
             const { token } = response.data;
-            setAuth(token); // Armazena o token
+            setAuth(token);
             if (userType === 'admin') {
-                navigate('/panel'); // Painel de admin
+                navigate('/panel');
             } else {
-                navigate('/mypanel'); // Painel de usuário comum
+                navigate('/mypanel');
             }
         } catch (error: any) {
-            const errorMessage = handleError(error); // Tratamento de erro centralizado
+            const errorMessage = handleError(error);
             setModalText(errorMessage);
             setModalOpen(true);
         } finally {
-            setLoading(false); // Garantir que loading seja desativado
+            setLoading(false);
         }
     };
 
@@ -118,7 +117,6 @@ const SignIn: React.FC = () => {
                                         </div>
                                     )}
 
-                                    {/* Novo campo para selecionar o tipo de usuário */}
                                     <div className="py-2">
                                         <label htmlFor="userType" className="block text-xs sm:text-sm text-left ml-2 text-gray-600">Você é um:</label>
                                         <select id="userType" name="userType" className="block w-full px-3 py-2 border border-gray-300 rounded-md text-xs sm:text-sm" value={userType} onChange={onUserTypeChange}>
@@ -146,6 +144,14 @@ const SignIn: React.FC = () => {
                                 </button>
                             </div>
                         </form>
+
+                        {/* Link to the signup page */}
+                        <div className="mt-4 text-center">
+                            <span className="text-xs sm:text-sm text-gray-600">
+                                Não tem uma conta?{' '}
+                                <Link to="/signup" className="text-blue-600 hover:underline">Inscreva-se</Link>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

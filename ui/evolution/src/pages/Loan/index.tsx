@@ -4,18 +4,26 @@ import { Alert } from "../../components/Modal/alert";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import axios from "axios";
 import { handleError } from "../../handleError";
+import { useFetchUserData } from "../../utils";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const Loan: React.FC = () => {
+    const { user } = useFetchUserData();
+    const userId = user.userId;
+    const role = user.role;
+
+
     const [formData, setFormData] = useState({
         loanAmount: "",
-        loanTerm: "", // Prazo de pagamento
+        paymentTerm: Number(), // Prazo de pagamento
         paymentMethod: "",
         accountNumber: "", // Número da conta
         collateral: "",
-        installments: "", // Número de parcelas selecionado
-        isPartialPayment: true, // Para o checkbox de pagamento total
+        installments: Number(), // Número de parcelas selecionado
+        isPartialPayment: true, // Para o checkbox de pZgamento total
+        customerId: "",
     });
+
 
     const [error, setError] = useState(""); // Para armazenar mensagens de erro
     const [alertText, setAlertText] = useState('');
@@ -23,31 +31,32 @@ const Loan: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState<File[]>([]); // Para armazenar as imagens da garantia
     const fileInputRef = useRef<HTMLInputElement>(null); // Referência para o campo de arquivos oculto
+    formData.customerId = userId
 
     // Atualiza automaticamente o campo de prazo com base no valor do empréstimo
     useEffect(() => {
         const loanAmountValue = parseFloat(formData.loanAmount);
 
         if (!isNaN(loanAmountValue)) {
-            if (loanAmountValue >= 2000 && loanAmountValue <= 2499) {
+            if (loanAmountValue >= 2500 && loanAmountValue <= 3499) {
                 setFormData(prevState => ({
                     ...prevState,
-                    loanTerm: "14" // duas semanas
+                    paymentTerm: 14 // duas semanas
                 }));
-            } else if (loanAmountValue >= 2500 && loanAmountValue <= 4999) {
+            } else if (loanAmountValue >= 3500 && loanAmountValue <= 4999) {
                 setFormData(prevState => ({
                     ...prevState,
-                    loanTerm: "21" // Três semanas
+                    paymentTerm: 21 // Três semanas
                 }));
             } else if (loanAmountValue >= 5000) {
                 setFormData(prevState => ({
                     ...prevState,
-                    loanTerm: "30" // Um mês
+                    paymentTerm: 30 // Um mês
                 }));
             } else {
                 setFormData(prevState => ({
                     ...prevState,
-                    loanTerm: "" // Reseta o campo se o valor for menor que 1000
+                    paymentTerm: Number() // Reseta o campo se o valor for menor que 1000
                 }));
             }
         }
@@ -60,7 +69,7 @@ const Loan: React.FC = () => {
             setFormData(prevState => ({
                 ...prevState,
                 [name]: checked,
-                installments: checked ? "" : prevState.installments, // Limpa parcelas se o pagamento total for selecionado
+                installments: checked ? Number() : prevState.installments, // Limpa parcelas se o pagamento total for selecionado
             }));
         } else {
             setFormData(prevState => ({
@@ -74,19 +83,13 @@ const Loan: React.FC = () => {
     };
 
     const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { value, checked } = e.target;
-        if (checked) {
-            setFormData(prevState => ({
-                ...prevState,
-                installments: value,
-            }));
-        } else {
-            setFormData(prevState => ({
-                ...prevState,
-                installments: prevState.installments === value ? "" : prevState.installments,
-            }));
-        }
+        const { checked } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            installments: checked ? 0 : NaN, // Usa `NaN` para "resetar" mantendo o tipo `number`
+        }));
     };
+
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const filesList = e.target.files;
@@ -105,16 +108,23 @@ const Loan: React.FC = () => {
         e.preventDefault();
 
         // Validação: Verificar se todos os campos estão preenchidos
-        if (!formData.loanAmount || !formData.paymentMethod || !formData.collateral) {
+        if (!formData.loanAmount || !formData.paymentMethod || !formData.collateral || !formData.accountNumber) {
             setAlertText('Todos os campos são obrigatórios.');
             setIsModalOpen(true);
             return;
         }
 
-        // Validação: Não aceitar valores menores que 1000 MT
+        // Validação: Verificar se é um administrador
+        if (role === "ADMIN") {
+            setAlertText('Administradores não têm permissão para solicitar crédito!');
+            setIsModalOpen(true);
+            return;
+        }
+
+        // Validação: Não aceitar valores menores que 2500 MT
         const loanAmountValue = parseFloat(formData.loanAmount);
-        if (isNaN(loanAmountValue) || loanAmountValue < 1000) {
-            setAlertText("O valor mínimo para solicitar o empréstimo é de 2000 MT.");
+        if (isNaN(loanAmountValue) || loanAmountValue < 2500) {
+            setAlertText("O valor mínimo para solicitar o empréstimo é de 2500 MT.");
             setIsModalOpen(true);
             return;
         }
@@ -136,12 +146,13 @@ const Loan: React.FC = () => {
                 // Limpar o formulário após sucesso
                 setFormData({
                     loanAmount: "",
-                    loanTerm: "", // Prazo de pagamento
+                    paymentTerm: Number(), // Prazo de pagamento
                     paymentMethod: "",
                     accountNumber: "", // Número da conta
-                    collateral: "" ,
-                    installments: "", // Número de parcelas selecionado
+                    collateral: "",
+                    installments: Number(), // Número de parcelas selecionado
                     isPartialPayment: true, // Para o checkbox de pagamento total
+                    customerId: "",
                 });
             } else {
                 // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
@@ -150,12 +161,13 @@ const Loan: React.FC = () => {
                 // Limpar o formulário após sucesso
                 setFormData({
                     loanAmount: "",
-                    loanTerm: "", // Prazo de pagamento
+                    paymentTerm: Number(), // Prazo de pagamento
                     paymentMethod: "",
                     accountNumber: "", // Número da conta
                     collateral: "",
-                    installments: "", // Número de parcelas selecionado
+                    installments: Number(), // Número de parcelas selecionado
                     isPartialPayment: true, // Para o checkbox de pagamento total
+                    customerId: "",
                 });
             }
         } catch (error: any) {
@@ -208,18 +220,33 @@ const Loan: React.FC = () => {
                                         <p className="text-red-500 text-sm mt-2">{error}</p>
                                     )}
                                 </div>
+                                <div className="flex space-x-3">
+                                    <div className="flex-1 relative">
+                                        <label className="block text-sm font-medium text-gray-700">Valor a Pagar (MZN)</label>
+                                        <input
+                                            type="number"
+                                            name="amount"  // Corrigido o nome do campo
+                                            value={parseFloat(formData.loanAmount) * 1.30} // Exibe o valor calculado
+                                            onChange={handleInputChange}  // Pode ser mantido se necessário para outros inputs
+                                            placeholder="O valor a pagar será preenchido automaticamente"
+                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                            readOnly  // Impede a edição
+                                        />
 
-                                <div className="relative">
-                                    <label className="block text-sm font-medium text-gray-700">Prazo de Pagamento (dias)</label>
-                                    <input
-                                        type="number"
-                                        name="loanTerm"
-                                        value={formData.loanTerm}
-                                        onChange={handleInputChange}
-                                        placeholder="O prazo será preenchido automaticamente"
-                                        className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                                        readOnly
-                                    />
+                                    </div>
+
+                                    <div className="relative">
+                                        <label className="block text-sm font-medium text-gray-700">Prazo de Pagamento (dias)</label>
+                                        <input
+                                            type="number"
+                                            name="paymentTerm"
+                                            value={formData.paymentTerm}
+                                            onChange={handleInputChange}
+                                            placeholder="O prazo será preenchido automaticamente"
+                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                            readOnly
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="relative">
@@ -274,7 +301,7 @@ const Loan: React.FC = () => {
                                                 <input
                                                     type="checkbox"
                                                     value="1"
-                                                    checked={formData.installments === "1"}
+                                                    checked={formData.installments === 1}
                                                     onChange={handleCheckboxChange}
                                                 />
                                                 <label className="ml-2">1 parcela</label>
@@ -283,7 +310,7 @@ const Loan: React.FC = () => {
                                                 <input
                                                     type="checkbox"
                                                     value="3"
-                                                    checked={formData.installments === "3"}
+                                                    checked={formData.installments === 3}
                                                     onChange={handleCheckboxChange}
                                                 />
                                                 <label className="ml-2">2 parcelas</label>

@@ -21,6 +21,7 @@ const getUserData = async (req: Request, res: Response) => {
             const adminUser = await prisma.adminUser.findUnique({
                 where: { id: userId },
                 select: { // Selecionar apenas os campos desejados
+                    id: true,
                     username: true,
                     email: true,
                     role: true,
@@ -34,6 +35,7 @@ const getUserData = async (req: Request, res: Response) => {
             // Retornar dados do administrador
             return res.status(200).json({
                 user: {
+                    userId: adminUser.id,
                     username: adminUser.username,
                     email: adminUser.email,
                     role: adminUser.role,

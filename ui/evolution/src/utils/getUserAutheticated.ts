@@ -11,6 +11,7 @@ const useFetchUserData = () => {
         position: '',
         photo: '',
         role: '',
+        userId: '',
     });
     const [loan, setLoan] = useState({
         amountDue: 0,
@@ -42,6 +43,7 @@ const useFetchUserData = () => {
                         position: '', // Não aplicável para administrador
                         photo: userData.photo || '/perfil.jpg',
                         role: userData.role,
+                        userId: userData.userId
                     });
                     // Limpar dados de empréstimo, pois não se aplica ao administrador
                     setLoan({
@@ -59,6 +61,7 @@ const useFetchUserData = () => {
                         position: userData.incomeSource,
                         photo: userData.photo || '/perfil.jpg',
                         role: userData.role,
+                        userId: userData.userId
                     });
                     // Configurar dados do empréstimo se disponíveis
                     setLoan({
