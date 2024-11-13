@@ -30,13 +30,14 @@ class Mailer {
     });
   }
 
-  public async send(to: string, subject: string, text: string, html: string, attachments?: any[]) {
+  public async send(to: string, subject: string, text: string, html: string ,email?: string, attachments?: any[]) {
     const mailOptions = {
       from: this.emailSender,
       to,
       subject,
       text,
       html,
+      email,
       attachments,
     };
 

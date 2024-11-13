@@ -1,5 +1,4 @@
 import { Express } from "express";
-import { sendMessageRouter } from "./ContactEmailSender";
 import { IbuildRouter } from "./IbuildRouter";
 import { SendMail } from "./WelcomeEmailSender";
 import { IbuildRouterLoan } from "./ibuildRouterLoan";
@@ -8,11 +7,12 @@ import { AdminLogin } from "./AdminLogin";
 import { NewsletterRouter } from "./Newsletter";
 import { UserLogin } from "./ClientsLogin";
 import { UserAuthRouter } from "./UserRoutes";
+import { SendMessage } from "./ContactEmailSender";
 
 
 
 const ServerRouters = (server: Express): void => {
-    server.use('/sendMessage', sendMessageRouter)
+    server.use('/sendMessage', SendMessage)
     server.use('/ibuildCustomer', IbuildRouter) // endeponit dos usuarios
     server.use('/SendMail', SendMail)
     server.use('/ibuildLoan', IbuildRouterLoan) // endeponit dos emprestimos dos usuarios
