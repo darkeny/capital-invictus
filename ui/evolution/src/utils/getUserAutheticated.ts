@@ -41,7 +41,7 @@ const useFetchUserData = () => {
                         name: userData.username, // Nome do administrador
                         email: userData.email,
                         position: '', // Não aplicável para administrador
-                        photo: userData.photo || '/perfil.jpg',
+                        photo: userData.photo || '/profile/3.png',
                         role: userData.role,
                         userId: userData.userId
                     });
@@ -59,7 +59,7 @@ const useFetchUserData = () => {
                         name: userData.fullName, // Nome do cliente
                         email: userData.email,
                         position: userData.incomeSource,
-                        photo: userData.photo || '/perfil.jpg',
+                        photo: userData.photo || '/profile/1.jpg',
                         role: userData.role,
                         userId: userData.userId
                     });
@@ -75,6 +75,7 @@ const useFetchUserData = () => {
                 }
             } catch (err) {
                 setError('Erro ao carregar os dados do usuário');
+                navigate('/signin')
             } finally {
                 setLoading(false);
             }

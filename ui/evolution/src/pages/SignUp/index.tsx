@@ -3,12 +3,13 @@ import { Navbar } from "../../components/Navbar";
 import { Alert } from "../../components/Modal/alert";
 import axios from "axios";
 import { SuccessAlert } from "../../components/Modal/successAlert";
-import ERROR_MESSAGES from "../../../../../api/src/constants/error-messages";
 import { FaSpinner } from "react-icons/fa6";
 import { handleError } from "../../handleError";
+import { useNavigate } from 'react-router-dom';
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const SignUp: React.FC = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         fullName: "",
         birthDate: "",
@@ -53,7 +54,7 @@ const SignUp: React.FC = () => {
 
     const handleIncomeSourceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { value } = e.target;
-        setIsFreelancer(value === "freelancer");
+        setIsFreelancer(value === "Freelancer");
         setFormData({
             ...formData,
             incomeSource: value,
@@ -128,6 +129,11 @@ const SignUp: React.FC = () => {
                 // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
                 setAlertText('Cliente cadastrado com sucesso!');
                 setIsModalSuccessOpen(true);
+
+                setTimeout(() => {
+                    navigate('/signin');
+                }, 3000);
+
                 // Limpar o formulário após sucesso
                 setFormData({
                     fullName: "",
@@ -151,6 +157,11 @@ const SignUp: React.FC = () => {
                 // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
                 setAlertText('Cliente cadastrado com sucesso!');
                 setIsModalSuccessOpen(true);
+
+                setTimeout(() => {
+                    navigate('/signin');
+                }, 3000);
+
                 // Limpar o formulário após sucesso
                 setFormData({
                     fullName: "",
@@ -301,7 +312,7 @@ const SignUp: React.FC = () => {
                                     >
                                         <option value=" ">Selecione a fonte de renda</option>
                                         <option value="Funcionário">Funcionário</option>
-                                        <option value="freelancer">Freelancer</option>
+                                        <option value="Freelancer">Freelancer</option>
                                     </select>
                                 </div>
 

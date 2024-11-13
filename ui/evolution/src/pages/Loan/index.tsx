@@ -5,9 +5,12 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import axios from "axios";
 import { handleError } from "../../handleError";
 import { useFetchUserData } from "../../utils";
+import { SuccessAlert } from "../../components/Modal/successAlert";
+import { useNavigate } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 const Loan: React.FC = () => {
+    const navigate = useNavigate();
     const { user } = useFetchUserData();
     const userId = user.userId;
     const role = user.role;
@@ -28,6 +31,7 @@ const Loan: React.FC = () => {
     const [error, setError] = useState(""); // Para armazenar mensagens de erro
     const [alertText, setAlertText] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [files, setFiles] = useState<File[]>([]); // Para armazenar as imagens da garantia
     const fileInputRef = useRef<HTMLInputElement>(null); // Referência para o campo de arquivos oculto
@@ -38,17 +42,7 @@ const Loan: React.FC = () => {
         const loanAmountValue = parseFloat(formData.loanAmount);
 
         if (!isNaN(loanAmountValue)) {
-            if (loanAmountValue >= 2500 && loanAmountValue <= 3499) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    paymentTerm: 14 // duas semanas
-                }));
-            } else if (loanAmountValue >= 3500 && loanAmountValue <= 4999) {
-                setFormData(prevState => ({
-                    ...prevState,
-                    paymentTerm: 21 // Três semanas
-                }));
-            } else if (loanAmountValue >= 5000) {
+            if (loanAmountValue >= 5000) {
                 setFormData(prevState => ({
                     ...prevState,
                     paymentTerm: 30 // Um mês
@@ -108,7 +102,7 @@ const Loan: React.FC = () => {
         e.preventDefault();
 
         // Validação: Verificar se todos os campos estão preenchidos
-        if (!formData.loanAmount || !formData.paymentMethod || !formData.collateral || !formData.accountNumber) {
+        if (!formData.loanAmount || !formData.paymentMethod || !formData.collateral || !formData.accountNumber || files.length === 0) {
             setAlertText('Todos os campos são obrigatórios.');
             setIsModalOpen(true);
             return;
@@ -123,8 +117,8 @@ const Loan: React.FC = () => {
 
         // Validação: Não aceitar valores menores que 2500 MT
         const loanAmountValue = parseFloat(formData.loanAmount);
-        if (isNaN(loanAmountValue) || loanAmountValue < 2500) {
-            setAlertText("O valor mínimo para solicitar o empréstimo é de 2500 MT.");
+        if (isNaN(loanAmountValue) || loanAmountValue < 5000) {
+            setAlertText("O valor mínimo para solicitar o empréstimo é de 5000 MT.");
             setIsModalOpen(true);
             return;
         }
@@ -142,7 +136,12 @@ const Loan: React.FC = () => {
             if (response.status === 200) {
                 // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
                 setAlertText('Empréstimo criado com sucesso');
-                setIsModalOpen(true);
+                setIsModalSuccessOpen(true);
+
+                setTimeout(() => {
+                    navigate('/mypanel');
+                }, 3000); 
+
                 // Limpar o formulário após sucesso
                 setFormData({
                     loanAmount: "",
@@ -157,7 +156,12 @@ const Loan: React.FC = () => {
             } else {
                 // Sucesso: exibe a mensagem de sucesso e abre o modal de sucesso
                 setAlertText('Empréstimo criado com sucesso');
-                setIsModalOpen(true);
+                setIsModalSuccessOpen(true);
+
+                setTimeout(() => {
+                    navigate('/mypanel');
+                }, 3000);
+
                 // Limpar o formulário após sucesso
                 setFormData({
                     loanAmount: "",
@@ -182,6 +186,7 @@ const Loan: React.FC = () => {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+        setIsModalSuccessOpen(false);
     };
 
     // Lógica para mostrar o campo de parcelas e o checkbox
@@ -369,12 +374,21 @@ const Loan: React.FC = () => {
                 </div>
             </div>
 
-            {/* Modal de Alerta */}
-            <Alert
-                isOpen={isModalOpen}
-                text={alertText}
-                onClose={handleCloseModal}
-            />
+            {isModalOpen && (
+                <Alert
+                    isOpen={isModalOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
+
+            {isModalSuccessOpen && (
+                <SuccessAlert
+                    isOpen={isModalSuccessOpen}
+                    text={alertText}
+                    onClose={handleCloseModal}
+                />
+            )}
         </>
     );
 };
