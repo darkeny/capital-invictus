@@ -41,7 +41,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
         });
 
         if (activeLoan) {
-            return response.status(400).json({ error: 'Este cliente já possui um empréstimo ativo.' });
+            return response.status(400).json({ error: ERROR_MESSAGES.duplicateActiveLoan });
         }
 
         const balanceDue = loanAmount * 1.30;

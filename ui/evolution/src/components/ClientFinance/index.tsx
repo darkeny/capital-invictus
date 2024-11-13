@@ -25,8 +25,8 @@ const ClientFinance: React.FC = () => {
     const TotalMultas = (multas / 100) * loan.balanceDue;
 
     const savings = {
-        amount: 20000,
-        status: 'PENDENTE'
+        amount: 50000,
+        status: 'ACTIVE'
     };
 
     if (loading) return <div>Loading...</div>;
@@ -39,7 +39,7 @@ const ClientFinance: React.FC = () => {
                 {/* Seção do Perfil do Usuário */}
                 <div className="lg:w-1/3 mb-4 md:my-0 w-full flex flex-col justify-center items-center bg-white md:p-4 p-1 rounded-lg shadow-md">
                     {user.photo ? (
-                        <img src={user.photo} alt="User Profile" className="w-28 h-28 rounded-full mb-4" />
+                        <img src={user.photo} alt="User Profile" className="w-32 h-32 rounded-full mb-4" />
                     ) : (
                         <FaUserAlt className="w-28 h-28 text-gray-400" />
                     )}
@@ -59,7 +59,9 @@ const ClientFinance: React.FC = () => {
                                     <h4 className="md:text-lg font-bold text-gray-700">Saldo Solicitado</h4>
                                 </div>
                             </div>
-                            <h2 className="text-3xl font-bold text-gray-800">{loan.amountDue} MT</h2>
+                            <h2 className="text-3xl font-bold text-gray-800">
+                                {loan.amountDue <= 0 ? "Sem saldo" : `${loan.amountDue} MT`}
+                            </h2>
                         </div>
 
                         {/* Cartão Empréstimo */}
@@ -110,20 +112,30 @@ const ClientFinance: React.FC = () => {
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Data de Início</h4>
                             <p className="text-gray-500">
-                                {new Date(loan.createdAt).toLocaleDateString('pt-BR', {
-                                    day: '2-digit',
-                                    month: '2-digit',
-                                    year: '2-digit',
-                                })}
+                                {loan.createdAt && !isNaN(new Date(loan.createdAt).getTime())
+                                    ? new Date(loan.createdAt).toLocaleDateString('pt-BR', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: '2-digit',
+                                    })
+                                    : "Sem datas ainda"}
                             </p>
                         </div>
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Data de Fim</h4>
-                            <p className="text-gray-500">{endDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' })}</p>
+                            <p className="text-gray-500">
+                                {endDate && !isNaN(new Date(endDate).getTime())
+                                    ? new Date(endDate).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' })
+                                    : "Sem datas ainda"}
+                            </p>
                         </div>
-                        <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                        <div className={`p-6 ${multas && !isNaN(multas) && multas >= 0 ? 'bg-red-50 border-red-700 text-red-700' : 'bg-white border border-gray-200'} rounded-xl shadow-md hover:shadow-lg transition-all duration-300`}>
                             <h4 className="text-lg font-bold text-gray-700">Total de Multas</h4>
-                            <p className="text-gray-500">{multas < 0 ? "Sem multas" : `${multas} dia/s / ${TotalMultas}.00 MT`}</p>
+                            <p className="text-gray-500">
+                                {multas && !isNaN(multas) && multas >= 0
+                                    ? `${multas} dia/s / ${TotalMultas}.00 MT`
+                                    : "Sem multas"}
+                            </p>
                         </div>
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
                             <h4 className="text-lg font-bold text-gray-700">Taxa de Juros</h4>

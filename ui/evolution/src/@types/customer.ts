@@ -25,7 +25,7 @@ interface Loan {
   accountNumber: string;
   collateral: string;
   pawn: string
-  installments: number; // número de parcelas
+  installments: number ;
   isActive: boolean; // para indicar se o empréstimo está ativo
   customerId: string; // ID do cliente associado
   customer: Customer; // dados do cliente

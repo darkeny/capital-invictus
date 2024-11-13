@@ -19,11 +19,16 @@ const handleError = (error: any) => {
         if (errorMessage === ERROR_MESSAGES.requiredCustomer) {
             return ERROR_MESSAGES.requiredCustomer;
         }
+        if (errorMessage === ERROR_MESSAGES.duplicateActiveLoan) {
+            return ERROR_MESSAGES.duplicateActiveLoan;
+        }
     }
     return 'Usuário ou senha incorreto.';
 };
 
 export { handleError }
+
+
 
 
 
