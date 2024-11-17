@@ -1,17 +1,17 @@
 import { Router } from "express";
-import RegisterController from "../controllers/contactEmailSender/mailConfig";
+import RegisterController from "../controllers/LoansEmailSender/mailConfig";
 
 const router = Router();
 
 router.post('/', async (req, res) => {
-    const { email, subject, message } = req.body;
+    const { email, fullName } = req.body;
 
-    console.log('Received Data:', { email, subject, message });
+    console.log('Received Data:', { email, fullName });
 
     const registerController = new RegisterController();
 
     try {
-        await registerController.registerUser(email, subject, message);
+        await registerController.registerUser(email, fullName);
 
         res.status(200).send({ message: 'Email sent successfully.' });
     } catch (error) {
@@ -20,4 +20,5 @@ router.post('/', async (req, res) => {
     }
 });
 
-export { router as SendMessage };
+export { router as SendMessageToClient };
+

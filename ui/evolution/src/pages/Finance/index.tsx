@@ -53,9 +53,9 @@ const ClientPanel: React.FC = () => {
                                             className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'finance' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('finance')} aria-current="page">Situação Financeira
                                         </a>
                                         <a href="#" className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'loans' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('loans')}>Meus Empréstimos</a>
-                                        <a href="#"
+                                        {/* <a href="#"
                                             className={`rounded-md px-3 py-2 text-sm font-medium ${activeTab === 'savings' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}`} onClick={() => setActiveTab('savings')}>Minhas Poupanças
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </div>
                             </div>

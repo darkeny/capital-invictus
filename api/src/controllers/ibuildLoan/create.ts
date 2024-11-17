@@ -3,13 +3,14 @@ import { PrismaClient, Prisma } from '@prisma/client';
 import ERROR_MESSAGES from '../../constants/error-messages';
 import SUCCESS_MESSAGES from '../../constants/success-messages';
 import env from 'dotenv';
+import axios from 'axios';
 
 env.config();
 
 const prisma = new PrismaClient();
+const API_URL = String(process.env.API_BASE_URL);
 
 const IBuildLoan = async (request: Request, response: Response) => {
-    
     const {
         customerId,
         loanAmount,
@@ -26,9 +27,10 @@ const IBuildLoan = async (request: Request, response: Response) => {
     }
 
     try {
-        // Verificar se o cliente existe
+        // Verificar se o cliente existe e buscar email e fullName
         const customer = await prisma.customer.findUnique({
             where: { id: customerId },
+            select: { id: true, email: true, fullName: true }, // Incluir email e fullName
         });
 
         if (!customer) {
@@ -36,7 +38,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
         }
 
         // Verificar se o cliente já tem um empréstimo ativo
-        const activeLoan = await prisma.loan.findUnique({
+        const activeLoan = await prisma.loan.findFirst({
             where: { customerId: customer.id, isActive: "ACTIVE" },
         });
 
@@ -45,7 +47,7 @@ const IBuildLoan = async (request: Request, response: Response) => {
         }
 
         const balanceDue = loanAmount * 1.30;
-        
+
         // Criação do empréstimo
         const createLoanData: Prisma.LoanCreateInput = {
             loanAmount: parseFloat(loanAmount),
@@ -64,6 +66,18 @@ const IBuildLoan = async (request: Request, response: Response) => {
             data: createLoanData,
         });
 
+        // Enviar um email de boas-vindas aos cliente
+        await axios.post(`${API_URL}/sendLoansMail`, {
+            email: customer.email,
+            fullName: customer.fullName,
+        });
+
+        await axios.post(`${API_URL}/sendLoansMailToAdmins`, {
+            email: customer.email,
+            fullName: customer.fullName,
+        });
+
+        // Enviar um email avisando aos administradores sobre o emprestimo
         return response.status(201).json({
             message: SUCCESS_MESSAGES.successCreating,
             payload: BuildLoan,

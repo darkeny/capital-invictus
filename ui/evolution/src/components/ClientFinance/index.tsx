@@ -65,9 +65,10 @@ const ClientFinance: React.FC = () => {
                         </div>
 
                         {/* Cartão Empréstimo */}
-                        <div className={`p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ${loan.status === "ACTIVE" ? 'bg-green-50 border-green-300 text-green-700' : 'bg-gray-50 border-gray-300 text-gray-700'} border`}>
+                        <div className={`p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 ${loan.status === "ACTIVE"
+                            ? 'bg-green-50 border-green-300 text-green-700':loan.status === "REFUSED"? 'bg-red-50 border-red-400 text-red-700': 'bg-gray-50 border-gray-300 text-gray-700'} border`}>
                             <div className="flex items-center mb-4">
-                                <GiTakeMyMoney className={`${loan.status === "ACTIVE" ? 'text-green-600' : 'text-gray-500'}`} size={40} />
+                                <GiTakeMyMoney className={`${loan.status === "ACTIVE" ? 'text-green-600':loan.status === "REFUSED" ? 'text-red-600' : 'text-gray-500'}`} size={40} />
                                 <div className="ml-4">
                                     <h4 className="text-lg font-bold text-gray-700">Empréstimo</h4>
                                     <p className="text-sm font-semibold">
@@ -122,7 +123,7 @@ const ClientFinance: React.FC = () => {
                             </p>
                         </div>
                         <div className="p-6 bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-                            <h4 className="text-lg font-bold text-gray-700">Data de Fim</h4>
+                            <h4 className="text-lg font-bold text-gray-700">Fim</h4>
                             <p className="text-gray-500">
                                 {endDate && !isNaN(new Date(endDate).getTime())
                                     ? new Date(endDate).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' })

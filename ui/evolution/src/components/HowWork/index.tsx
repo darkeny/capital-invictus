@@ -91,7 +91,7 @@ const HowWork: React.FC = () => {
                                 </div>
                                 <div className="relative w-full grow">
                                     <div className="absolute bottom-0 pb-9 left-0 overflow-hidden rounded-tl-xl bg-white shadow-2xl">
-                                        <img className="object-cover" src="/profiles.png" alt="" />
+                                        <img className="object-cover" src="../../../public/bg.png" alt="" />
                                     </div>
                                 </div>
                             </div>
