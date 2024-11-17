@@ -11,6 +11,7 @@ const useFetchUserData = () => {
         position: '',
         photo: '',
         role: '',
+        gender: '',
         userId: '',
     });
     const [loan, setLoan] = useState({
@@ -34,6 +35,7 @@ const useFetchUserData = () => {
                     },
                 });
                 const userData = response.data.user;
+                console.log(userData)
 
                 // Verifica o tipo de usuário e configura os dados adequadamente
                 if (userData.role === 'ADMIN') {
@@ -41,8 +43,9 @@ const useFetchUserData = () => {
                         name: userData.username, // Nome do administrador
                         email: userData.email,
                         position: '', // Não aplicável para administrador
-                        photo: userData.photo || '/profile/3.png',
+                        photo: userData.gender,
                         role: userData.role,
+                        gender: userData.gender,
                         userId: userData.userId
                     });
                     // Limpar dados de empréstimo, pois não se aplica ao administrador
@@ -55,12 +58,15 @@ const useFetchUserData = () => {
                         createdAt: ''
                     });
                 } else if (userData.role === 'USER') {
+                    const genderPhoto = userData.gender === 'Femenino' ? '/profile/2.jpg' : '/profile/1.jpg';
+
                     setUser({
                         name: userData.fullName, // Nome do cliente
                         email: userData.email,
                         position: userData.incomeSource,
-                        photo: userData.photo || '/profile/1.jpg',
+                        photo: userData.photo || genderPhoto, // Foto baseada no sexo
                         role: userData.role,
+                        gender: userData.gender,
                         userId: userData.userId
                     });
                     // Configurar dados do empréstimo se disponíveis
@@ -75,7 +81,7 @@ const useFetchUserData = () => {
                 }
             } catch (err) {
                 setError('Erro ao carregar os dados do usuário');
-                navigate('/signin')
+                navigate('/signin');
             } finally {
                 setLoading(false);
             }

@@ -22,14 +22,18 @@ const Loans: React.FC = () => {
         fetchLoans();
     }, []);
 
+
     const fetchLoans = async () => {
         try {
             const response = await axios.get(`${apiUrl}/ibuildLoan`);
-            setLoans(response.data);
+            const userLoans = response.data
+            const sortedLoans = userLoans.sort((a: Loan, b: Loan) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // Ordena por data
+            setLoans(sortedLoans);
         } catch (error) {
             console.error('Error fetching loans:', error);
         }
     };
+
 
     const deleteLoan = async (id: string) => {
         try {
@@ -165,15 +169,15 @@ const Loans: React.FC = () => {
                                             <span
                                                 className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
                                                 ${calculateDaysLeft(String(loan.createdAt), 30) > 22
-                                                    ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde
-                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 15
-                                                    ? 'bg-lime-50 text-lime-700 ring-lime-600/20' // Verde-limão
-                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 8
-                                                    ? 'bg-yellow-50 text-yellow-700 ring-yellow-600/20' // Amarelo
-                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 0
-                                                    ? 'bg-orange-50 text-orange-700 ring-orange-600/20' // Laranja
-                                                    : 'bg-red-50 text-red-700 ring-red-600/20' // Vermelho
-                                                }`}
+                                                        ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde
+                                                        : calculateDaysLeft(String(loan.createdAt), 30) > 15
+                                                            ? 'bg-lime-50 text-lime-700 ring-lime-600/20' // Verde-limão
+                                                            : calculateDaysLeft(String(loan.createdAt), 30) > 8
+                                                                ? 'bg-yellow-50 text-yellow-700 ring-yellow-600/20' // Amarelo
+                                                                : calculateDaysLeft(String(loan.createdAt), 30) > 0
+                                                                    ? 'bg-orange-50 text-orange-700 ring-orange-600/20' // Laranja
+                                                                    : 'bg-red-50 text-red-700 ring-red-600/20' // Vermelho
+                                                    }`}
                                             >
                                                 {calculateDaysLeft(String(loan.createdAt), 30)} dias
                                             </span>

@@ -17,6 +17,7 @@ interface Customer {
     bankInfo: string;
     bankNumber: string;
     identityNumber: string;
+    createdAt: string;
     hasActiveLoan: boolean; // Novo campo para indicar se o cliente tem um empréstimo ativo
     isActive?: 'PENDING' | 'ACTIVE' | 'REFUSED'; // Novo campo para status do empréstimo
 }
@@ -24,6 +25,7 @@ interface Customer {
 const Customers: React.FC = () => {
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
+    const apiUrl = import.meta.env.VITE_APP_API_URL;
     const [isDownloading, setIsDownloading] = useState<string | null>(null);
 
     useEffect(() => {
@@ -32,12 +34,16 @@ const Customers: React.FC = () => {
 
     const fetchCustomers = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/ibuildCustomer');
-            setCustomers(response.data);
+            const response = await axios.get(`${apiUrl}/ibuildCustomer`);
+            const userCustomers = response.data
+            const sortedCustomers = userCustomers.sort((a: Customer, b: Customer) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // Ordena por data
+            setCustomers(sortedCustomers);
         } catch (error) {
-            console.error('Error fetching customers:', error);
+            console.error('Error fetching Customers:', error);
         }
     };
+
+
 
     const deleteCustomer = async (id: string) => {
         try {
