@@ -115,7 +115,12 @@ const Loan: React.FC = () => {
             return;
         }
 
-        // Validação: Não aceitar valores menores que 2500 MT
+        // Validação: fazer com que apenas valores apartir de 10k sejam parcelados
+        if (parseFloat(formData.loanAmount) < 10000) {
+            formData.isPartialPayment = true;
+        }
+
+        // Validação: Não aceitar valores menores que 5000 MT
         const loanAmountValue = parseFloat(formData.loanAmount);
         if (isNaN(loanAmountValue) || loanAmountValue < 5000) {
             setAlertText("O valor mínimo para solicitar o empréstimo é de 5000 MT.");
@@ -140,7 +145,7 @@ const Loan: React.FC = () => {
 
                 setTimeout(() => {
                     navigate('/mypanel');
-                }, 3000); 
+                }, 3000);
 
                 // Limpar o formulário após sucesso
                 setFormData({
@@ -204,7 +209,7 @@ const Loan: React.FC = () => {
             <div className="hidden md:block absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-left"></div>
             <div data-aos="zoom-in" className="flex justify-center items-center min-h-screen">
                 <div className="bg-gradient-to-br from-gray-100 via-white to-gray-100 rounded-lg shadow-xl w-full max-w-screen-xl p-8 mx-4 relative overflow-hidden before:content-[''] before:absolute before:w-48 before:h-48 before:bg-gradient-to-r before:from-gray-400 before:to-blue-500 before:opacity-20 before:rounded-full before:top-0 before:left-0 before:-translate-x-1/2 before:-translate-y-1/2 after:content-[''] after:absolute after:w-64 after:h-64 after:bg-gradient-to-r after:from-yellow-400 after:to-red-500 after:opacity-20 after:rounded-full after:bottom-0 after:right-0 after:translate-x-1/2 after:translate-y-1/2">
-                    <h2 className="lg:text-3xl text-xl font-extrabold text-center text-gray-800 mb-6">Solicitação de Empréstimo</h2>
+                    <h2 className="lg:text-3xl text-xl font-extrabold text-center text-gray-800 mb-6">Solicitação de crédito</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Informação do Empréstimo */}
                         <div>
@@ -225,7 +230,7 @@ const Loan: React.FC = () => {
                                         <p className="text-red-500 text-sm mt-2">{error}</p>
                                     )}
                                 </div>
-                                <div className="flex space-x-3">
+                                <div className="flex flex-col gap-6 md:flex-row md:items-start">
                                     <div className="flex-1 relative">
                                         <label className="block text-sm font-medium text-gray-700">Valor a Pagar (MZN)</label>
                                         <input
@@ -263,10 +268,10 @@ const Loan: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
                                         <option value="" disabled>Selecione o banco</option>
-                                        <option value="absa">Absa</option>
-                                        <option value="bim">Millenium Bim</option>
-                                        <option value="mpesa">M-Pesa</option>
-                                        <option value="emola">E-Mola</option>
+                                        <option value="Absa Bank Moçambique">Absa</option>
+                                        <option value="Millenium Bim">Millenium Bim</option>
+                                        <option value="M-pesa">M-Pesa</option>
+                                        <option value="E-mola">E-Mola</option>
                                     </select>
                                 </div>
 
@@ -296,47 +301,72 @@ const Loan: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     />
                                 </div>
+                                <div className="flex flex-col gap-6 md:flex-row lg:pt-7 md:items-start">
+                                    {/* Checkbox de Pagamento Total */}
+                                    {shouldShowCheckbox && (
+                                        <div className="relative flex items-center gap-2 md:w-1/2">
+                                            <input
+                                                type="checkbox"
+                                                name="isPartialPayment"
+                                                checked={formData.isPartialPayment}
+                                                onChange={handleInputChange}
+                                                className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                id="isPartialPayment"
+                                            />
+                                            <label htmlFor="isPartialPayment" className="text-sm font-medium text-gray-700">
+                                                Efectuar Pagamento Integral
+                                            </label>
+                                        </div>
+                                    )}
 
-                                {/* Campo de Parcelas */}
-                                {shouldShowInstallmentsField && (
-                                    <div>
-                                        <label className="block text-sm font-medium text-gray-700">Número de Parcelas</label>
-                                        <div className="flex gap-4 mt-2">
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    value="1"
-                                                    checked={formData.installments === 1}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <label className="ml-2">1 parcela</label>
-                                            </div>
-                                            <div>
-                                                <input
-                                                    type="checkbox"
-                                                    value="3"
-                                                    checked={formData.installments === 3}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <label className="ml-2">2 parcelas</label>
+                                    {/* Campo de Parcelas */}
+                                    {shouldShowInstallmentsField && (
+                                        <div className="flex flex-col md:w-1/2">
+                                            <label className="block text-sm font-medium text-gray-700 mb-2">Número de Parcelas</label>
+                                            <div className="flex flex-col gap-2 md:flex-row">
+                                                <div className="flex items-center gap-2">
+                                                    <input
+                                                        id="first"
+                                                        type="radio"
+                                                        name="installments"
+                                                        value="2"
+                                                        checked={formData.installments === 2}
+                                                        onChange={(e) =>
+                                                            setFormData((prev) => ({
+                                                                ...prev,
+                                                                installments: Number(e.target.value),
+                                                            }))
+                                                        }
+                                                        className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                    />
+                                                    <label htmlFor="first" className="text-sm font-medium text-gray-700">
+                                                        2 parcelas
+                                                    </label>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <input
+                                                        id="second"
+                                                        type="radio"
+                                                        name="installments"
+                                                        value="3"
+                                                        checked={formData.installments === 3}
+                                                        onChange={(e) =>
+                                                            setFormData((prev) => ({
+                                                                ...prev,
+                                                                installments: Number(e.target.value),
+                                                            }))
+                                                        }
+                                                        className="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                                                    />
+                                                    <label htmlFor="second" className="text-sm font-medium text-gray-700">
+                                                        3 parcelas
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
 
-                                {/* Checkbox de Pagamento Total */}
-                                {shouldShowCheckbox && (
-                                    <div className="relative flex items-center">
-                                        <input
-                                            type="checkbox"
-                                            name="isPartialPayment"
-                                            checked={formData.isPartialPayment}
-                                            onChange={handleInputChange}
-                                            className="mr-2"
-                                        />
-                                        <label className="text-sm font-medium text-gray-700">Efectuar Pagamento Integral</label>
-                                    </div>
-                                )}
 
                                 {/* Botão para Upload de Arquivo */}
                                 <div className="relative">

@@ -310,25 +310,25 @@ const SignUp: React.FC = () => {
                                         onChange={handleIncomeSourceChange}
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
-                                        <option value=" ">Selecione a fonte de renda</option>
+                                        <option value="">Selecione a fonte de renda</option>
                                         <option value="Funcionário">Funcionário</option>
                                         <option value="Freelancer">Freelancer</option>
                                     </select>
                                 </div>
-
-                                {formData.incomeSource === "Funcionário" && (
-                                    <div className="relative">
-                                        <label className="block text-sm font-normal text-gray-950">Renda Mensal</label>
-                                        <input
-                                            type="text"
-                                            name="monthlyIncome"
-                                            value={formData.monthlyIncome}
-                                            onChange={handleInputChange}
-                                            placeholder="Insira a sua renda mensal"
-                                            className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
-                                        />
-                                    </div>
-                                )}
+                                {(formData.incomeSource &&
+                                    (formData.incomeSource === "Funcionário" || formData.incomeSource === "Freelancer")) && (
+                                        <div className="relative">
+                                            <label className="block text-sm font-normal text-gray-950">Renda Mensal</label>
+                                            <input
+                                                type="text"
+                                                name="monthlyIncome"
+                                                value={formData.monthlyIncome}
+                                                onChange={handleInputChange}
+                                                placeholder="Insira a sua renda mensal"
+                                                className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                                            />
+                                        </div>
+                                    )}
 
                                 <div className="relative">
                                     <label className="block text-sm font-normal text-gray-950">Informações Bancárias</label>

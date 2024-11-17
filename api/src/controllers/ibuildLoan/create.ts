@@ -66,12 +66,18 @@ const IBuildLoan = async (request: Request, response: Response) => {
             data: createLoanData,
         });
 
-        // Enviar um email de boas-vindas com email e fullName do cliente
+        // Enviar um email de boas-vindas aos cliente
         await axios.post(`${API_URL}/sendLoansMail`, {
             email: customer.email,
             fullName: customer.fullName,
         });
 
+        await axios.post(`${API_URL}/sendLoansMailToAdmins`, {
+            email: customer.email,
+            fullName: customer.fullName,
+        });
+
+        // Enviar um email avisando aos administradores sobre o emprestimo
         return response.status(201).json({
             message: SUCCESS_MESSAGES.successCreating,
             payload: BuildLoan,

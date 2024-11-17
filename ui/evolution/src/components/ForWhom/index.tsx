@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaUserTie, FaLightbulb, FaBriefcase, FaUsers, FaWrench, FaChalkboardTeacher } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 const ForWhom: React.FC = () => {
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
@@ -84,6 +85,11 @@ const ForWhom: React.FC = () => {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="text-center">
+                <Link to={'/loan'}>
+                    <a className="inline-block rounded-md bg-indigo-600 my-0 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-500">Solicitar crédito</a>
+                </Link>
             </div>
         </div>
     );

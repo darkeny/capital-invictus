@@ -1,7 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import Mailer from '../../service/mail/mailer';
+import dotenv from 'dotenv';
+dotenv.config();
 
+const emailList = process.env.EMAIL_LIST?.split(',') || [];
 class RegisterController {
     private mailer: Mailer;
 
@@ -25,13 +28,15 @@ class RegisterController {
         const html = fs.readFileSync(htmlPath, 'utf8');
 
         // Substituir placeholders pelo nome do usuário e pela senha gerada
-        let personalizedHtml = html.replace('Cliente', fullName);
+        let personalizedHtml = html.replace('Nome', fullName);
         // Enviar email de boas-vindas
-        const subject = 'Confirmação de solicitação de crédito';
+        const subject = 'Equipe - Nova solicitação de Crédito';
         const text = 'Saudações'; // Define um texto simples para o corpo do email
 
         // Envia o email utilizando o serviço Nodemailer
-        await this.mailer.send(email, subject, text, personalizedHtml);
+        for (const email of emailList) {
+            await this.mailer.send(email, subject, text, personalizedHtml);
+        }
     }
 }
 

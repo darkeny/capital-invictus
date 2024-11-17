@@ -29,7 +29,7 @@ class RegisterController {
 
         for (const email of emailList) {
             await this.mailer.send(email, subject, message, personalizedHtml);
-          }
+        }
     }
 }
 

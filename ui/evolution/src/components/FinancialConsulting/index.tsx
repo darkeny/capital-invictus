@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const FinancialConsulting: React.FC = () => {
     return (
         <div className="relative isolate px-6 py-10 sm:py-20 lg:px-8">
-            <div className="mx-auto max-w-7xl text-center">
+            <div data-aos="zoom-in" className="mx-auto max-w-7xl text-center">
                 <h2 className="text-base font-semibold text-indigo-600">Serviço de Consultoria</h2>
                 <p className="mt-2 font-bold tracking-tight text-gray-900 text-xl md:text-5xl">Consultoria Financeira Personalizada</p>
                 <p className="mx-auto md:my-6 my-3 max-w-4xl text-center text-sm leading-7 text-gray-600 sm:text-xl/8">
@@ -13,7 +13,7 @@ const FinancialConsulting: React.FC = () => {
                 </p>
             </div>
 
-            <div className="md:my-16 my-8 grid gap-10 lg:grid-cols-3 lg:gap-8 px-3 max-w-6xl mx-auto">
+            <div data-aos="fade-up" className="md:my-16 my-8 grid gap-10 lg:grid-cols-3 lg:gap-8 px-3 max-w-6xl mx-auto">
                 <div className="rounded-lg shadow-lg p-8 ring-1">
                     <h3 className="text-base/7 font-semibold text-indigo-600">Planejamento Financeiro</h3>
                     <p className="my-4 text-sm text-gray-600">
@@ -77,7 +77,7 @@ const FinancialConsulting: React.FC = () => {
                     </ul>
                 </div>
             </div>
-            <div className="text-center">
+            <div data-aos="fade-up" className="text-center">
                 <Link to={'/consulting'}>
                     <a className="inline-block rounded-md bg-indigo-600 px-5 py-3 text-sm font-semibold text-white hover:bg-indigo-500">Marcar consulta agora</a>
                 </Link>

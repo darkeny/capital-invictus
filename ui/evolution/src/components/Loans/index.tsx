@@ -4,7 +4,7 @@ import { FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 import { DeleteModal } from '../Modal/deleteModal';
 import { SuccessAlert } from '../Modal/successAlert';
-import { useFetchUserData } from '../../utils';
+import { calculateDaysLeft, useFetchUserData } from '../../utils';
 import { useNavigate } from "react-router-dom";
 
 const Loans: React.FC = () => {
@@ -17,7 +17,6 @@ const Loans: React.FC = () => {
     const [alertText, setAlertText] = useState('');
     const { user } = useFetchUserData();
     const apiUrl = import.meta.env.VITE_APP_API_URL;
-
 
     useEffect(() => {
         fetchLoans();
@@ -44,6 +43,7 @@ const Loans: React.FC = () => {
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
     };
+
 
 
 
@@ -133,20 +133,25 @@ const Loans: React.FC = () => {
                 <table className="min-w-full divide-y divide-gray-200 shadow-2xl">
                     <thead className="bg-gray-100">
                         <tr>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Nome do Cliente</th>
+                            {user.role === 'ADMIN' && (
+                                <>
+                                    <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Restante</th>
+                                </>
+                            )}
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Cliente</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Solicitado</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">A pagar</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Prazo</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Método de Pagamento</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número da Conta</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Vencimento</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Pagamento</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Conta</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Garantia</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Parcelas</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Solicitado</th>
+                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Fim</th>
                             {user.role === 'ADMIN' && (
                                 <>
                                     <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Penhor</th>
-                                    <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Estado</th>
-                                    <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
+                                    <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Status</th>
+                                    <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Excluir</th>
                                 </>
                             )}
                         </tr>
@@ -154,6 +159,27 @@ const Loans: React.FC = () => {
                     <tbody className="bg-white divide-y divide-gray-200">
                         {filteredLoans.map((loan: Loan) => (
                             <tr key={loan.id}>
+                                {user.role === 'ADMIN' && (
+                                    <>
+                                        <td className="px-6 py-4 text-xs leading-5 text-gray-500">
+                                            <span
+                                                className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
+                                                ${calculateDaysLeft(String(loan.createdAt), 30) > 22
+                                                    ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde
+                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 15
+                                                    ? 'bg-lime-50 text-lime-700 ring-lime-600/20' // Verde-limão
+                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 8
+                                                    ? 'bg-yellow-50 text-yellow-700 ring-yellow-600/20' // Amarelo
+                                                    : calculateDaysLeft(String(loan.createdAt), 30) > 0
+                                                    ? 'bg-orange-50 text-orange-700 ring-orange-600/20' // Laranja
+                                                    : 'bg-red-50 text-red-700 ring-red-600/20' // Vermelho
+                                                }`}
+                                            >
+                                                {calculateDaysLeft(String(loan.createdAt), 30)} dias
+                                            </span>
+                                        </td>
+                                    </>
+                                )}
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.customer.fullName}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.loanAmount.toFixed(2)}MT</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.balanceDue.toFixed(2)}MT</td>
@@ -194,7 +220,7 @@ const Loans: React.FC = () => {
                                         </td>
                                         <td className="px-6 py-4 text-lg leading-5 text-gray-500">
                                             <DeleteModal
-                                                text="Eliminar"
+                                                text="Excluir"
                                                 subtitles='Tem certeza de que deseja excluir esta inscrição?'
                                                 onSubmit={() => deleteLoan(loan.id)}
                                                 id={loan.id}
