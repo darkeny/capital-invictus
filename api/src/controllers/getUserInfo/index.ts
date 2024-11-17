@@ -61,6 +61,7 @@ const getUserData = async (req: Request, res: Response) => {
                     fullName: customer.fullName,
                     incomeSource: customer.incomeSource,
                     role: customer.role,
+                    gender: customer.gender,
                     loan: customer.loan ? {
                         loanAmount: customer.loan.loanAmount,
                         balanceDue: customer.loan.balanceDue,

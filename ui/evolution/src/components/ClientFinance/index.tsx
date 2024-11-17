@@ -26,7 +26,7 @@ const ClientFinance: React.FC = () => {
 
     const savings = {
         amount: 50000,
-        status: 'ACTIVE'
+        status: 'PENDING'
     };
 
     if (loading) return <div>Loading...</div>;
