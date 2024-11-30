@@ -268,7 +268,7 @@ const Loan: React.FC = () => {
                                         className="mt-2 block w-full p-3 rounded-lg border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
                                     >
                                         <option value="" disabled>Selecione o banco</option>
-                                        <option value="Absa Bank Moçambique">Absa</option>
+                                        <option value="Absa Bank">Absa Bank Moçambique</option>
                                         <option value="Millenium Bim">Millenium Bim</option>
                                         <option value="M-pesa">M-Pesa</option>
                                         <option value="E-mola">E-Mola</option>

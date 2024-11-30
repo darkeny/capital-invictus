@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { HiOutlineDownload } from 'react-icons/hi';
-import { FaSpinner } from 'react-icons/fa';
 import axios from 'axios';
 import { DeleteModal } from '../Modal/deleteModal';
 import { SuccessAlert } from '../Modal/successAlert';
 import { calculateDaysLeft, useFetchUserData } from '../../utils';
 import { useNavigate } from "react-router-dom";
+import { Alert } from '../Modal/alert';
 
 const Loans: React.FC = () => {
     const navigate = useNavigate();
@@ -15,19 +14,34 @@ const Loans: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalSuccessOpen, setIsModalSuccessOpen] = useState(false);
     const [alertText, setAlertText] = useState('');
-    const { user } = useFetchUserData();
+    const { user, loan } = useFetchUserData();
     const apiUrl = import.meta.env.VITE_APP_API_URL;
 
     useEffect(() => {
-        fetchLoans();
-    }, []);
+        if (user && user.role && user.userId) {
+            fetchLoans();
+        }
+    }, [user]);
 
 
     const fetchLoans = async () => {
+        if (!user || !user.role || !user.userId) {
+            console.warn('Usuário não definido. Abortando fetch.');
+            return;
+        }
+
         try {
             const response = await axios.get(`${apiUrl}/ibuildLoan`);
-            const userLoans = response.data
-            const sortedLoans = userLoans.sort((a: Loan, b: Loan) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()); // Ordena por data
+            const allLoans: Loan[] = response.data;
+
+            const filteredLoans = user.role === 'USER'
+                ? allLoans.filter((loan: Loan) => loan.customerId === user.userId)
+                : allLoans;
+
+            const sortedLoans = filteredLoans.sort(
+                (a: Loan, b: Loan) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            );
+
             setLoans(sortedLoans);
         } catch (error) {
             console.error('Error fetching loans:', error);
@@ -35,7 +49,15 @@ const Loans: React.FC = () => {
     };
 
 
-    const deleteLoan = async (id: string) => {
+
+
+    const deleteLoan = async (id: string, loanStatus: string) => {
+        if (loanStatus === 'ACTIVE') {
+            setAlertText('Empréstimo ativo não pode ser excluído.');
+            setIsModalOpen(true);
+            return; // Impede a execução do código de exclusão se o empréstimo estiver ativo
+        }
+
         try {
             await axios.delete(`${apiUrl}/ibuildLoan/${id}`);
             setLoans(loans.filter(loan => loan.id !== id));
@@ -43,6 +65,7 @@ const Loans: React.FC = () => {
             console.error('Error deleting loan:', error);
         }
     };
+
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(e.target.value);
@@ -145,7 +168,6 @@ const Loans: React.FC = () => {
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Cliente</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Solicitado</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">A pagar</th>
-                            <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Vencimento</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Pagamento</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Conta</th>
                             <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Garantia</th>
@@ -167,7 +189,7 @@ const Loans: React.FC = () => {
                                     <>
                                         <td className="px-6 py-4 text-xs leading-5 text-gray-500">
                                             <span
-                                                className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
+                                                className={`inline-flex items-center rounded-md px-4 py-3 text-xs font-medium ring-1 ring-inset
                                                 ${calculateDaysLeft(String(loan.createdAt), 30) > 22
                                                         ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde
                                                         : calculateDaysLeft(String(loan.createdAt), 30) > 15
@@ -187,7 +209,6 @@ const Loans: React.FC = () => {
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.customer.fullName}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.loanAmount.toFixed(2)}MT</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.balanceDue.toFixed(2)}MT</td>
-                                <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentTerm} dias</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.paymentMethod}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.accountNumber}</td>
                                 <td className="px-6 py-4 text-xs leading-5 text-gray-500">{loan.collateral}</td>
@@ -222,11 +243,11 @@ const Loans: React.FC = () => {
                                                 <option value="REFUSED">REFUSED</option>
                                             </select>
                                         </td>
-                                        <td className="px-6 py-4 text-lg leading-5 text-gray-500">
+                                        <td className="px-6 py-4 text-lg leading-5  text-gray-500">
                                             <DeleteModal
                                                 text="Excluir"
-                                                subtitles='Tem certeza de que deseja excluir esta inscrição?'
-                                                onSubmit={() => deleteLoan(loan.id)}
+                                                subtitles='Tem certeza de que deseja excluir?'
+                                                onSubmit={() => deleteLoan(loan.id, String(loan.isActive))}
                                                 id={loan.id}
                                             />
                                         </td>
@@ -238,6 +259,8 @@ const Loans: React.FC = () => {
                     </tbody>
                 </table>
             </div>
+            <Alert text={alertText} isOpen={isModalOpen} onClose={handleCloseModal} />
+
             {isModalSuccessOpen && (
                 <SuccessAlert
                     isOpen={isModalSuccessOpen}

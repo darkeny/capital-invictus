@@ -88,7 +88,7 @@ const Customers: React.FC = () => {
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Fonte de Renda</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Renda</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Banco</th>
-                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Número de Conta</th>
+                        <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Conta</th>
                         <th className="px-6 py-3 text-left font-medium text-xs leading-5 text-gray-500">Eliminar</th>
                     </tr>
                 </thead>
@@ -116,7 +116,7 @@ const Customers: React.FC = () => {
                             <td className="px-6 py-4 text-lg leading-5 text-gray-500">
                                 <DeleteModal
                                     text="Eliminar"
-                                    subtitles='Tem certeza de que deseja excluir esta inscrição?'
+                                    subtitles='Tem certeza de que deseja excluir?'
                                     onSubmit={() => deleteCustomer(customer.id)}
                                     id={customer.id}
                                 />
