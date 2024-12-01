@@ -35,7 +35,6 @@ const useFetchUserData = () => {
                     },
                 });
                 const userData = response.data.user;
-                console.log(userData)
 
                 // Verifica o tipo de usuário e configura os dados adequadamente
                 if (userData.role === 'ADMIN') {

@@ -79,6 +79,7 @@ enum LoanStatus {
   PENDING
   ACTIVE
   REFUSED
+  PAID
 }
 
 enum Role {
