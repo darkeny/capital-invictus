@@ -19,7 +19,7 @@ interface Customer {
     identityNumber: string;
     createdAt: string;
     hasActiveLoan: boolean; // Novo campo para indicar se o cliente tem um empréstimo ativo
-    isActive?: 'PENDING' | 'ACTIVE' | 'REFUSED'; // Novo campo para status do empréstimo
+    isActive?: 'PAID' | 'PENDING' | 'ACTIVE' | 'REFUSED'; // Novo campo para status do empréstimo
 }
 
 const Customers: React.FC = () => {
@@ -99,8 +99,10 @@ const Customers: React.FC = () => {
                                 {/* Determina a cor com base no status do empréstimo */}
                                 <div className={`w-2 h-2 rounded-full ${customer.loan?.isActive === 'ACTIVE' ? 'bg-green-500' :
                                     customer.loan?.isActive === 'PENDING' ? 'bg-yellow-500' :
+                                    customer.loan?.isActive === 'PAID' ? 'bg-green-500' :
                                         customer.loan?.isActive === 'REFUSED' ? 'bg-red-500' :
                                             'bg-gray-500' // caso não haja status
+                                            
                                     }`} />
                             </td>
                             <td className="px-6 py-4 text-xs leading-5 text-gray-500">{customer.fullName}</td>

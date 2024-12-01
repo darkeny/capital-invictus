@@ -189,11 +189,11 @@ const Loans: React.FC = () => {
                                     <>
                                         <td className="px-6 py-4 text-xs leading-5 text-gray-500">
                                             <span
-                                                className={`inline-flex items-center rounded-md px-4 py-3 text-xs font-medium ring-1 ring-inset
+                                                className={`inline-flex items-center rounded-md px-4 py-2 text-xs font-medium ring-1 ring-inset
                                                 ${calculateDaysLeft(String(loan.createdAt), 30) > 22
                                                         ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde
                                                         : calculateDaysLeft(String(loan.createdAt), 30) > 15
-                                                            ? 'bg-lime-50 text-lime-700 ring-lime-600/20' // Verde-limão
+                                                            ? 'bg-green-50 text-green-700 ring-green-600/20' // Verde-limão
                                                             : calculateDaysLeft(String(loan.createdAt), 30) > 8
                                                                 ? 'bg-yellow-50 text-yellow-700 ring-yellow-600/20' // Amarelo
                                                                 : calculateDaysLeft(String(loan.createdAt), 30) > 0
@@ -238,9 +238,10 @@ const Loans: React.FC = () => {
                                                 onChange={(e) => updateLoanStatus(loan.id, e.target.value)}
                                                 className="rounded p-1"
                                             >
-                                                <option value="PENDING">PENDING</option>
-                                                <option value="ACTIVE">ACTIVE</option>
-                                                <option value="REFUSED">REFUSED</option>
+                                                <option value="PAID">PAGO</option>
+                                                <option value="PENDING">PENDENTE</option>
+                                                <option value="ACTIVE">ACTIVO</option>
+                                                <option value="REFUSED">RECUSADO</option>
                                             </select>
                                         </td>
                                         <td className="px-6 py-4 text-lg leading-5  text-gray-500">
